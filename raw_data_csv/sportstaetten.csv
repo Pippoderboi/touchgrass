@@ -1,0 +1,226 @@
+WKT,ID,Produkt,Teilprodukt,Name,Plz,Strname,Hsnr,Rechtswert,Hochwert
+"POINT (3405419 5755854)",210,Turn- und Sporthallen,Krafträume,Sporthalle Berg Fidel,48153,Am Berg Fidel,51,3405419,5755854
+"POINT (3405419 5755854)",211,Turn- und Sporthallen,Dreifachhallen,Sporthalle Berg Fidel,48153,Am Berg Fidel,51,3405419,5755854
+"POINT (3405419 5755854)",212,Sondersportanlagen,Skateanlagen,Skaterpark Berg Fidel,48153,Am Berg Fidel,51,3405419,5755854
+"POINT (3410100 5755839)",213,Bezirkssportanlage,überlassen,Sportanlage Am Hohen Ufer,48167,Am Hohen Ufer,111,3410100,5755839
+"POINT (3410100 5755839)",214,Sondersportanlagen,Bouleanlagen,Sportanlage Am Hohen Ufer,48167,Am Hohen Ufer,111,3410100,5755839
+"POINT (3410100 5755839)",215,Sondersportanlagen,Speckbrettanlagen,Sportanlage Am Hohen Ufer,48167,Am Hohen Ufer,111,3410100,5755839
+"POINT (3410100 5755839)",216,Sondersportanlagen,Beachvolleyballanlagen,Sportanlage Gremmendorf,48167,Am Hohen Ufer,111,3410100,5755839
+"POINT (3405034 5759339)",217,Turn- und Sporthallen,Zweifachhalle,Gymnasium Paulinum,48143,Am Stadtgraben,30,3405034,5759339
+"POINT (3412624 5754253)",218,Turn- und Sporthallen,Einfachhallen,Nikolaischule Wolbeck,48167,Am Wigbold,11,3412624,5754253
+"POINT (3405549 5753073)",219,Turn- und Sporthallen,Zweifachhalle,Ludgerusschule Hiltrup,48165,An der Alten Kirche,161,3405549,5753073
+"POINT (3409197 5759655)",220,Turn- und Sporthallen,Einfachhallen,Pleisterschule,48155,An der Konradkirche,7,3409197,5759655
+"POINT (3408399 5756079)",221,Turn- und Sporthallen,Dreifachhallen,Pestalozzischule Gremmendorf,48167,Anton-Knubel-Weg,10,3408399,5756079
+"POINT (3408537 5756024)",222,Bezirkssportanlage,überlassen,Sportanlage Anton-Knubel-Weg,48167,Anton-Knubel-Weg,24,3408537,5756024
+"POINT (3402567 5760269)",223,Turn- und Sporthallen,Einfachhallen,"Michaelschule, Halle1",48149,Appelbreistiege,40,3402567,5760269
+"POINT (3402567 5760269)",224,Turn- und Sporthallen,Einfachhallen,"Michaelschule, Halle2",48149,Appelbreistiege,40,3402567,5760269
+"POINT (3402056 5760036)",225,Bezirkssportanlage,nicht überlassen,Sportanlage Arnheimweg,48161,Arnheimweg,40,3402056,5760036
+"POINT (3402056 5760036)",226,Sondersportanlagen,Beachvolleyballanlagen,Sportanlage Arnheimweg,48161,Arnheimweg,40,3402056,5760036
+"POINT (3402056 5760036)",227,Sondersportanlagen,Speckbrettanlagen,Sportanlage Arnheimweg,48161,Arnheimweg,40,3402056,5760036
+"POINT (3399110 5758929)",228,Turn- und Sporthallen,Einfachhallen,Marienschule Roxel,48161,Auf dem Dorn,17,3399110,5758929
+"POINT (3407508 5758430)",229,Bezirkssportanlage,überlassen,Sportanlage August-Schepers-Straße,48155,August-Schepers-Straße,20,3407508,5758430
+"POINT (3404464 5758486)",230,Turn- und Sporthallen,Einfachhallen,Erich-Klausener-,48151,Bismarckallee,55,3404464,5758486
+"POINT (3406872 5753372)",231,Turn- und Sporthallen,Einfachhallen,Paul-Gerhardt-Schule Hiltrup,48165,Bodelschwinghstraße,22,3406872,5753372
+"POINT (3406872 5753372)",232,Turn- und Sporthallen,Gymnastikräume,Paul-Gerhardt-Schule-Hiltrup,48165,Bodelschwinghstraße,22,3406872,5753372
+"POINT (3406872 5753372)",233,Turn- und Sporthallen,Dreifachhallen,Paul-Gerhardt-Schule-Hiltrup,48165,Bodelschwinghstraße,22,3406872,5753372
+"POINT (3406468 5760094)",234,Turn- und Sporthallen,Einfachhallen,Ratsgymnasium alte Halle,48147,Bohlweg,7,3406468,5760094
+"POINT (3406468 5760094)",235,Turn- und Sporthallen,Einfachhallen,Ratsgymnasium neue Halle,48147,Bohlweg,7,3406468,5760094
+"POINT (3404134 5757258)",236,Turn- und Sporthallen,Dreifachhallen,Dietrich-Bonhoeffer-,48151,Bonhoefferstraße,54,3404134,5757258
+"POINT (3404134 5757258)",237,Bezirkssportanlage,überlassen,Sportanlage Aaseestadt,48151,Bonhoefferstraße,54,3404134,5757258
+"POINT (3404134 5757258)",238,Sondersportanlagen,Beachvolleyballanlagen,Sportanlage Aaseestadt,48151,Bonhoefferstraße,54,3404134,5757258
+"POINT (3404134 5757258)",239,Sondersportanlagen,Bouleanlagen,Sportanlage Aaseestadt,48151,Bonhoefferstraße,54,3404134,5757258
+"POINT (3404134 5757258)",240,Sondersportanlagen,Speckbrettanlagen,Sportanlage Aaseestadt,48151,Bonhoefferstraße,54,3404134,5757258
+"POINT (3411575 5754185)",241,Bezirkssportanlage,nicht überlassen,Sportzentrum Wolbeck,48167,Brandhoveweg,97,3411575,5754185
+"POINT (3411575 5754185)",242,Sondersportanlagen,Bouleanlagen,Sportzentrum Wolbeck,48167,Brandhoveweg,97,3411575,5754185
+"POINT (3411575 5754185)",243,Sondersportanlagen,Beachvolleyballanlagen,Sportanlage Wolbeck,48167,Brandhoveweg,97,3411575,5754185
+"POINT (3405455 5759268)",244,Turn- und Sporthallen,Gymnastikräume,Aegidii-Ludgeri-,48143,Breite Gasse,2,3405455,5759268
+"POINT (3408916 5758408)",245,Turn- und Sporthallen,Einfachhallen,Margaretenschule,48155,Brentanoweg,18,3408916,5758408
+"POINT (3405028 5763007)",246,Turn- und Sporthallen,Einfachhallen,Uppenbergschule,48159,Bröderichweg,36,3405028,5763007
+"POINT (3405028 5763007)",247,Sportaußenanlagen an Schulen,Förderschulen,Sportfläche Uppenberg-,48159,Bröderichweg,36,3405028,5763007
+"POINT (3403806 5758721)",248,Turn- und Sporthallen,Gymnastikräume,Sportpark Sentruper Höhe,48149,Sentruper Straße,155,3403806,5758721
+"POINT (3403806 5758721)",249,Bezirkssportanlage,nicht überlassen,Sportpark Sentruper Höhe,48149,Sentruper Straße,155,3403806,5758721
+"POINT (3403806 5758721)",250,Sondersportanlagen,Bouleanlagen,Sportpark Sentruper Höhe,48149,Sentruper Straße,155,3403806,5758721
+"POINT (3403806 5758721)",251,Sondersportanlagen,Trimmanlagen,Sportpark Sentruper Höhe,48149,Sentruper Straße,155,3403806,5758721
+"POINT (3403806 5758721)",252,Sondersportanlagen,Speckbrettanlagen,Sportpark Sentruper Höhe,48149,Sentruper Straße,155,3403806,5758721
+"POINT (3403806 5758721)",253,Sondersportanlagen,Beachvolleyballanlagen,Sportpark Sentruper Höhe,48149,Sentruper Straße,155,3403806,5758721
+"POINT (3405785 5760355)",254,Turn- und Sporthallen,Einfachhallen,Martin-Luther-Grundschule,48147,Coerdestraße,8,3405785,5760355
+"POINT (3405785 5760355)",255,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Martin-Luther-,48147,Coerdestraße,8,3405785,5760355
+"POINT (3406977 5763634)",256,Bezirkssportanlage,überlassen,"Sportanlage Coerde, Coerheide",48157,Coerheide,47,3406977,5763634
+"POINT (3406977 5763634)",257,Sondersportanlagen,Trimmanlagen,"Sportanlage Coerde, Coerheide",48157,Coerheide,47,3406977,5763634
+"POINT (3408400 5761045)",258,Bezirkssportanlage,überlassen,Sportanlage Coppenrathsweg,48155,Coppenrathsweg,19,3408400,5761045
+"POINT (3407198 5763439)",259,Turn- und Sporthallen,Einfachhallen,Hauptschule Coerde,48157,Dachsleite,32,3407198,5763439
+"POINT (3405620 5757664)",260,Turn- und Sporthallen,Einfachhallen,Hermannschule,48153,Dahlweg,66,3405620,5757664
+"POINT (3405620 5757664)",261,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Hermannschule,48153,Dahlweg,66,3405620,5757664
+"POINT (3401581 5759999)",262,Turn- und Sporthallen,Dreifachhallen,Mosaikschule,48161,Dieckmannstraße,131,3401581,5759999
+"POINT (3401718 5759536)",263,Turn- und Sporthallen,Vierfachhalle,Freiherr-vom-Stein-Gymnasium,48161,Dieckmannstraße,141,3401718,5759536
+"POINT (3401718 5759536)",264,Turn- und Sporthallen,Gymnastikräume,Freiherr-vom-Stein-Gymnasium,48161,Dieckmannstraße,141,3401718,5759536
+"POINT (3401718 5759536)",265,Sportaußenanlagen an Schulen,Gymnasien/B.-Kollegs,Sportfläche Freiherr-vom-Stein-Gymnasium,48161,Dieckmannstraße,141,3401718,5759536
+"POINT (3402439 5756385)",266,Turn- und Sporthallen,Einfachhallen,Peter-Wust-,48163,Dingbängerweg,80,3402439,5756385
+"POINT (3402439 5756385)",267,Sportaußenanlagen an Schulen,Grundschulen,"Sportfläche Peter-Wust-Schule, Dingbänger Weg",48163,Dingbängerweg,80,3402439,5756385
+"POINT (3410999 5762557)",268,Turn- und Sporthallen,Einfachhallen,Matthias-Claudius-Schule Handorf,48157,Drostestraße,7,3410999,5762557
+"POINT (3410999 5762557)",269,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Matthias-Claudius-,48157,Drostestraße,7,3410999,5762557
+"POINT (3410740 5763710)",270,Sondersportanlagen,Beachvolleyballanlagen,,48157,Dyckburgstraße,468,3410740,5763710
+"POINT (3401957 5756767)",271,Bezirkssportanlage,überlassen,Sportanlage Egelshove,48163,Egelshove,1,3401957,5756767
+"POINT (3401957 5756767)",272,Sondersportanlagen,Speckbrettanlagen,Sportanlage Egelshove,48163,Egelshove,1,3401957,5756767
+"POINT (3401957 5756767)",273,Sondersportanlagen,Beachvolleyballanlagen,Sportanlage Egelshove,48163,Egelshove,1,3401957,5756767
+"POINT (3410264 5754275)",274,Turn- und Sporthallen,Einfachhallen,Eichendorffschule Angelmodde,48167,Eichendorffstraße,36,3410264,5754275
+"POINT (3410322 5754300)",275,Bezirkssportanlage,nicht überlassen,Sportanlage Angelmodde,48167,Eichendorffstraße,38,3410322,5754300
+"POINT (3400422 5763838)",276,Bezirkssportanlage,überlassen,Sportzentrum Feldstiege,48161,Feldstiege,45,3400422,5763838
+"POINT (3400422 5763838)",277,Sondersportanlagen,Bouleanlagen,Sportzentrum Feldstiege,48161,Feldstiege,45,3400422,5763838
+"POINT (3400422 5763838)",278,Sondersportanlagen,Beachvolleyballanlagen,Sportanlage Nienberge,48161,Feldstiege,45,3400422,5763838
+"POINT (3405275 5760899)",279,Turn- und Sporthallen,Einfachhallen,"Realschule im Kreuzviertel, Halle 2",48147,Finkenstraße,76,3405275,5760899
+"POINT (3405275 5760899)",280,Turn- und Sporthallen,Einfachhallen,"Realschule im Kreuzviertel, Halle 1",48147,Finkenstraße,76,3405275,5760899
+"POINT (3404976 5761033)",281,Turn- und Sporthallen,Einfachhallen,Dreifaltigkeitsschule,48147,Friesenring,25,3404976,5761033
+"POINT (3404976 5761033)",282,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Dreifaltigkeits-,48147,Friesenring,25,3404976,5761033
+"POINT (3409148 5767031)",283,Turn- und Sporthallen,Einfachhallen,Astrid Lindgren-Schule Gelmer,48157,Gelmerheide,3,3409148,5767031
+"POINT (3405288 5760331)",284,Turn- und Sporthallen,Einfachhallen,Schillergymnasium alte Halle,48149,Gertrudenstraße,5,3405288,5760331
+"POINT (3405288 5760331)",285,Turn- und Sporthallen,Einfachhallen,Schillergymnasium neue Halle,48149,Gertrudenstraße,5,3405288,5760331
+"POINT (3405288 5760331)",286,Sportaußenanlagen an Schulen,Gymnasien/B.-Kollegs,Sportfläche Schiller-Gymnasium,48149,Gertrudenstraße,5,3405288,5760331
+"POINT (3404643 5756378)",287,Turn- und Sporthallen,Einfachhallen,Gottfried-v-Cappenberg,48151,Glatzer Weg,9,3404643,5756378
+"POINT (3404643 5756378)",288,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Gottfried-von-Cappenberg-,48151,Glatzer Weg,9,3404643,5756378
+"POINT (3405310 5757048)",289,Turn- und Sporthallen,Einfachhallen,"Geistschule, alte H.",48151,Grevingstraße,24,3405310,5757048
+"POINT (3405310 5757048)",290,Turn- und Sporthallen,Einfachhallen,"Geistschule, neue H.",48151,Grevingstraße,24,3405310,5757048
+"POINT (3405355 5756819)",291,Bezirkssportanlage,überlassen,Sportanlage Grevingstraße,48151,Grevingstraße,32,3405355,5756819
+"POINT (3405355 5756819)",292,Sondersportanlagen,Bouleanlagen,Sportanlage Grevingstraße,48151,Grevingstraße,32,3405355,5756819
+"POINT (3405355 5756819)",293,Sondersportanlagen,Speckbrettanlagen,Sportanlage Grevingstraße,48151,Grevingstraße,32,3405355,5756819
+"POINT (3405355 5756819)",294,Sondersportanlagen,Beachvolleyballanlagen,Sportanlage Grevingstraße,48151,Grevingstraße,32,3405355,5756819
+"POINT (3404653 5763948)",295,Turn- und Sporthallen,Einfachhallen,Waldschule Kinderhaus,48159,Große Wiese,14,3404653,5763948
+"POINT (3404653 5763948)",296,Sportaußenanlagen an Schulen,Haupt-/Realschulen,Sportfläche Waldschule Kinderhaus,48159,Große Wiese,14,3404653,5763948
+"POINT (3405500 5759118)",297,Turn- und Sporthallen,Einfachhallen,Annette-von-Droste-Hülshoff-Gymnasium,48143,Grüne Gasse,40,3405500,5759118
+"POINT (3405500 5759118)",298,Sportaußenanlagen an Schulen,Gymnasien/B.-Kollegs,Sportfläche Annette-von-Droste-Hülshoff-Gymnasium,48143,Grüne Gasse,40,3405500,5759118
+"POINT (3404668 5756968)",299,Turn- und Sporthallen,Einfachhallen,Matthias-Claudius-,48151,Gut Insel,36,3404668,5756968
+"POINT (3404668 5756968)",300,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Matthias-Claudius-,48151,Gut Insel,36,3404668,5756968
+"POINT (3404633 5756804)",301,Turn- und Sporthallen,Dreifachhallen,Ludwig-Erhard-Berufskolleg,48151,Gut Insel,41,3404633,5756804
+"POINT (3404633 5756804)",302,Sportaußenanlagen an Schulen,Gymnasien/B.-Kollegs,Sportfläche Ludwig-Erhard-Berufskolleg,48151,Gut Insel,41,3404633,5756804
+"POINT (3406945 5759334)",303,Turn- und Sporthallen,Einfachhallen,Bodelschwinghschule,48145,Gutenbergstraße,14,3406945,5759334
+"POINT (3406945 5759334)",304,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Bodelschwinghschule,48145,Gutenbergstraße,14,3406945,5759334
+"POINT (3409321 5766659)",305,Sondersportanlagen,Bouleanlagen,Hakenesheide Gelmer,48157,Hakenesheide,22,3409321,5766659
+"POINT (3409118 5766584)",306,Bezirkssportanlage,überlassen,Sportanlage Hakenesheide,48157,Hakenesheide,39,3409118,5766584
+"POINT (3405518 5756072)",307,Bezirkssportanlage,überlassen,Preußenstadion,48153,Hammer Straße,302,3405518,5756072
+"POINT (3402509 5760687)",308,Bezirkssportanlage,überlassen,Sportanlage Hensenstraße/Gievenbecker Weg,48161,Gievenbecker Weg,200,3402509,5760687
+"POINT (3402509 5760687)",309,Sondersportanlagen,Beachvolleyballanlagen,Sportanlage Hensenstraße/Gievenbecker Weg,48161,Gievenbecker Weg,200,3402509,5760687
+"POINT (3411202 5762527)",310,Turn- und Sporthallen,Zweifachhalle,Turnhalle Middelfeld,48157,Heriburgstraße,17,3411202,5762527
+"POINT (3411202 5762527)",311,Bezirkssportanlage,überlassen,Sportanlage Handorf,48157,Heriburgstraße,17,3411202,5762527
+"POINT (3411202 5762527)",312,Sondersportanlagen,Beachvolleyballanlagen,Sportanlage Handorf,48157,Heriburgstraße,17,3411202,5762527
+"POINT (3405489 5758357)",313,Turn- und Sporthallen,Einfachhallen,Josefschule,48151,Hermannstraße,58,3405489,5758357
+"POINT (3405489 5758357)",314,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Josefschule,48151,Hermannstraße,58,3405489,5758357
+"POINT (3409299 5754961)",315,Turn- und Sporthallen,Einfachhallen,Annette-von-Droste-Hülshoff,48167,Höftestraße,4,3409299,5754961
+"POINT (3407686 5758909)",316,Turn- und Sporthallen,Dreifachhallen,Hans-Böckler-Berufskolleg,48155,Hoffschultestraße,25,3407686,5758909
+"POINT (3404872 5755419)",317,Turn- und Sporthallen,Einfachhallen,Gemeinschaftsgrundschule Berg Fidel,48153,Hogenbergstraße,160,3404872,5755419
+"POINT (3404872 5755419)",318,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Gemeinschaftsgrundschule Berg Fidel,48153,Hogenbergstraße,160,3404872,5755419
+"POINT (3398945 5755412)",319,Bezirkssportanlage,überlassen,Sportanlage Concordenstraße,48163,Hohe Geist,7,3398945,5755412
+"POINT (3398798 5755359)",320,Turn- und Sporthallen,Dreifachhallen,Ludgerusschule Albachten,48163,Hohe Geist,8,3398798,5755359
+"POINT (3407174 5762450)",321,Turn- und Sporthallen,Zweifachhalle,Norbert-Grundschule,48147,Hoher Heckenweg,241,3407174,5762450
+"POINT (3407174 5762450)",322,Turn- und Sporthallen,Gymnastikräume,Norbert-Grundschule,48147,Hoher Heckenweg,241,3407174,5762450
+"POINT (3403913 5760490)",323,Turn- und Sporthallen,Leichtathletikhalle,Leichtathl.-halle,48149,Horstmarer Landweg,45,3403913,5760490
+"POINT (3403913 5760490)",324,Turn- und Sporthallen,Krafträume,Leichtathl.-halle,48149,Horstmarer Landweg,45,3403913,5760490
+"POINT (3403791 5760628)",325,Sondersportanlagen,Beachvolleyballanlagen,Universitätsgelände,48149,Horstmarer Landweg,62,3403791,5760628
+"POINT (3404926 5768108)",326,Bezirkssportanlage,überlassen,Sportanlage Sprakel,48159,Im Draum,41,3404926,5768108
+"POINT (3404926 5768108)",327,Sondersportanlagen,Bouleanlagen,Sportanlage Im Draum,48159,Im Draum,41,3404926,5768108
+"POINT (3404926 5768108)",328,Sondersportanlagen,Beachvolleyballanlagen,Sportanlage Sprakel,48159,Im Draum,41,3404926,5768108
+"POINT (3409035 5762559)",329,Turn- und Sporthallen,Einfachhallen,Turnhalle Dyckburg,48157,Im Sundern,11,3409035,5762559
+"POINT (3405075 5768015)",330,Turn- und Sporthallen,Einfachhallen,Grundschule Sprakel,48159,In der Au,3,3405075,5768015
+"POINT (3403484 5763483)",331,Turn- und Sporthallen,Zweifachhalle,Grundschule Kinderhaus-West,48159,Josef-Beckmann-Straße,33,3403484,5763483
+"POINT (3403484 5763483)",332,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Grundschule Kinderhaus-West,48159,Josef-Beckmann-Straße,33,3403484,5763483
+"POINT (3405202 5759806)",333,Turn- und Sporthallen,Einfachhallen,Paul-Gerhardt-Realschule,48143,Jüdefelderstraße,10,3405202,5759806
+"POINT (3405202 5759806)",334,Sportaußenanlagen an Schulen,Haupt-/Realschulen,Sportfläche Paul-Gerhardt-Realschule,48143,Jüdefelderstraße,10,3405202,5759806
+"POINT (3405202 5759806)",335,Sportaußenanlagen an Schulen,Haupt-/Realschulen,Sportfläche Überwasserschule,48143,Jüdefelderstraße,10,3405202,5759806
+"POINT (3407009 5759763)",336,Turn- und Sporthallen,Einfachhallen,Adolph-Kolping-Berufskolleg,48145,Kaiser-Wilhelm-Ring,1,3407009,5759763
+"POINT (3405496 5760419)",337,Turn- und Sporthallen,Einfachhallen,Kreuzschule,48147,Kampstraße,15,3405496,5760419
+"POINT (3405496 5760419)",338,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Kreuzschule,48147,Kampstraße,15,3405496,5760419
+"POINT (3405244 5759833)",339,Turn- und Sporthallen,Einfachhallen,Überwasserhalle 1x,48143,Katthagen,7,3405244,5759833
+"POINT (3401180 5763419)",340,Turn- und Sporthallen,Einfachhallen,Annette-von-Droste-Hülshoff,48161,Kirmstraße,1,3401180,5763419
+"POINT (3407031 5763022)",341,Turn- und Sporthallen,Einfachhallen,Melanchthonschule,48157,Königsberger Straße,91,3407031,5763022
+"POINT (3407031 5763022)",342,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Melanchtonschule,48157,Königsberger Straße,91,3407031,5763022
+"POINT (3410057 5757880)",343,Sondersportanlagen,Beachvolleyballanlagen,Freibad Stapelskotten,48157,Laerer Werseufer,2,3410057,5757880
+"POINT (3406016 5760150)",344,Turn- und Sporthallen,Dreifachhallen,Adolph-Kolping-Berufskolleg,48147,Lotharingerstraße,30,3406016,5760150
+"POINT (3408743 5759650)",345,Bezirkssportanlage,überlassen,Sportanlage Maikottenweg,48155,Maikottenweg,188,3408743,5759650
+"POINT (3407460 5759224)",346,Turn- und Sporthallen,Gymnastikräume,Anne-Frank-Berufskolleg,48145,Manfred-von-Richthofen-Straße,39,3407460,5759224
+"POINT (3407668 5759088)",347,Sportaußenanlagen an Schulen,Haupt-/Realschulen,Sportfläche Fürstin-von-Gallitzin-,48145,Manfred-von-Richthofen-Straße,46,3407668,5759088
+"POINT (3407730 5759186)",348,Sportaußenanlagen an Schulen,Förderschulen,Sportfläche Albert-Schweitzer-,48145,Manfred-von-Richthofen-Straße,49,3407730,5759186
+"POINT (3407768 5759133)",349,Turn- und Sporthallen,Dreifachhallen,Sporthalle Ost,48145,Manfred-von-Richthofen-Straße,56,3407768,5759133
+"POINT (3407768 5759133)",350,Bezirkssportanlage,überlassen,Sportanlage von-Richthofen-Straße,48145,Manfred-von-Richthofen-Straße,56,3407768,5759133
+"POINT (3407901 5759093)",351,Turn- und Sporthallen,Zweifachhalle,Fürstin-von-Gallitzin-,48145,Manfred-von-Richthofen-Straße,60,3407901,5759093
+"POINT (3406917 5758927)",352,Turn- und Sporthallen,Einfachhallen,Overbergschule,48145,Margaretenstraße,6,3406917,5758927
+"POINT (3406917 5758927)",353,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Overbergschule,48145,Margaretenstraße,6,3406917,5758927
+"POINT (3407929 5759326)",354,Bezirkssportanlage,überlassen,Sportanlage Mauritz-Lindenweg,48145,Mauritz-Lindenweg,93,3407929,5759326
+"POINT (3407929 5759326)",355,Sondersportanlagen,Speckbrettanlagen,Sportanlage Mauritz-Lindenweg,48145,Mauritz-Lindenweg,93,3407929,5759326
+"POINT (3407929 5759326)",356,Sondersportanlagen,Beachvolleyballanlagen,Sportzentrum Ost,48145,Mauritz-Lindenweg,93,3407929,5759326
+"POINT (3407930 5759303)",357,Turn- und Sporthallen,Gymnastikräume,SSB Gy,48145,Mauritz-Lindenweg,95,3407930,5759303
+"POINT (3407210 5758955)",358,Turn- und Sporthallen,Einfachhallen,Wilhelm-Emanuel-von-Ketteler-Berufskolleg,48145,Mindener Straße,11,3407210,5758955
+"POINT (3408461 5753375)",359,Bezirkssportanlage,überlassen,Sportanlage Hiltrup-Ost,48165,Osttor,85,3408461,5753375
+"POINT (3408461 5753375)",360,Sondersportanlagen,Bouleanlagen,Sportanlage Hiltrup-Ost,48165,Osttor,85,3408461,5753375
+"POINT (3408461 5753375)",361,Sondersportanlagen,Speckbrettanlagen,Sportanlage Hiltrup-Ost,48165,Osttor,85,3408461,5753375
+"POINT (3408461 5753375)",362,Sondersportanlagen,Beachvolleyballanlagen,Sportanlage Hiltrup-Ost,48165,Osttor,85,3408461,5753375
+"POINT (3404774 5763658)",363,Turn- und Sporthallen,Einfachhallen,Paul-Schneider-Schule Kinderhaus,48159,Pastorsesch,34,3404774,5763658
+"POINT (3409708 5759599)",364,Bezirkssportanlage,überlassen,Sportanlage Pleistermühlenweg,48155,Pleistermühlenweg,119,3409708,5759599
+"POINT (3407555 5760802)",365,Sportaußenanlagen an Schulen,Förderschulen,Sportfläche Erich-Kästner-,48145,Pötterhoek,45,3407555,5760802
+"POINT (3407575 5760700)",366,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Pötterhoekschule,48145,Pötterhoek,49,3407575,5760700
+"POINT (3405133 5757915)",367,Turn- und Sporthallen,Einfachhallen,Wilhelm-Hittorf-Gymnasium,48151,Prinz-Eugen-Straße,27,3405133,5757915
+"POINT (3405133 5757915)",368,Turn- und Sporthallen,Gymnastikräume,Wilhelm-Hittorf-Gymnasium,48151,Prinz-Eugen-Straße,27,3405133,5757915
+"POINT (3405133 5757915)",369,Turn- und Sporthallen,Zweifachhalle,Wilhelm-Hittorf-Gymnasium,48151,Prinz-Eugen-Straße,27,3405133,5757915
+"POINT (3405133 5757915)",370,Sportaußenanlagen an Schulen,Gymnasien/B.-Kollegs,Sportfläche Hittorf-Gymnasium,48151,Prinz-Eugen-Straße,27,3405133,5757915
+"POINT (3405683 5756933)",371,Turn- und Sporthallen,Einfachhallen,Brüder-Grimm-Sporthalle,48153,Scheibenstraße,114,3405683,5756933
+"POINT (3402690 5756094)",372,Sportaußenanlagen an Schulen,Grundschulen,"Sportfläche Peter-Wust-Schule, Am Schürbusch",48163,Schürbusch,45,3402690,5756094
+"POINT (3401715 5755793)",373,Bezirkssportanlage,überlassen,Sportanlage Schwarzer Kamp,48163,Schwarzer Kamp,41,3401715,5755793
+"POINT (3406157 5759673)",374,Turn- und Sporthallen,Einfachhallen,"Johann-Conrad-Schlaun-Gymnasium,",48143,Sonnenstraße,18,3406157,5759673
+"POINT (3405388 5756541)",375,Turn- und Sporthallen,Einfachhallen,"Karl-Wagenfeld-Realschule, alte Halle",48153,Spichernstraße,17,3405388,5756541
+"POINT (3405388 5756541)",376,Turn- und Sporthallen,Einfachhallen,"Karl-Wagenfeld-Realschule, neue Halle",48153,Spichernstraße,17,3405388,5756541
+"POINT (3405388 5756541)",377,Sportaußenanlagen an Schulen,Haupt-/Realschulen,Sportfläche Karl-Wagenfeld-Realschule,48153,Spichernstraße,17,3405388,5756541
+"POINT (3406007 5759945)",378,Turn- und Sporthallen,Einfachhallen,Martinischule,48143,Stiftsherrenstraße,40,3406007,5759945
+"POINT (3406007 5759945)",379,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Martinischule,48143,Stiftsherrenstraße,40,3406007,5759945
+"POINT (3407253 5759735)",380,Turn- und Sporthallen,Einfachhallen,Mauritzschule,48145,Stiftsstraße,17,3407253,5759735
+"POINT (3407253 5759735)",381,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Mauritzschule,48145,Stiftsstraße,17,3407253,5759735
+"POINT (3406956 5760930)",382,Turn- und Sporthallen,Einfachhallen,Thomas-Morus-,48147,Thomas-Morus-Weg,5,3406956,5760930
+"POINT (3406956 5760930)",383,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Thomas-Morus-,48147,Thomas-Morus-Weg,5,3406956,5760930
+"POINT (3398979 5758848)",384,Turn- und Sporthallen,Dreifachhallen,Schulzentrum Roxel,48161,Tilbecker Straße,24,3398979,5758848
+"POINT (3398979 5758848)",385,Sportaußenanlagen an Schulen,Schulzentren,Sportfläche Schulzentrum Roxel,48161,Tilbecker Straße,24,3398979,5758848
+"POINT (3398839 5758905)",386,Bezirkssportanlage,nicht überlassen,Sportzentrum Roxel,48161,Tilbecker Straße,34,3398839,5758905
+"POINT (3398839 5758905)",387,Sondersportanlagen,Bouleanlagen,Sportzentrum Roxel,48161,Tilbecker Straße,34,3398839,5758905
+"POINT (3398839 5758905)",388,Sondersportanlagen,Speckbrettanlagen,Alter Sportplatz Roxel,48161,Tilbecker Straße,34,3398839,5758905
+"POINT (3398779 5758874)",389,Sondersportanlagen,Beachvolleyballanlagen,Hallenbad Roxel,48161,Tilbecker Straße,36,3398779,5758874
+"POINT (3401636 5761018)",390,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Wartburg,48161,Toppheideweg,91,3401636,5761018
+"POINT (3405666 5761119)",391,Turn- und Sporthallen,Dreifachhallen,Pascal-Gymnasium,48147,Uppenkampstiege,17,3405666,5761119
+"POINT (3405666 5761119)",392,Sondersportanlagen,Beachvolleyballanlagen,Pascal-Gymnasium,48147,Uppenkampstiege,17,3405666,5761119
+"POINT (3405666 5761119)",393,Sportaußenanlagen an Schulen,Gymnasien/B.-Kollegs,Sportfläche Pascal-Gymnasium,48147,Uppenkampstiege,17,3405666,5761119
+"POINT (3408797 5756176)",394,Turn- und Sporthallen,Einfachhallen,Idaschule,48167,Vörnste Esch,19,3408797,5756176
+"POINT (3408797 5756176)",395,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Idaschule,48167,Vörnste Esch,19,3408797,5756176
+"POINT (3405354 5758514)",396,Turn- und Sporthallen,Einfachhallen,Johannisschule,48151,Vogel-von-Falkenstein-Straße,4,3405354,5758514
+"POINT (3405354 5758514)",397,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Johannisschule,48151,Vogel-von-Falkenstein-Straße,4,3405354,5758514
+"POINT (3403594 5759846)",398,Turn- und Sporthallen,Einfachhallen,Wartburgschule,48149,Von-Esmarch-Straße,15,3403594,5759846
+"POINT (3403594 5759846)",399,Sportaußenanlagen an Schulen,Haupt-/Realschulen,Sportfläche Wartburgschule,48149,Von-Esmarch-Straße,15,3403594,5759846
+"POINT (3411946 5754161)",400,Turn- und Sporthallen,Zweifachhalle,Schulzentrum Wolbeck,48167,Von-Holte-Straße,56,3411946,5754161
+"POINT (3411946 5754161)",401,Turn- und Sporthallen,Dreifachhallen,Schulzentrum Wolbeck,48167,Von-Holte-Straße,56,3411946,5754161
+"POINT (3411946 5754161)",402,Sportaußenanlagen an Schulen,Schulzentren,Sportfläche Schulzetnrum Wolbeck,48167,Von-Holte-Straße,56,3411946,5754161
+"POINT (3404181 5763628)",403,Turn- und Sporthallen,Dreifachhallen,Schulzentrum Kinderhaus,48159,Von-Humboldt-Straße,14,3404181,5763628
+"POINT (3404181 5763628)",404,Turn- und Sporthallen,Zweifachhalle,Schulzentrum Kinderhaus,48159,Von-Humboldt-Straße,14,3404181,5763628
+"POINT (3405113 5763493)",405,Bezirkssportanlage,überlassen,Sportanlage Wangeroogeweg,48159,Wangeroogeweg,18,3405113,5763493
+"POINT (3405113 5763493)",406,Sondersportanlagen,Bouleanlagen,Sportanlage Wangeroogeweg,48159,Wangeroogeweg,18,3405113,5763493
+"POINT (3405113 5763493)",407,Sondersportanlagen,Beachvolleyballanlagen,Sportanlage Wangeroogeweg,48159,Wangeroogeweg,18,3405113,5763493
+"POINT (3406490 5752730)",408,Turn- und Sporthallen,Zweifachhalle,Schulzentrum Hiltrup,48165,Westfalenstraße,201,3406490,5752730
+"POINT (3406490 5752730)",409,Turn- und Sporthallen,Dreifachhallen,Schulzentrum Hiltrup,48165,Westfalenstraße,201,3406490,5752730
+"POINT (3406510 5752347)",410,Bezirkssportanlage,nicht überlassen,Sportanlage Hiltrup-Süd,48165,Westfalenstraße,240,3406510,5752347
+"POINT (3402174 5752082)",411,Sportaußenanlagen an Schulen,Grundschulen,Sportfläche Grundschule Lövelingloh,48163,Wiedaustraße,114,3402174,5752082
+"POINT (3405514 5761089)",412,Turn- und Sporthallen,Einfachhallen,Abendgymnasium,48147,Wienburgstraße,52,3405514,5761089
+"POINT (3404182 5751020)",413,Turn- und Sporthallen,Einfachhallen,Davertschule Amelsbüren,48163,Zum Häpper,10,3404182,5751020
+"POINT (3404182 5751020)",414,Turn- und Sporthallen,Gymnastikräume,Davertschule Amelsbüren,48163,Zum Häpper,10,3404182,5751020
+"POINT (3404388 5751146)",415,Bezirkssportanlage,überlassen,Sportanlage Zum Häpper,48163,Zum Häpper,24,3404388,5751146
+"POINT (3404388 5751146)",416,Sondersportanlagen,Bouleanlagen,Sportanlage Zum Häpper,48163,Zum Häpper,24,3404388,5751146
+"POINT (3404388 5751146)",417,Sondersportanlagen,Beachvolleyballanlagen,Sportanlage Amelsbüren,48163,Zum Häpper,24,3404388,5751146
+"POINT (3407608 5751422)",418,Sondersportanlagen,Beachvolleyballanlagen,Freibad Hiltrup,48165,Zum Hiltruper See,171,3407608,5751422
+"POINT (3401616 5759945)",419,,,Sportanlage Gievenbecker Reihe,48161,Diekmannstraße/ Gievenbecker Reihe,,3401616,5759945
+"POINT (3401616 5759945)",420,Sondersportanlagen,Beachvolleyballanlagen,Sportanlage Gievenbecker Reihe,48161,Diekmannstraße/ Gievenbecker Reihe,,3401616,5759945
+"POINT (3405399 5761595)",421,,,Sportanlage Wienburgstraße,48163,Wienburgstraße,141,3405399,5761595
+"POINT (3404587 5763917)",422,,,Sportzentrum Kinderhaus,48159,Große Wiese,30,3404587,5763917
+"POINT (3404587 5763917)",423,Sondersportanlage,Trimmanlagen,Sportzentrum Kinderhaus,48159,Große Wiese,30,3404587,5763917
+"POINT (3404587 5763917)",424,Sondersportanlage,Speckbrettanlagen,Sportzentrum Kinderhaus,48159,Große Wiese,30,3404587,5763917
+"POINT (3405832 5756388)",425,,,Sportanlage Robert-Bosch-Straße,48153,Robert-Bosch-Straße,,3405832,5756388
+"POINT (3410740 5763710)",426,Sondersportanlagen,Bouleanlagen,,48157,Dyckburgstraße,468,3410740,5763710
+"POINT (3398945 5755412)",427,Sondersportanlagen,Speckbrettanlagen,Sportanlage Concordenstraße,48163,Hohe Geist,7,3398945,5755412
+"POINT (3398945 5755412)",428,Sondersportanlagen,Beachvolleyballanlagen,Sportanlage Concordenstraße,48163,Hohe Geist,7,3398945,5755412
+"POINT (3407768 5759133)",429,Sondersportanlage,Bouleanlagen,Sportanlage von-Richthofen-Straße,48145,Manfred-von-Richthofen-Straße,56,3407768,5759133
+"POINT (3409708 5759599)",430,Sondersportanlage,Bouleanlagen,Sportanlage Pleistermühlenweg,48155,Pleistermühlenweg,119,3409708,5759599
+"POINT (3405648 5757679)",431,Sondersportanlage,Bouleanlage,Boccia-Bahn Dahlweg,48153,Dahlweg,45,3405648,5757679
+"POINT (3407088 5762233)",432,Sondersportanlage,Beachvolleyballanlage,Breite Linde,48157,Hoher Heckenweg,221,3407088,5762233
+"POINT (3407837 5759125)",433,Sondersportanlage,Skateanlage,Skateanlage an der Sporthalle Ost,48145,Manfred-von-Richthofen-Straße,56,3407837,5759125
+"POINT (3407115 5751102)",434,Sondersportanlage,Trimmanlage,Trimmanlage Hiltruper See,48165,Zum Hiltruper See,,3407115,5751102

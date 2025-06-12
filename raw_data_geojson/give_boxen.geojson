@@ -1,0 +1,544 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.557006,
+          51.970127
+        ]
+      },
+      "properties": {
+        "Typ": "Givebox",
+        "Bezeichnung": "Haus Mariengrund x 2",
+        "Adresse (ungefähr)": "Haus Mariengrund, Nünningweg 133, 48161 Münster",
+        "Öffnungszeiten": "immer",
+        "Infos im Internet": "https://www.haus-mariengrund.de/",
+        "Betreiber": "Ludgerusgemeinschaft e.V.",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": "Dort gibt es zwei Giveboxen: 1. Der Schrank bei den Wurzelkindern ist für Kinderkleidung, Kinderbücher und Spielzeug. 2. Der Schrank am Holzhaus bei den Eseln ist für Bücher und Alles aus dem Haushalt."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6562534,
+          51.9622609
+        ]
+      },
+      "properties": {
+        "Typ": "Garagenflohmarkt",
+        "marker-color": "#7545a3",
+        "Bezeichnung": "Haus am Guten Hirten",
+        "Adresse (ungefähr)": "Mauritz-Lindenweg 61, 48145 Münster",
+        "Öffnungszeiten": "8-18 Uhr",
+        "Infos im Internet": "https://www.gutes-morgen.ms/de/givebox/",
+        "Betreiber": "Guter Hirte Münster gGmbH",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": "Statt Givebox gibt es einen täglich geöffneten Garagenflohmarkt, bei dem  Dinge abgegeben oder gegen Spende erworben werden können."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6463834,
+          51.9946742
+        ]
+      },
+      "properties": {
+        "Typ": "Givebox",
+        "Bezeichnung": "Haus der offenen Tür Coerde",
+        "Adresse (ungefähr)": "Breslauer Str. 152, 48157 Münster",
+        "Öffnungszeiten": "Mo bis Fr 14-20 Uhr",
+        "Infos im Internet": "http://www.hot-coerde-jugendzentrum.de/Angebote",
+        "Betreiber": "",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.623405,
+          51.942209
+        ]
+      },
+      "properties": {
+        "Typ": "Givebox",
+        "Bezeichnung": "Christuskirche",
+        "Adresse (ungefähr)": "Ecke Hammerstraße/Friedrich-Ebert-Straße auf dem Grundstück der Christuskirche (Evangelisch-Freikirchliche-Gemeinde)",
+        "Öffnungszeiten": "immer",
+        "Infos im Internet": "https://www.baptisten-muenster.de/gemeindeleben/mission-diakonie/give-box.html",
+        "Betreiber": "",
+        "Vor Ort bestätigt am": "22.08.2020",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.5954719,
+          51.9721136
+        ]
+      },
+      "properties": {
+        "Typ": "Givebox",
+        "Bezeichnung": "HoMaLa",
+        "Adresse (ungefähr)": "Auf dem Parkplatz der Freikirche der Siebenten-Tags-Adventisten, Horstmarer Landweg 96, 48149 Münster",
+        "Öffnungszeiten": "immer",
+        "Infos im Internet": "https://muenster.adventist.eu/give-box",
+        "Betreiber": "Freikirche der Siebenten-Tags-Adventisten in Nordrhein-Westfalen",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6247309,
+          51.9498914
+        ]
+      },
+      "properties": {
+        "Typ": "Givebox",
+        "Bezeichnung": "Josefskirchplatz",
+        "Adresse (ungefähr)": "Hammer Straße/Josefskirchplatz",
+        "Öffnungszeiten": "immer",
+        "Infos im Internet": "https://www.st-joseph-muenster-sued.de/caritas-hilfe/givebox-an-der-josephs-kirche",
+        "Betreiber": "",
+        "Vor Ort bestätigt am": "02.02.2024",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.5777536,
+          51.9311313
+        ]
+      },
+      "properties": {
+        "Typ": "Givebox",
+        "Bezeichnung": "Mecklenbeck",
+        "Adresse (ungefähr)": "Am Hof Hesselmann 10, 48163 Münster",
+        "Öffnungszeiten": "Montag bis Freitag 10-17 Uhr, Samstag 10-16 Uhr",
+        "Infos im Internet": "https://www.buergerverein-mecklenbeck.de/givebox",
+        "Betreiber": "Bürgerverein für Mecklenbeck e.V. ",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.5580042,
+          51.9308723
+        ]
+      },
+      "properties": {
+        "Typ": "Givebox \"AWM Wechselstube\"",
+        "marker-color": "#48a345",
+        "Bezeichnung": "AWM Mecklenbeck",
+        "Adresse (ungefähr)": "An der Hansalinie 21, 48163 Münster",
+        "Öffnungszeiten": "Mittwoch 12-19 Uhr, alle zwei Wochen  Freitag: 12 - 19 Uhr ",
+        "Infos im Internet": "https://awm.stadt-muenster.de/abfallvermeidung/schenken-und-tauschen.html",
+        "Betreiber": "Abfallwirtschaftsbetriebe Münster (AWM)",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6511084,
+          52.0106179
+        ]
+      },
+      "properties": {
+        "Typ": "Givebox \"AWM Wechselstube\"",
+        "marker-color": "#48a345",
+        "Bezeichnung": "Entsorgungszentrum Coerde",
+        "Adresse (ungefähr)": "Zum Heidehof 80, 48157 Münster",
+        "Öffnungszeiten": "Montag bis Freitag 8-19 Uhr, Samstag 9.30-19 Uhr ",
+        "Infos im Internet": "https://awm.stadt-muenster.de/abfallvermeidung/schenken-und-tauschen.html",
+        "Betreiber": "Abfallwirtschaftsbetriebe Münster (AWM)",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.5700582,
+          51.9591445
+        ]
+      },
+      "properties": {
+        "Typ": "Givebox \"AWM Wechselstube\"",
+        "marker-color": "#48a345",
+        "Bezeichnung": "Gievenbeck",
+        "Adresse (ungefähr)": "Bernings Kotten 9, 48161 Münster",
+        "Öffnungszeiten": "Dienstag 12-19 Uhr, Donnerstag 12-19 Uhr ",
+        "Infos im Internet": "https://awm.stadt-muenster.de/abfallvermeidung/schenken-und-tauschen.html",
+        "Betreiber": "Abfallwirtschaftsbetriebe Münster (AWM)",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6393426,
+          51.9386646
+        ]
+      },
+      "properties": {
+        "Typ": "Givebox \"AWM Wechselstube\"",
+        "marker-color": "#48a345",
+        "Bezeichnung": "Gremmendorf",
+        "Adresse (ungefähr)": "Eulerstraße 8, 48155 Münster",
+        "Öffnungszeiten": "Mo bis Fr 8.30 bis 19 Uhr, Sa 9.30 bis 19 Uhr",
+        "Infos im Internet": "https://awm.stadt-muenster.de/abfallvermeidung/schenken-und-tauschen.html",
+        "Betreiber": "Abfallwirtschaftsbetriebe Münster (AWM)",
+        "Vor Ort bestätigt am": "01.08.2020",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.7139396,
+          51.9888023
+        ]
+      },
+      "properties": {
+        "Typ": "Givebox \"AWM Wechselstube\"",
+        "marker-color": "#48a345",
+        "Bezeichnung": "Handorf",
+        "Adresse (ungefähr)": "Lützowstraße 120, 48157 Münster",
+        "Öffnungszeiten": "Dienstag 12-19 Uhr",
+        "Infos im Internet": "https://awm.stadt-muenster.de/abfallvermeidung/schenken-und-tauschen.html",
+        "Betreiber": "Abfallwirtschaftsbetriebe Münster (AWM)",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6436208,
+          51.8957208
+        ]
+      },
+      "properties": {
+        "Typ": "Givebox \"AWM Wechselstube\"",
+        "marker-color": "#48a345",
+        "Bezeichnung": "Hiltrup",
+        "Adresse (ungefähr)": "Glasuritstraße 1a, 48165 Münster",
+        "Öffnungszeiten": "Mo 12 bis 19 Uhr, Mi 8.30 bis 13 Uhr, Fr 12 bis 19 Uhr",
+        "Infos im Internet": "https://awm.stadt-muenster.de/abfallvermeidung/schenken-und-tauschen.html",
+        "Betreiber": "Abfallwirtschaftsbetriebe Münster (AWM)",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6011876,
+          51.999311
+        ]
+      },
+      "properties": {
+        "Typ": "Givebox \"AWM Wechselstube\"",
+        "marker-color": "#48a345",
+        "Bezeichnung": "Kinderhaus",
+        "Adresse (ungefähr)": "Von-Humboldt-Straße 50, 48159 Münster",
+        "Öffnungszeiten": "Dienstag 12-19 Uhr, Donnerstag 8.30-13 Uhr",
+        "Infos im Internet": "https://awm.stadt-muenster.de/abfallvermeidung/schenken-und-tauschen.html",
+        "Betreiber": "Abfallwirtschaftsbetriebe Münster (AWM)",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.541213,
+          51.9928382
+        ]
+      },
+      "properties": {
+        "Typ": "Givebox \"AWM Wechselstube\"",
+        "marker-color": "#48a345",
+        "Bezeichnung": "Nienberge",
+        "Adresse (ungefähr)": "Waltruper Weg 3a, 48161 Münster",
+        "Öffnungszeiten": "Mittwoch 8.30-13 Uhr, Freitag 12-19 Uhr",
+        "Infos im Internet": "https://awm.stadt-muenster.de/abfallvermeidung/schenken-und-tauschen.html",
+        "Betreiber": "Abfallwirtschaftsbetriebe Münster (AWM)",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.535231,
+          51.947372
+        ]
+      },
+      "properties": {
+        "Typ": "Givebox \"AWM Wechselstube\"",
+        "marker-color": "#48a345",
+        "Bezeichnung": "Roxel",
+        "Adresse (ungefähr)": "Nottulner Landweg 66, 48161 Münster",
+        "Öffnungszeiten": "Mo 12 bis 19 Uhr, Do 12 bis 19 Uhr",
+        "Infos im Internet": "https://awm.stadt-muenster.de/abfallvermeidung/schenken-und-tauschen.html",
+        "Betreiber": "Abfallwirtschaftsbetriebe Münster (AWM)",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.688231,
+          51.9515959
+        ]
+      },
+      "properties": {
+        "Typ": "Givebox \"AWM Wechselstube\"",
+        "marker-color": "#48a345",
+        "Bezeichnung": "St. Mauritz",
+        "Adresse (ungefähr)": "Pleistermühlenweg 118, 48157 Münster",
+        "Öffnungszeiten": "Montag 12-19 Uhr",
+        "Infos im Internet": "https://awm.stadt-muenster.de/abfallvermeidung/schenken-und-tauschen.html",
+        "Betreiber": "Abfallwirtschaftsbetriebe Münster (AWM)",
+        "Vor Ort bestätigt am": "01.09.2022",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.7203193,
+          51.9183324
+        ]
+      },
+      "properties": {
+        "Typ": "Givebox \"AWM Wechselstube\"",
+        "marker-color": "#48a345",
+        "Bezeichnung": "Wolbeck",
+        "Adresse (ungefähr)": "Eschstraße 79, 48167 Münster",
+        "Öffnungszeiten": "Di 12 bis 19 Uhr, Do 8.30 bis 13 Uhr",
+        "Infos im Internet": "https://awm.stadt-muenster.de/abfallvermeidung/schenken-und-tauschen.html",
+        "Betreiber": "Abfallwirtschaftsbetriebe Münster (AWM)",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6200657,
+          51.926208
+        ]
+      },
+      "properties": {
+        "Typ": "Öffentliches Bücherregal",
+        "marker-color": "#a37545",
+        "Bezeichnung": "Alte Post",
+        "Adresse (ungefähr)": "Bürger- und Beratungszentrum Alte Post in Berg Fidel, Rincklakeweg 21, 48153 Münster",
+        "Öffnungszeiten": "?",
+        "Infos im Internet": "http://wiki.muenster.org/index.php/Öffentliche_Bücherregale_in_Münster",
+        "Betreiber": "",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6038787,
+          51.9405614
+        ]
+      },
+      "properties": {
+        "Typ": "Öffentliches Bücherregal",
+        "marker-color": "#a37545",
+        "Bezeichnung": "Blau-Weiß Aasee",
+        "Adresse (ungefähr)": "Multifunktionshaus von Blau-Weiß Aasee, Bonhoefferstraße 54, 48151 Münster",
+        "Öffnungszeiten": "?",
+        "Infos im Internet": "http://wiki.muenster.org/index.php/Öffentliche_Bücherregale_in_Münster",
+        "Betreiber": "",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6429497,
+          51.9033154
+        ]
+      },
+      "properties": {
+        "Typ": "Öffentliches Bücherregal",
+        "marker-color": "#a37545",
+        "Bezeichnung": "Hiltrup Marktallee",
+        "Adresse (ungefähr)": "Hiltrup Ecke Marktallee/Hohe Geest, Hohe Geest 1, 48165 Münster",
+        "Öffnungszeiten": "?",
+        "Infos im Internet": "https://de.wikipedia.org/wiki/Liste_%C3%B6ffentlicher_B%C3%BCcherschr%C3%A4nke_in_Nordrhein-Westfalen",
+        "Betreiber": "",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6265749,
+          51.902743
+        ]
+      },
+      "properties": {
+        "Typ": "Öffentliches Bücherregal",
+        "marker-color": "#a37545",
+        "Bezeichnung": "Hiltrup Meesenstiege",
+        "Adresse (ungefähr)": "Hiltrup am E-Center, Meesenstiege 54, 48165 Münster",
+        "Öffnungszeiten": "?",
+        "Infos im Internet": "https://de.wikipedia.org/wiki/Liste_%C3%B6ffentlicher_B%C3%BCcherschr%C3%A4nke_in_Nordrhein-Westfalen",
+        "Betreiber": "",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6638353,
+          51.9059714
+        ]
+      },
+      "properties": {
+        "Typ": "Öffentliches Bücherregal",
+        "marker-color": "#a37545",
+        "Bezeichnung": "Hiltrup Osttor",
+        "Adresse (ungefähr)": "Hiltrup neben \"Das andere Restaurant\", Osttor 60, 48165 Münster",
+        "Öffnungszeiten": "?",
+        "Infos im Internet": "https://de.wikipedia.org/wiki/Liste_%C3%B6ffentlicher_B%C3%BCcherschr%C3%A4nke_in_Nordrhein-Westfalen",
+        "Betreiber": "",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.621543,
+          51.965312
+        ]
+      },
+      "properties": {
+        "Typ": "Öffentliches Bücherregal",
+        "marker-color": "#a37545",
+        "Bezeichnung": "Rosenplatz",
+        "Adresse (ungefähr)": "Rosenplatz im Kuhviertel",
+        "Öffnungszeiten": "immer",
+        "Infos im Internet": "http://wiki.muenster.org/index.php/Öffentliche_Bücherregale_in_Münster",
+        "Betreiber": "",
+        "Vor Ort bestätigt am": "05.01.2023",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6117306,
+          51.9712267
+        ]
+      },
+      "properties": {
+        "Typ": "Öffentliches Bücherregal",
+        "marker-color": "#a37545",
+        "Bezeichnung": "Schloßtheater",
+        "Adresse (ungefähr)": "Im Café im Schloßtheater (Kreuzviertel), Melchersstraße 81, 48149 Münster",
+        "Öffnungszeiten": "13:30-23:00",
+        "Infos im Internet": "http://wiki.muenster.org/index.php/Öffentliche_Bücherregale_in_Münster",
+        "Betreiber": "",
+        "Vor Ort bestätigt am": "",
+        "Bemerkung": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.523323,
+          51.922511
+        ]
+      },
+      "properties": {
+        "Typ": "Givebox",
+        "Bezeichnung": "Givebox Albachten",
+        "Adresse (ungefähr)": "Vor dem Claudius-Kindergarten, Wierling 31, Münster",
+        "Öffnungszeiten": "Mo bis So 10-17 Uhr",
+        "Infos im Internet": "https://givebox-albachten.jimdosite.com",
+        "Betreiber": "",
+        "Vor Ort bestätigt am": "02.02.2024",
+        "Bemerkung": ""
+      }
+    }
+  ]
+}
