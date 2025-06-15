@@ -9,7 +9,7 @@ from folium.plugins import MarkerCluster
 #defining original directory
 original_dir = os.getcwd()
 
-#choosing directory and checking for csv files
+#choosing directory and getting an overview over files
 os.chdir('raw_data_geojson')
 print("Current working directory:", os.getcwd())
 
@@ -35,10 +35,6 @@ try:
 except Exception as e:
     print(f"Something went wrong: {e}")
 
-
-
-
-
 # Create a map using folium 
 
 muenster = folium.Map(location=[51.96, 7.62], zoom_start=12.5)
@@ -46,12 +42,12 @@ marker_cluster=MarkerCluster().add_to(muenster)
 
 # Add Tischtennisplatten 
 tischtennis=gpd.read_file('tischtennisplatten_muenster.geojson')
-columns_to_show=['ort','material','typ']
+columns_to_show = ['ort','material']
 for idx, row in tischtennis.iterrows():
     if row.geometry:
         lon, lat= row.geometry.x, row.geometry.y
         popup_text = "<br>".join(
-            f"<b>{col}:</b> {row[col]}" 
+            f"<b>{col.title()}:</b> {row[col]}" # Change of titles  
                 for col in columns_to_show 
                 if col in tischtennis.columns and pd.notnull(row[col])
         )
@@ -63,7 +59,7 @@ for idx, row in tischtennis.iterrows():
 
 # Add Kinos 
 kinos=gpd.read_file('kinos.geojson')
-columns_to_show = ['NAME', 'STR_NAME','HSNR', 'HOMEPAGE']
+columns_to_show = ['NAME', 'STR_NAME', 'HOMEPAGE']
 
 for idx, row in kinos.iterrows():
     if row.geometry:
@@ -74,11 +70,18 @@ for idx, row in kinos.iterrows():
         popup_lines = []
         for col in columns_to_show:
             if col in row and pd.notnull(row[col]):
-                # Make URLs clickable
-                if col == 'HOMEPAGE' and 'http' in str(row[col]):
-                    popup_lines.append(f"<b>{col}:</b> <a href='{row[col]}' target='_blank'>{row[col]}</a>")
-                else:
-                    popup_lines.append(f"<b>{col}:</b> {row[col]}")
+                # For STR_NAME, append HSNR if it exists
+                if col == 'STR_NAME':
+                    address = str(row[col])
+                    if 'HSNR' in row and pd.notnull(row['HSNR']):
+                        address += f" {int(row['HSNR'])}" #convert to int to remove decimal
+                    popup_lines.append(f"<b>Address:</b> {address}")
+                # Handle HOMEPAGE 
+                elif col == 'HOMEPAGE' and 'http' in str(row[col]):
+                    popup_lines.append(f"<b>Homepage:</b> <a href='{row[col]}' target='_blank'>{row[col]}</a>")
+                # For NAME, just add it normally
+                elif col == 'NAME':
+                    popup_lines.append(f"<b>Name:</b> {row[col]}")
         
         if popup_lines:  # Only add marker if there's something to show
             folium.Marker(
@@ -93,8 +96,15 @@ columns_to_show=['Name']
 for idx, row in kinder.iterrows():
     if row.geometry:
         lon, lat= row.geometry.x, row.geometry.y
+        # Format the values in the name column, so that the street names are not in caps
+        name =str(row['Name'])
+        if name.startswith('SP'):
+            formatted_name ='SP'+' '+name[2:].strip().title()
+        else:
+            formatted_name=name.strip().title()
+
         popup_text = "<br>".join(
-            f"<b>{col}:</b> {row[col]}" 
+            f"<b>{col}:</b> {formatted_name if col == 'Name' else row[col]}" 
                 for col in columns_to_show 
                 if col in kinder.columns and pd.notnull(row[col])
         )
@@ -115,11 +125,13 @@ for idx, row in friedhof.iterrows():
         popup_lines = []
         for col in columns_to_show:
             if col in row and pd.notnull(row[col]):
+                #Format column name for display ( first letter capitalized)
+                display_name=col[0].upper()+col[1:].lower() if col else col
                 # Make URLs clickable
-                if col == 'HOMEPAGE' and 'http' in str(row[col]):
-                    popup_lines.append(f"<b>{col}:</b> <a href='{row[col]}' target='_blank'>{row[col]}</a>")
+                if col.lower() == 'homepage' and 'http' in str(row[col]):
+                    popup_lines.append(f"<b>{display_name}:</b> <a href='{row[col]}' target='_blank'>{row[col]}</a>")
                 else:
-                    popup_lines.append(f"<b>{col}:</b> {row[col]}")
+                    popup_lines.append(f"<b>{display_name}:</b> {row[col]}")
         
         if popup_lines:  # Only add marker if there's something to show
             folium.Marker(
