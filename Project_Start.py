@@ -165,6 +165,45 @@ for idx, row in refill.iterrows():
                 icon=folium.Icon(color='pink', icon='tint', prefix='fa')
             ).add_to(marker_cluster)
 
+#Add Gastronomie 
+gastro=gpd.read_file('muenster_gastronomie.geojson')
+columns_to_show=['name','addr:street','addr:housenumber','contact:phone','opening_hours','website']
+for idx, row in gastro.iterrows():
+    if row.geometry and pd.notnull(row.geometry):
+        lon, lat = row.geometry.x, row.geometry.y
+        
+        popup_lines = []
+        # Manually add name first if it exists
+        if 'name' in row and pd.notnull(row['name']):
+            popup_lines.append(f"<b>Name:</b> {row['name']}")
+
+        # Create address from street and housenumber
+        address = ""
+        if 'addr:street' in row and pd.notnull(row['addr:street']):
+            address += row['addr:street']
+        if 'addr:housenumber' in row and pd.notnull(row['addr:housenumber']):
+            address += f" {row['addr:housenumber']}"
+        if address:
+            popup_lines.append(f"<b>Address:</b> {address.strip()}")
+
+        # Add other details, excluding ones already handled
+        other_cols = ['contact:phone', 'opening_hours', 'website']
+        for col in other_cols:
+            if col in row and pd.notnull(row[col]):
+                display_name = col.replace('_', ' ').replace(':', ' ').title()
+                # Make website URL clickable
+                if col == 'website' and 'http' in str(row[col]):
+                    popup_lines.append(f"<b>{display_name}:</b> <a href='{row[col]}' target='_blank'>{row[col]}</a>")
+                else:
+                    popup_lines.append(f"<b>{display_name}:</b> {row[col]}")
+
+        if popup_lines:  # Only add marker if there's something to show
+            folium.Marker(
+                location=[lat, lon],
+                popup=folium.Popup("<br>".join(popup_lines), max_width=300),
+                icon=folium.Icon(color='lightred', icon='utensils', prefix='fa')
+            ).add_to(marker_cluster)
+
 
 # Add layer control (only need to do this once after all layers are added)
 folium.LayerControl().add_to(muenster)
