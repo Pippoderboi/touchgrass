@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_b9d9288a03c90cd037cd22669219be7b {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_b9d9288a03c90cd037cd22669219be7b" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_b9d9288a03c90cd037cd22669219be7b = L.map(
+                "map_b9d9288a03c90cd037cd22669219be7b",
+                {
+                    center: [51.9606649, 7.6261347],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 10,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_287d275de73bc5f7b1d1efa891103d1e = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_287d275de73bc5f7b1d1efa891103d1e.addTo(map_b9d9288a03c90cd037cd22669219be7b);
+        
+    
+            var marker_0a50e6794d305417fe4bfed017db93fd = L.marker(
+                [51.95584623978694, 7.652420670456721],
+                {
+}
+            ).addTo(map_b9d9288a03c90cd037cd22669219be7b);
+        
+    
+            var icon_3bda4bb173f3ceb9bf2bc6f6ee45dec1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkpurple",
+  "iconColor": "white",
+  "icon": "",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7cec81a9c074cf03bcf7360ca71b44db = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c304b2e8c845229519ae919a39a2b213 = $(`<div id="html_c304b2e8c845229519ae919a39a2b213" style="width: 100.0%; height: 100.0%;">Name: Amateurbühne Münster-Ost<br>PLZ: 48145<br>Web: https://amateurbuehne.de/</div>`)[0];
+                popup_7cec81a9c074cf03bcf7360ca71b44db.setContent(html_c304b2e8c845229519ae919a39a2b213);
+            
+        
+
+        marker_0a50e6794d305417fe4bfed017db93fd.bindPopup(popup_7cec81a9c074cf03bcf7360ca71b44db)
+        ;
+
+        
+    
+    
+                marker_0a50e6794d305417fe4bfed017db93fd.setIcon(icon_3bda4bb173f3ceb9bf2bc6f6ee45dec1);
+            
+    
+            var marker_4e6b2e92bb87c7a7ea6eb28b84feb096 = L.marker(
+                [51.95939284706549, 7.626305698178515],
+                {
+}
+            ).addTo(map_b9d9288a03c90cd037cd22669219be7b);
+        
+    
+            var icon_2e157bff25350d3e49997a00874868cf = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkpurple",
+  "iconColor": "white",
+  "icon": "",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6bd91c0193c6af65f03bc7fdfc228990 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4ac8c5955f4aa76081d0d2ae5b3abaae = $(`<div id="html_4ac8c5955f4aa76081d0d2ae5b3abaae" style="width: 100.0%; height: 100.0%;">Name: Boulevard Münster<br>PLZ: 48143<br>Web: https://www.boulevard-muenster.de/</div>`)[0];
+                popup_6bd91c0193c6af65f03bc7fdfc228990.setContent(html_4ac8c5955f4aa76081d0d2ae5b3abaae);
+            
+        
+
+        marker_4e6b2e92bb87c7a7ea6eb28b84feb096.bindPopup(popup_6bd91c0193c6af65f03bc7fdfc228990)
+        ;
+
+        
+    
+    
+                marker_4e6b2e92bb87c7a7ea6eb28b84feb096.setIcon(icon_2e157bff25350d3e49997a00874868cf);
+            
+    
+            var marker_0a06aba23f16949ed4a7d7d8c420d281 = L.marker(
+                [51.95472869529673, 7.616537763795772],
+                {
+}
+            ).addTo(map_b9d9288a03c90cd037cd22669219be7b);
+        
+    
+            var icon_1ff376776fe03ed63e5066aedaa80f9a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkpurple",
+  "iconColor": "white",
+  "icon": "",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_71ba89bcd4befdca7efe2185b0c53c98 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9fbad44dd4d868b9f3c28f5b20b368d8 = $(`<div id="html_9fbad44dd4d868b9f3c28f5b20b368d8" style="width: 100.0%; height: 100.0%;">Name: Charivari Puppentheater<br>PLZ: 48151<br>Web: http://charivari-theater.de/</div>`)[0];
+                popup_71ba89bcd4befdca7efe2185b0c53c98.setContent(html_9fbad44dd4d868b9f3c28f5b20b368d8);
+            
+        
+
+        marker_0a06aba23f16949ed4a7d7d8c420d281.bindPopup(popup_71ba89bcd4befdca7efe2185b0c53c98)
+        ;
+
+        
+    
+    
+                marker_0a06aba23f16949ed4a7d7d8c420d281.setIcon(icon_1ff376776fe03ed63e5066aedaa80f9a);
+            
+    
+            var marker_3fc692523d34e67b7897d19ef8bacdd1 = L.marker(
+                [51.95595017856474, 7.641124254960087],
+                {
+}
+            ).addTo(map_b9d9288a03c90cd037cd22669219be7b);
+        
+    
+            var icon_fb46a22825676796647be6d55ae639e1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkpurple",
+  "iconColor": "white",
+  "icon": "",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_21d6a7353fa358172cd96ec8662f5858 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4c3bac45571540fd1eee345bf1bdce07 = $(`<div id="html_4c3bac45571540fd1eee345bf1bdce07" style="width: 100.0%; height: 100.0%;">Name: Der kleine Bühnenboden<br>PLZ: 48155<br>Web: http://www.derkleinebuehnenboden.de/</div>`)[0];
+                popup_21d6a7353fa358172cd96ec8662f5858.setContent(html_4c3bac45571540fd1eee345bf1bdce07);
+            
+        
+
+        marker_3fc692523d34e67b7897d19ef8bacdd1.bindPopup(popup_21d6a7353fa358172cd96ec8662f5858)
+        ;
+
+        
+    
+    
+                marker_3fc692523d34e67b7897d19ef8bacdd1.setIcon(icon_fb46a22825676796647be6d55ae639e1);
+            
+    
+            var marker_904bf756e6440ee9011f8c7f6819e562 = L.marker(
+                [51.957369938758355, 7.634051890777789],
+                {
+}
+            ).addTo(map_b9d9288a03c90cd037cd22669219be7b);
+        
+    
+            var icon_789f04a8843e5b841f373f3b12fc7e99 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkpurple",
+  "iconColor": "white",
+  "icon": "",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_33005d7894458a3ebbe8c6483c719596 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7cd4d6f1dd37b15e19beb24fa56dfa75 = $(`<div id="html_7cd4d6f1dd37b15e19beb24fa56dfa75" style="width: 100.0%; height: 100.0%;">Name: GOP<br>PLZ: 48143<br>Web: https://www.variete.de/Muenster</div>`)[0];
+                popup_33005d7894458a3ebbe8c6483c719596.setContent(html_7cd4d6f1dd37b15e19beb24fa56dfa75);
+            
+        
+
+        marker_904bf756e6440ee9011f8c7f6819e562.bindPopup(popup_33005d7894458a3ebbe8c6483c719596)
+        ;
+
+        
+    
+    
+                marker_904bf756e6440ee9011f8c7f6819e562.setIcon(icon_789f04a8843e5b841f373f3b12fc7e99);
+            
+    
+            var marker_fa873a347093c6ac292a405541bf5f16 = L.marker(
+                [51.95881573882152, 7.641663432092336],
+                {
+}
+            ).addTo(map_b9d9288a03c90cd037cd22669219be7b);
+        
+    
+            var icon_44949d0a8c4f343ebbdd45ed3c4a731f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkpurple",
+  "iconColor": "white",
+  "icon": "",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7bfdf65492e8db81006d6dfeb0790558 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ba6a05704f1f955281120c03c54a099b = $(`<div id="html_ba6a05704f1f955281120c03c54a099b" style="width: 100.0%; height: 100.0%;">Name: Kreativ-Haus, Theaterbühne<br>PLZ: 48145<br>Web: https://kreativ-haus.de/</div>`)[0];
+                popup_7bfdf65492e8db81006d6dfeb0790558.setContent(html_ba6a05704f1f955281120c03c54a099b);
+            
+        
+
+        marker_fa873a347093c6ac292a405541bf5f16.bindPopup(popup_7bfdf65492e8db81006d6dfeb0790558)
+        ;
+
+        
+    
+    
+                marker_fa873a347093c6ac292a405541bf5f16.setIcon(icon_44949d0a8c4f343ebbdd45ed3c4a731f);
+            
+    
+            var marker_4681f648e96b6d001fc23e06bb54a60b = L.marker(
+                [51.96476928453094, 7.629343657324573],
+                {
+}
+            ).addTo(map_b9d9288a03c90cd037cd22669219be7b);
+        
+    
+            var icon_a4aff994af045b1a59395f4975b1e675 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkpurple",
+  "iconColor": "white",
+  "icon": "",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_44b9eae2dca18e14b3cd6452f33f14eb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_dbc95d9b536fa711e39a849aeb1ad389 = $(`<div id="html_dbc95d9b536fa711e39a849aeb1ad389" style="width: 100.0%; height: 100.0%;">Name: Niederdeutsche Bühne<br>PLZ: 48143<br>Web: http://www.niederdeutsche-buehne-muenster.de</div>`)[0];
+                popup_44b9eae2dca18e14b3cd6452f33f14eb.setContent(html_dbc95d9b536fa711e39a849aeb1ad389);
+            
+        
+
+        marker_4681f648e96b6d001fc23e06bb54a60b.bindPopup(popup_44b9eae2dca18e14b3cd6452f33f14eb)
+        ;
+
+        
+    
+    
+                marker_4681f648e96b6d001fc23e06bb54a60b.setIcon(icon_a4aff994af045b1a59395f4975b1e675);
+            
+    
+            var marker_85633428c8ccbc20c851f94567d0702f = L.marker(
+                [51.96894353551037, 7.619521021865644],
+                {
+}
+            ).addTo(map_b9d9288a03c90cd037cd22669219be7b);
+        
+    
+            var icon_e75f5c08737cf7a5bd44615d47a4ff9d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkpurple",
+  "iconColor": "white",
+  "icon": "",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ffa450ed1bd5797553bcaf651c999511 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_634c289da89b4ac33c1a43685c367b25 = $(`<div id="html_634c289da89b4ac33c1a43685c367b25" style="width: 100.0%; height: 100.0%;">Name: STORNO<br>PLZ: 48147<br>Web: https://www.storno.org/start/</div>`)[0];
+                popup_ffa450ed1bd5797553bcaf651c999511.setContent(html_634c289da89b4ac33c1a43685c367b25);
+            
+        
+
+        marker_85633428c8ccbc20c851f94567d0702f.bindPopup(popup_ffa450ed1bd5797553bcaf651c999511)
+        ;
+
+        
+    
+    
+                marker_85633428c8ccbc20c851f94567d0702f.setIcon(icon_e75f5c08737cf7a5bd44615d47a4ff9d);
+            
+    
+            var marker_1f3775fe80172f4a8ca5544d4be544fe = L.marker(
+                [51.962484815885986, 7.623896864251252],
+                {
+}
+            ).addTo(map_b9d9288a03c90cd037cd22669219be7b);
+        
+    
+            var icon_6a2c8a231508068337ec73e6cfb757bb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkpurple",
+  "iconColor": "white",
+  "icon": "",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_13cac9ce4172873ce6931a3a85964923 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d66bd1c403240d7d7784f480455ff8fe = $(`<div id="html_d66bd1c403240d7d7784f480455ff8fe" style="width: 100.0%; height: 100.0%;">Name: Studiobühnen Münster<br>PLZ: 48143<br>Web: https://www.uni-muenster.de/Studiobuehne/</div>`)[0];
+                popup_13cac9ce4172873ce6931a3a85964923.setContent(html_d66bd1c403240d7d7784f480455ff8fe);
+            
+        
+
+        marker_1f3775fe80172f4a8ca5544d4be544fe.bindPopup(popup_13cac9ce4172873ce6931a3a85964923)
+        ;
+
+        
+    
+    
+                marker_1f3775fe80172f4a8ca5544d4be544fe.setIcon(icon_6a2c8a231508068337ec73e6cfb757bb);
+            
+    
+            var marker_96d96c51c16a699d968b998568ebd1a3 = L.marker(
+                [51.95658582028313, 7.632343863807289],
+                {
+}
+            ).addTo(map_b9d9288a03c90cd037cd22669219be7b);
+        
+    
+            var icon_fcfdd9cc06c7e553d414e516244dd3ca = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkpurple",
+  "iconColor": "white",
+  "icon": "",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_eb4833529e5cc5d79a04bb8bdbbb134b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ce75b8f16c020c56a72fae6b4d3ae077 = $(`<div id="html_ce75b8f16c020c56a72fae6b4d3ae077" style="width: 100.0%; height: 100.0%;">Name: TPZ Münster<br>PLZ: 48143<br>Web: https://www.tpz-muenster.de/</div>`)[0];
+                popup_eb4833529e5cc5d79a04bb8bdbbb134b.setContent(html_ce75b8f16c020c56a72fae6b4d3ae077);
+            
+        
+
+        marker_96d96c51c16a699d968b998568ebd1a3.bindPopup(popup_eb4833529e5cc5d79a04bb8bdbbb134b)
+        ;
+
+        
+    
+    
+                marker_96d96c51c16a699d968b998568ebd1a3.setIcon(icon_fcfdd9cc06c7e553d414e516244dd3ca);
+            
+    
+            var marker_b6a6bfb7962adea7f1d0434f1f63f31c = L.marker(
+                [51.964899875674035, 7.628975769552081],
+                {
+}
+            ).addTo(map_b9d9288a03c90cd037cd22669219be7b);
+        
+    
+            var icon_79dcf82c8260e314113574cff548d36f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkpurple",
+  "iconColor": "white",
+  "icon": "",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3f626b3fae8fb5c6636fec0756fa2667 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6e56150217e28919cdb3585e0eb85af6 = $(`<div id="html_6e56150217e28919cdb3585e0eb85af6" style="width: 100.0%; height: 100.0%;">Name: Theater Münster<br>PLZ: 48143<br>Web: https://www.theater-muenster.com/</div>`)[0];
+                popup_3f626b3fae8fb5c6636fec0756fa2667.setContent(html_6e56150217e28919cdb3585e0eb85af6);
+            
+        
+
+        marker_b6a6bfb7962adea7f1d0434f1f63f31c.bindPopup(popup_3f626b3fae8fb5c6636fec0756fa2667)
+        ;
+
+        
+    
+    
+                marker_b6a6bfb7962adea7f1d0434f1f63f31c.setIcon(icon_79dcf82c8260e314113574cff548d36f);
+            
+    
+            var marker_feff99134253ca3862f808267927d3c5 = L.marker(
+                [51.94136624745921, 7.625678052591018],
+                {
+}
+            ).addTo(map_b9d9288a03c90cd037cd22669219be7b);
+        
+    
+            var icon_cf176fe6b49e29abf08aa12a007f0ca9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkpurple",
+  "iconColor": "white",
+  "icon": "",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c21b2b65c85c1122f82338036c981acc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_33c6fe31ab0d74f7f6d14ceb6c2cb541 = $(`<div id="html_33c6fe31ab0d74f7f6d14ceb6c2cb541" style="width: 100.0%; height: 100.0%;">Name: Theater Szenenwechsel<br>PLZ: 48153<br>Web: https://www.theater-szenenwechsel.de/</div>`)[0];
+                popup_c21b2b65c85c1122f82338036c981acc.setContent(html_33c6fe31ab0d74f7f6d14ceb6c2cb541);
+            
+        
+
+        marker_feff99134253ca3862f808267927d3c5.bindPopup(popup_c21b2b65c85c1122f82338036c981acc)
+        ;
+
+        
+    
+    
+                marker_feff99134253ca3862f808267927d3c5.setIcon(icon_cf176fe6b49e29abf08aa12a007f0ca9);
+            
+    
+            var marker_799b91572d30aa83aed7eca9473ffa2b = L.marker(
+                [51.973309535457844, 7.636158652226715],
+                {
+}
+            ).addTo(map_b9d9288a03c90cd037cd22669219be7b);
+        
+    
+            var icon_be053bef0670911d89ef3889df12d653 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkpurple",
+  "iconColor": "white",
+  "icon": "",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ad7d3e92a9c5d4f314b13525153d9f1c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_167422a1b84216e2aa14363516eb912e = $(`<div id="html_167422a1b84216e2aa14363516eb912e" style="width: 100.0%; height: 100.0%;">Name: Theater im Pumpenhaus<br>PLZ: 48147<br>Web: https://www.pumpenhaus.de/</div>`)[0];
+                popup_ad7d3e92a9c5d4f314b13525153d9f1c.setContent(html_167422a1b84216e2aa14363516eb912e);
+            
+        
+
+        marker_799b91572d30aa83aed7eca9473ffa2b.bindPopup(popup_ad7d3e92a9c5d4f314b13525153d9f1c)
+        ;
+
+        
+    
+    
+                marker_799b91572d30aa83aed7eca9473ffa2b.setIcon(icon_be053bef0670911d89ef3889df12d653);
+            
+    
+            var marker_9bd1d31ae15143406241f0507819e721 = L.marker(
+                [51.98840827838724, 7.651152098871926],
+                {
+}
+            ).addTo(map_b9d9288a03c90cd037cd22669219be7b);
+        
+    
+            var icon_0d5ea32ecc416f2bd72c8acf1f3ac9bf = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkpurple",
+  "iconColor": "white",
+  "icon": "",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5a184bb98f9d00caa4bfeb9d0019e59c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_04f8f1750ab02acbeb8f5c0620b92438 = $(`<div id="html_04f8f1750ab02acbeb8f5c0620b92438" style="width: 100.0%; height: 100.0%;">Name: Theater in der Meerwiese<br>PLZ: 48157<br>Web: https://www.stadt-muenster.de/meerwiese/</div>`)[0];
+                popup_5a184bb98f9d00caa4bfeb9d0019e59c.setContent(html_04f8f1750ab02acbeb8f5c0620b92438);
+            
+        
+
+        marker_9bd1d31ae15143406241f0507819e721.bindPopup(popup_5a184bb98f9d00caa4bfeb9d0019e59c)
+        ;
+
+        
+    
+    
+                marker_9bd1d31ae15143406241f0507819e721.setIcon(icon_0d5ea32ecc416f2bd72c8acf1f3ac9bf);
+            
+    
+            var marker_c1afe2bfdc247733ac88b0c043d98020 = L.marker(
+                [51.904603179665045, 7.654027576928155],
+                {
+}
+            ).addTo(map_b9d9288a03c90cd037cd22669219be7b);
+        
+    
+            var icon_cf3a8757c32475d538d3650b1414c8b0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkpurple",
+  "iconColor": "white",
+  "icon": "",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_34d1d2ac39053abda6060647674f8871 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_58a7d3172358c98955258252fb26bc74 = $(`<div id="html_58a7d3172358c98955258252fb26bc74" style="width: 100.0%; height: 100.0%;">Name: Theaterlabor im Kulturbahnhof<br>PLZ: 48165<br>Web: https://www.uni-muenster.de/Kustodie/kulturatlas/theaterlabor.html</div>`)[0];
+                popup_34d1d2ac39053abda6060647674f8871.setContent(html_58a7d3172358c98955258252fb26bc74);
+            
+        
+
+        marker_c1afe2bfdc247733ac88b0c043d98020.bindPopup(popup_34d1d2ac39053abda6060647674f8871)
+        ;
+
+        
+    
+    
+                marker_c1afe2bfdc247733ac88b0c043d98020.setIcon(icon_cf3a8757c32475d538d3650b1414c8b0);
+            
+    
+            var marker_29bbd29b1a4a101fc0cf5a43731667f2 = L.marker(
+                [51.95115486015919, 7.640105093968331],
+                {
+}
+            ).addTo(map_b9d9288a03c90cd037cd22669219be7b);
+        
+    
+            var icon_96235ad3e5ae26a322ee0c32f9a1660a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkpurple",
+  "iconColor": "white",
+  "icon": "",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d076706517da70b35d8d1ab0071f62de = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_34bd283aafd61a10a340312c3775335b = $(`<div id="html_34bd283aafd61a10a340312c3775335b" style="width: 100.0%; height: 100.0%;">Name: Wolfgang Borchert Theater<br>PLZ: 48155<br>Web: https://www.wolfgang-borchert-theater.de/</div>`)[0];
+                popup_d076706517da70b35d8d1ab0071f62de.setContent(html_34bd283aafd61a10a340312c3775335b);
+            
+        
+
+        marker_29bbd29b1a4a101fc0cf5a43731667f2.bindPopup(popup_d076706517da70b35d8d1ab0071f62de)
+        ;
+
+        
+    
+    
+                marker_29bbd29b1a4a101fc0cf5a43731667f2.setIcon(icon_96235ad3e5ae26a322ee0c32f9a1660a);
+            
+    
+            tile_layer_287d275de73bc5f7b1d1efa891103d1e.addTo(map_b9d9288a03c90cd037cd22669219be7b);
+        
+    
+                marker_0a50e6794d305417fe4bfed017db93fd.setIcon(icon_3bda4bb173f3ceb9bf2bc6f6ee45dec1);
+            
+    
+                marker_4e6b2e92bb87c7a7ea6eb28b84feb096.setIcon(icon_2e157bff25350d3e49997a00874868cf);
+            
+    
+                marker_0a06aba23f16949ed4a7d7d8c420d281.setIcon(icon_1ff376776fe03ed63e5066aedaa80f9a);
+            
+    
+                marker_3fc692523d34e67b7897d19ef8bacdd1.setIcon(icon_fb46a22825676796647be6d55ae639e1);
+            
+    
+                marker_904bf756e6440ee9011f8c7f6819e562.setIcon(icon_789f04a8843e5b841f373f3b12fc7e99);
+            
+    
+                marker_fa873a347093c6ac292a405541bf5f16.setIcon(icon_44949d0a8c4f343ebbdd45ed3c4a731f);
+            
+    
+                marker_4681f648e96b6d001fc23e06bb54a60b.setIcon(icon_a4aff994af045b1a59395f4975b1e675);
+            
+    
+                marker_85633428c8ccbc20c851f94567d0702f.setIcon(icon_e75f5c08737cf7a5bd44615d47a4ff9d);
+            
+    
+                marker_1f3775fe80172f4a8ca5544d4be544fe.setIcon(icon_6a2c8a231508068337ec73e6cfb757bb);
+            
+    
+                marker_96d96c51c16a699d968b998568ebd1a3.setIcon(icon_fcfdd9cc06c7e553d414e516244dd3ca);
+            
+    
+                marker_b6a6bfb7962adea7f1d0434f1f63f31c.setIcon(icon_79dcf82c8260e314113574cff548d36f);
+            
+    
+                marker_feff99134253ca3862f808267927d3c5.setIcon(icon_cf176fe6b49e29abf08aa12a007f0ca9);
+            
+    
+                marker_799b91572d30aa83aed7eca9473ffa2b.setIcon(icon_be053bef0670911d89ef3889df12d653);
+            
+    
+                marker_9bd1d31ae15143406241f0507819e721.setIcon(icon_0d5ea32ecc416f2bd72c8acf1f3ac9bf);
+            
+    
+                marker_c1afe2bfdc247733ac88b0c043d98020.setIcon(icon_cf3a8757c32475d538d3650b1414c8b0);
+            
+    
+                marker_29bbd29b1a4a101fc0cf5a43731667f2.setIcon(icon_96235ad3e5ae26a322ee0c32f9a1660a);
+            
+    
+            var layer_control_efd4134b0729e7c5301734b42f3c613a_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_287d275de73bc5f7b1d1efa891103d1e,
+                },
+                overlays :  {
+                },
+            };
+            let layer_control_efd4134b0729e7c5301734b42f3c613a = L.control.layers(
+                layer_control_efd4134b0729e7c5301734b42f3c613a_layers.base_layers,
+                layer_control_efd4134b0729e7c5301734b42f3c613a_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_b9d9288a03c90cd037cd22669219be7b);
+
+        
+    
+            tile_layer_287d275de73bc5f7b1d1efa891103d1e.addTo(map_b9d9288a03c90cd037cd22669219be7b);
+        
+    
+                marker_0a50e6794d305417fe4bfed017db93fd.setIcon(icon_3bda4bb173f3ceb9bf2bc6f6ee45dec1);
+            
+    
+                marker_4e6b2e92bb87c7a7ea6eb28b84feb096.setIcon(icon_2e157bff25350d3e49997a00874868cf);
+            
+    
+                marker_0a06aba23f16949ed4a7d7d8c420d281.setIcon(icon_1ff376776fe03ed63e5066aedaa80f9a);
+            
+    
+                marker_3fc692523d34e67b7897d19ef8bacdd1.setIcon(icon_fb46a22825676796647be6d55ae639e1);
+            
+    
+                marker_904bf756e6440ee9011f8c7f6819e562.setIcon(icon_789f04a8843e5b841f373f3b12fc7e99);
+            
+    
+                marker_fa873a347093c6ac292a405541bf5f16.setIcon(icon_44949d0a8c4f343ebbdd45ed3c4a731f);
+            
+    
+                marker_4681f648e96b6d001fc23e06bb54a60b.setIcon(icon_a4aff994af045b1a59395f4975b1e675);
+            
+    
+                marker_85633428c8ccbc20c851f94567d0702f.setIcon(icon_e75f5c08737cf7a5bd44615d47a4ff9d);
+            
+    
+                marker_1f3775fe80172f4a8ca5544d4be544fe.setIcon(icon_6a2c8a231508068337ec73e6cfb757bb);
+            
+    
+                marker_96d96c51c16a699d968b998568ebd1a3.setIcon(icon_fcfdd9cc06c7e553d414e516244dd3ca);
+            
+    
+                marker_b6a6bfb7962adea7f1d0434f1f63f31c.setIcon(icon_79dcf82c8260e314113574cff548d36f);
+            
+    
+                marker_feff99134253ca3862f808267927d3c5.setIcon(icon_cf176fe6b49e29abf08aa12a007f0ca9);
+            
+    
+                marker_799b91572d30aa83aed7eca9473ffa2b.setIcon(icon_be053bef0670911d89ef3889df12d653);
+            
+    
+                marker_9bd1d31ae15143406241f0507819e721.setIcon(icon_0d5ea32ecc416f2bd72c8acf1f3ac9bf);
+            
+    
+                marker_c1afe2bfdc247733ac88b0c043d98020.setIcon(icon_cf3a8757c32475d538d3650b1414c8b0);
+            
+    
+                marker_29bbd29b1a4a101fc0cf5a43731667f2.setIcon(icon_96235ad3e5ae26a322ee0c32f9a1660a);
+            
+</script>
+</html>
