@@ -5,6 +5,7 @@ import pandas as pd
 import os 
 import folium 
 from folium.plugins import MarkerCluster
+from formatting_openhour import format_opening_hours
 
 #defining original directory
 original_dir = os.getcwd()
@@ -59,7 +60,7 @@ for idx, row in tischtennis.iterrows():
 
 # Add Kinos 
 kinos=gpd.read_file('kinos.geojson')
-columns_to_show = ['NAME', 'STR_NAME', 'HOMEPAGE']
+columns_to_show = ['NAME', 'STR_NAME', 'HOMEPAGE','opening_hours']
 
 for idx, row in kinos.iterrows():
     if row.geometry:
@@ -82,6 +83,10 @@ for idx, row in kinos.iterrows():
                 # For NAME, just add it normally
                 elif col == 'NAME':
                     popup_lines.append(f"<b>Name:</b> {row[col]}")
+                # Add Opening Hours
+                elif col =='opening_hours':
+                    formatted_hours= format_opening_hours(row[col])
+                    popup_lines.append(f"<b>Opening Hours:</b><br>{formatted_hours}") 
         
         if popup_lines:  # Only add marker if there's something to show
             folium.Marker(
@@ -194,6 +199,9 @@ for idx, row in gastro.iterrows():
                 # Make website URL clickable
                 if col == 'website' and 'http' in str(row[col]):
                     popup_lines.append(f"<b>{display_name}:</b> <a href='{row[col]}' target='_blank'>{row[col]}</a>")
+                elif col =='opening_hours':
+                    formatted_hours= format_opening_hours(row[col])
+                    popup_lines.append(f"<b>{display_name}:</b><br>{formatted_hours}")
                 else:
                     popup_lines.append(f"<b>{display_name}:</b> {row[col]}")
 
