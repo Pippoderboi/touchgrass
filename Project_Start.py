@@ -58,6 +58,94 @@ for idx, row in tischtennis.iterrows():
             icon=folium.Icon(color='blue', icon='table-tennis', prefix='fa')
         ).add_to(marker_cluster)
 
+# Add Museen
+import os
+script_dir = os.path.dirname(os.path.abspath(__file__))
+museen = gpd.read_file(os.path.join(script_dir, 'museen_mit_opening_hours.geojson'))
+for idx, row in museen.iterrows():
+    if row.geometry:
+        lon, lat = row.geometry.x, row.geometry.y
+        popup_text = f"<strong>{row['NAME']}</strong><br>" \
+                    f"Adresse: {row['STR_NAME']} {row['HSNR']}<br>" \
+                    f"PLZ: {int(row['PLZ'])}<br>" \
+                    f"Öffnungszeiten: {row['OPENING HOURS'] if 'OPENING HOURS' in row and pd.notna(row['OPENING HOURS']) else 'Keine Öffnungszeiten verfügbar'}<br>" \
+                    f"Homepage: <a href='{row['HOMEPAGE']}' target='_blank'>{row['HOMEPAGE']}</a>"
+        folium.Marker(
+            location=[lat, lon],
+            popup=popup_text,
+            icon=folium.Icon(color='purple', icon='museum', prefix='fa')
+        ).add_to(marker_cluster)
+
+# Add Buechereien
+buechereien = gpd.read_file(os.path.join(script_dir, 'raw_data_geojson', 'buechereien.geojson'))
+for idx, row in buechereien.iterrows():
+    if row.geometry:
+        lon, lat = row.geometry.x, row.geometry.y
+        popup_text = f"<strong>{row['NAME']}</strong><br>" \
+                    f"Telefon: {row['TEL']}<br>" \
+                    f"Zusatzservice: {row['ZUSATZ_SERVICE']}<br>" \
+                    f"Homepage: <a href='{row['LINK1']}' target='_blank'>{row['LINK1']}</a>"
+        folium.Marker(
+            location=[lat, lon],
+            popup=popup_text,
+            icon=folium.Icon(color='orange', icon='book', prefix='fa')
+        ).add_to(marker_cluster)
+
+# Add Sportstaetten
+sportstaetten = gpd.read_file(os.path.join(script_dir, 'sportstaetten_mit_opening_hours.geojson'))
+for idx, row in sportstaetten.iterrows():
+    if row.geometry:
+        lon, lat = row.geometry.x, row.geometry.y
+        hsnr = int(row['Hsnr']) if pd.notna(row['Hsnr']) else ''
+        popup_text = f"<strong>{row['Produkt']}</strong><br>" \
+                    f"Typ: {row['Teilprodukt']}<br>" \
+                    f"Adresse: {row['Strname']} {hsnr}<br>" \
+                    f"PLZ: {int(row['Plz'])}"
+        icon = folium.Icon(color='red', icon='flag', prefix='fa')
+        folium.Marker(
+            location=[lat, lon],
+            popup=popup_text,
+            icon=icon
+        ).add_to(marker_cluster)
+
+# Add Still & Wickelplätze
+wickelplaetze_path = os.path.join(script_dir, 'raw_data_geojson', 'still-und-wickelplaetze-muenster-2023.geojson')
+print(f"Loading Still & Wickelplätze from: {wickelplaetze_path}")
+wickelplaetze = gpd.read_file(wickelplaetze_path)
+print(f"Loaded {len(wickelplaetze)} Still & Wickelplätze")
+
+for idx, row in wickelplaetze.iterrows():
+    if row.geometry:
+        lon, lat = row.geometry.x, row.geometry.y
+        popup_text = f"<strong>{row['Name']}</strong><br>" \
+                    f"Adresse: {row['Straße']}<br>" \
+                    f"Stockwerk: {row['Stockwerk'] if pd.notna(row['Stockwerk']) else 'nicht angegeben'}<br>" \
+                    f"Typ: {row['Typ']}"
+        icon = folium.Icon(color='lightblue', icon='baby', prefix='fa')
+        marker = folium.Marker(
+            location=[lat, lon],
+            popup=popup_text,
+            icon=icon
+        )
+        marker.add_to(marker_cluster)
+        print(f"Added marker for {row['Name']} at {lat}, {lon}")
+
+# Add Give Boxen
+give_boxen = gpd.read_file('give_boxen.geojson')
+for idx, row in give_boxen.iterrows():
+    if row.geometry:
+        lon, lat = row.geometry.x, row.geometry.y
+        popup_text = f"<strong>{row['Bezeichnung']}</strong><br>" \
+                    f"Adresse: {row['Adresse (ungefähr)']}<br>" \
+                    f"Öffnungszeiten: {row['Öffnungszeiten']}<br>" \
+                    f"Betreiber: {row['Betreiber']}<br>" \
+                    f"Mehr Info: <a href='{row['Infos im Internet']}' target='_blank'>{row['Infos im Internet']}</a>"
+        folium.Marker(
+            location=[lat, lon],
+            popup=popup_text,
+            icon=folium.Icon(color='blue', icon='gift')
+        ).add_to(marker_cluster)
+
 # Add Kinos 
 kinos=gpd.read_file('kinos.geojson')
 columns_to_show = ['NAME', 'STR_NAME', 'HOMEPAGE','opening_hours']

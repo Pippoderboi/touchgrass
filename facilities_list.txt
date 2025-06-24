@@ -1,0 +1,66 @@
+Museums:
+ID: 210 - LWL-Museum für Kunst und Kultur
+ID: 211 - LWL-Museum für Naturkunde
+ID: 212 - LWL-Museum für Archäologie
+ID: 213 - LWL-Museum für Geschichte Westfalens
+ID: 214 - LWL-Museum für Kunst und Kultur
+ID: 215 - LWL-Museum für Naturkunde
+ID: 216 - LWL-Museum für Archäologie
+ID: 217 - LWL-Museum für Geschichte Westfalens
+ID: 218 - LWL-Museum für Kunst und Kultur
+ID: 219 - LWL-Museum für Naturkunde
+ID: 220 - LWL-Museum für Archäologie
+ID: 221 - LWL-Museum für Geschichte Westfalens
+ID: 222 - LWL-Museum für Kunst und Kultur
+ID: 223 - LWL-Museum für Naturkunde
+ID: 224 - LWL-Museum für Archäologie
+ID: 225 - LWL-Museum für Geschichte Westfalens
+ID: 226 - LWL-Museum für Kunst und Kultur
+ID: 227 - LWL-Museum für Naturkunde
+ID: 228 - LWL-Museum für Archäologie
+ID: 229 - LWL-Museum für Geschichte Westfalens
+ID: 230 - LWL-Museum für Kunst und Kultur
+ID: 231 - LWL-Museum für Naturkunde
+ID: 232 - LWL-Museum für Archäologie
+ID: 233 - LWL-Museum für Geschichte Westfalens
+ID: 234 - LWL-Museum für Kunst und Kultur
+ID: 235 - LWL-Museum für Naturkunde
+ID: 236 - LWL-Museum für Archäologie
+ID: 237 - LWL-Museum für Geschichte Westfalens
+ID: 238 - LWL-Museum für Kunst und Kultur
+ID: 239 - LWL-Museum für Naturkunde
+ID: 240 - LWL-Museum für Archäologie
+ID: 241 - LWL-Museum für Geschichte Westfalens
+
+Libraries:
+ID: 1 - Stadtbücherei Münster
+ID: 2 - Stadtbücherei in Coerde
+ID: 3 - Stadtbücherei im Aaseemarkt
+ID: 4 - Stadtbücherei am Hansaplatz
+ID: 5 - Stadtbücherei in Hiltrup
+ID: 6 - Stadtbücherei in Nordstadt
+ID: 7 - Stadtbücherei in Oststadt
+ID: 8 - Stadtbücherei in Südstadt
+ID: 9 - Stadtbücherei in Weststadt
+ID: 10 - Stadtbücherei in Nordweststadt
+ID: 11 - Stadtbücherei in Südweststadt
+ID: 12 - Stadtbücherei in Südoststadt
+ID: 13 - Stadtbücherei in Nordoststadt
+
+Sport Facilities:
+ID: 210 - Turn- und Sporthallen
+ID: 211 - Turn- und Sporthallen
+ID: 212 - Sondersportanlagen
+ID: 213 - Bezirkssportanlage
+ID: 214 - Sondersportanlagen
+ID: 215 - Sondersportanlagen
+ID: 216 - Sondersportanlagen
+ID: 217 - Sondersportanlagen
+ID: 218 - Sondersportanlagen
+ID: 219 - Sondersportanlagen
+ID: 220 - Sondersportanlagen
+ID: 221 - Sondersportanlagen
+ID: 222 - Sondersportanlagen
+ID: 223 - Sondersportanlagen
+ID: 224 - Sondersportanlagen
+ID: 225 - Sondersportanlagen

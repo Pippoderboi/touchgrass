@@ -1,0 +1,4 @@
+type,id,name,monday,tuesday,wednesday,thursday,friday,saturday,sunday,notes
+museum,210,"LWL-Museum für Kunst und Kultur","09:00-17:00","09:00-17:00","09:00-17:00","09:00-17:00","09:00-17:00","closed","closed","Closed on Mondays"
+library,1,"Stadtbücherei Münster","08:00-20:00","08:00-20:00","08:00-20:00","08:00-20:00","08:00-18:00","closed","closed",""
+sport_facility,213,"Bezirkssportanlage","06:00-22:00","06:00-22:00","06:00-22:00","06:00-22:00","06:00-22:00","06:00-22:00","06:00-22:00","24/7 access with membership card"
