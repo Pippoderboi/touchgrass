@@ -39,7 +39,35 @@ except Exception as e:
 # Create a map using folium 
 
 muenster = folium.Map(location=[51.96, 7.62], zoom_start=12.5)
-marker_cluster=MarkerCluster().add_to(muenster)
+
+#function to create a feature group with clustering
+
+def create_clustered_feature_group(name, min_zoom=13, show=True):
+    fg = folium.FeatureGroup(name=name, show=show)
+    return MarkerCluster(
+        name=name,
+        options={
+            'maxClusterRadius': 80,  # Adjust cluster size
+            'disableClusteringAtZoom': min_zoom,  # Start showing individual markers at this zoom
+            'spiderfyDistanceMultiplier': 2  # How far markers spread out when clicked
+        }
+    ).add_to(fg), fg
+
+
+#Creating clustered feature groups
+# Find a reasonable min_zoom for every group
+
+museen_cluster, museen_group = create_clustered_feature_group('Museen', min_zoom=15)
+buechereien_cluster, buechereien_group = create_clustered_feature_group('Büchereien',min_zoom=15)
+sportstaetten_cluster, sportstaetten_group = create_clustered_feature_group('Sportstätten',min_zoom=15)
+tischtennis_cluster, tischtennis_group = create_clustered_feature_group('Tischtennisplatten',min_zoom=15)
+wickelplaetze_cluster, wickelplaetze_group = create_clustered_feature_group('Wickelplätze',min_zoom=15)
+give_boxen_cluster, give_boxen_group = create_clustered_feature_group('Give Boxen',min_zoom=15)
+kinos_cluster, kinos_group = create_clustered_feature_group('Kinos',min_zoom=15)
+kinder_cluster, kinder_group = create_clustered_feature_group('Spielplätze',min_zoom=15)
+friedhof_cluster, friedhof_group = create_clustered_feature_group('Friedhöfe',min_zoom=15)
+refill_cluster, refill_group = create_clustered_feature_group('Refillstationen',min_zoom=15)
+gastro_cluster, gastro_group = create_clustered_feature_group('Gastronomie',min_zoom=20)
 
 # Add Tischtennisplatten 
 tischtennis=gpd.read_file('tischtennisplatten_muenster.geojson')
@@ -56,43 +84,41 @@ for idx, row in tischtennis.iterrows():
             location=[lat,lon],
             popup=folium.Popup(popup_text, max_width=300),
             icon=folium.Icon(color='blue', icon='table-tennis', prefix='fa')
-        ).add_to(marker_cluster)
+        ).add_to(tischtennis_cluster)
 
 # Add Museen
-import os
-script_dir = os.path.dirname(os.path.abspath(__file__))
-museen = gpd.read_file(os.path.join(script_dir, 'museen_mit_opening_hours.geojson'))
+museen = gpd.read_file('museen_mit_opening_hours.geojson')
 for idx, row in museen.iterrows():
     if row.geometry:
         lon, lat = row.geometry.x, row.geometry.y
         popup_text = f"<strong>{row['NAME']}</strong><br>" \
                     f"Adresse: {row['STR_NAME']} {row['HSNR']}<br>" \
                     f"PLZ: {int(row['PLZ'])}<br>" \
-                    f"Öffnungszeiten: {row['OPENING HOURS'] if 'OPENING HOURS' in row and pd.notna(row['OPENING HOURS']) else 'Keine Öffnungszeiten verfügbar'}<br>" \
+                    f"Öffnungszeiten: {format_opening_hours(row.get('opening_hours_osm'))}<br>" \
                     f"Homepage: <a href='{row['HOMEPAGE']}' target='_blank'>{row['HOMEPAGE']}</a>"
         folium.Marker(
             location=[lat, lon],
             popup=popup_text,
             icon=folium.Icon(color='purple', icon='museum', prefix='fa')
-        ).add_to(marker_cluster)
+        ).add_to(museen_cluster)
 
 # Add Buechereien
-buechereien = gpd.read_file(os.path.join(script_dir, 'raw_data_geojson', 'buechereien.geojson'))
+buechereien = gpd.read_file('buechereien_mit_opening_hours.geojson')
 for idx, row in buechereien.iterrows():
     if row.geometry:
         lon, lat = row.geometry.x, row.geometry.y
         popup_text = f"<strong>{row['NAME']}</strong><br>" \
                     f"Telefon: {row['TEL']}<br>" \
-                    f"Zusatzservice: {row['ZUSATZ_SERVICE']}<br>" \
+                    f"Öffnungszeiten: {format_opening_hours(row.get('OPENING HOURS'))}<br>" \
                     f"Homepage: <a href='{row['LINK1']}' target='_blank'>{row['LINK1']}</a>"
         folium.Marker(
             location=[lat, lon],
             popup=popup_text,
             icon=folium.Icon(color='orange', icon='book', prefix='fa')
-        ).add_to(marker_cluster)
+        ).add_to(buechereien_cluster)
 
 # Add Sportstaetten
-sportstaetten = gpd.read_file(os.path.join(script_dir, 'sportstaetten_mit_opening_hours.geojson'))
+sportstaetten = gpd.read_file('sportstaetten_mit_opening_hours.geojson')
 for idx, row in sportstaetten.iterrows():
     if row.geometry:
         lon, lat = row.geometry.x, row.geometry.y
@@ -100,19 +126,16 @@ for idx, row in sportstaetten.iterrows():
         popup_text = f"<strong>{row['Produkt']}</strong><br>" \
                     f"Typ: {row['Teilprodukt']}<br>" \
                     f"Adresse: {row['Strname']} {hsnr}<br>" \
-                    f"PLZ: {int(row['Plz'])}"
-        icon = folium.Icon(color='red', icon='flag', prefix='fa')
+                    f"PLZ: {int(row['Plz'])}<br>"\
+                    f"Öffnungszeiten: {format_opening_hours(row.get('OPENING HOURS'))}"
         folium.Marker(
             location=[lat, lon],
             popup=popup_text,
-            icon=icon
-        ).add_to(marker_cluster)
+            icon=folium.Icon (color='red',icon='flag',prefix='fa')
+        ).add_to(sportstaetten_cluster)
 
 # Add Still & Wickelplätze
-wickelplaetze_path = os.path.join(script_dir, 'raw_data_geojson', 'still-und-wickelplaetze-muenster-2023.geojson')
-print(f"Loading Still & Wickelplätze from: {wickelplaetze_path}")
-wickelplaetze = gpd.read_file(wickelplaetze_path)
-print(f"Loaded {len(wickelplaetze)} Still & Wickelplätze")
+wickelplaetze = gpd.read_file('still-und-wickelplaetze-muenster-2023.geojson')
 
 for idx, row in wickelplaetze.iterrows():
     if row.geometry:
@@ -121,14 +144,12 @@ for idx, row in wickelplaetze.iterrows():
                     f"Adresse: {row['Straße']}<br>" \
                     f"Stockwerk: {row['Stockwerk'] if pd.notna(row['Stockwerk']) else 'nicht angegeben'}<br>" \
                     f"Typ: {row['Typ']}"
-        icon = folium.Icon(color='lightblue', icon='baby', prefix='fa')
         marker = folium.Marker(
             location=[lat, lon],
             popup=popup_text,
-            icon=icon
-        )
-        marker.add_to(marker_cluster)
-        print(f"Added marker for {row['Name']} at {lat}, {lon}")
+            icon=folium.Icon(color='lightblue',icon='baby',prefix='fa')
+        ).add_to(wickelplaetze_cluster)
+
 
 # Add Give Boxen
 give_boxen = gpd.read_file('give_boxen.geojson')
@@ -143,8 +164,8 @@ for idx, row in give_boxen.iterrows():
         folium.Marker(
             location=[lat, lon],
             popup=popup_text,
-            icon=folium.Icon(color='blue', icon='gift')
-        ).add_to(marker_cluster)
+            icon=folium.Icon(color='blue', icon='box-open',prefix='fa')
+        ).add_to(give_boxen_cluster)
 
 # Add Kinos 
 kinos=gpd.read_file('kinos.geojson')
@@ -181,7 +202,7 @@ for idx, row in kinos.iterrows():
                 location=[lat, lon],
                 popup=folium.Popup("<br>".join(popup_lines), max_width=300),
                 icon=folium.Icon(color='green', icon='film', prefix='fa')
-            ).add_to(marker_cluster)
+            ).add_to(kinos_cluster)
 
 # Add Kinderspielplätze 
 kinder=gpd.read_file('spielplaetze.geojson')
@@ -205,7 +226,7 @@ for idx, row in kinder.iterrows():
             location=[lat,lon],
             popup=folium.Popup(popup_text, max_width=300),
             icon=folium.Icon(color='lightred', icon='child-reaching', prefix='fa')
-        ).add_to(marker_cluster)
+        ).add_to(kinder_cluster)
 
 # Add Friedhöfe
 friedhof=gpd.read_file('friedhoefe.geojson')
@@ -231,7 +252,7 @@ for idx, row in friedhof.iterrows():
                 location=[lat, lon],
                 popup=folium.Popup("<br>".join(popup_lines), max_width=300),
                 icon=folium.Icon(color='darkblue', icon='cross', prefix='fa')
-            ).add_to(marker_cluster)
+            ).add_to(friedhof_cluster)  
 
 
 # Add Refill Stationen 
@@ -256,7 +277,7 @@ for idx, row in refill.iterrows():
                 location=[lat, lon],
                 popup=folium.Popup("<br>".join(popup_lines), max_width=300),
                 icon=folium.Icon(color='pink', icon='tint', prefix='fa')
-            ).add_to(marker_cluster)
+            ).add_to(refill_cluster)
 
 #Add Gastronomie 
 gastro=gpd.read_file('muenster_gastronomie.geojson')
@@ -298,8 +319,16 @@ for idx, row in gastro.iterrows():
                 location=[lat, lon],
                 popup=folium.Popup("<br>".join(popup_lines), max_width=300),
                 icon=folium.Icon(color='lightred', icon='utensils', prefix='fa')
-            ).add_to(marker_cluster)
+            ).add_to(gastro_cluster)
 
+
+
+
+# Add all feature groups to the map
+for group in [museen_group, buechereien_group, sportstaetten_group, tischtennis_group,
+              wickelplaetze_group, give_boxen_group, kinos_group, kinder_group,
+              friedhof_group, refill_group, gastro_group]:
+    group.add_to(muenster)
 
 # Add layer control (only need to do this once after all layers are added)
 folium.LayerControl().add_to(muenster)
