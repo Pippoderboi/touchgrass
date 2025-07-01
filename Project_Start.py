@@ -61,15 +61,23 @@ for idx, row in tischtennis.iterrows():
 # Add Museen
 import os
 script_dir = os.path.dirname(os.path.abspath(__file__))
-museen = gpd.read_file(os.path.join(script_dir, 'museen_mit_opening_hours.geojson'))
+museen = gpd.read_file(os.path.join(script_dir, 'raw_data_geojson', 'museen_mit_opening_hours.geojson'))
 for idx, row in museen.iterrows():
     if row.geometry:
         lon, lat = row.geometry.x, row.geometry.y
         popup_text = f"<strong>{row['NAME']}</strong><br>" \
                     f"Adresse: {row['STR_NAME']} {row['HSNR']}<br>" \
-                    f"PLZ: {int(row['PLZ'])}<br>" \
-                    f"Öffnungszeiten: {row['OPENING HOURS'] if 'OPENING HOURS' in row and pd.notna(row['OPENING HOURS']) else 'Keine Öffnungszeiten verfügbar'}<br>" \
-                    f"Homepage: <a href='{row['HOMEPAGE']}' target='_blank'>{row['HOMEPAGE']}</a>"
+                    f"PLZ: {int(row['PLZ'])}<br>"
+        
+        # Add opening hours if available
+        if 'opening_hours_osm' in row and pd.notna(row['opening_hours_osm']) and row['opening_hours_osm'] != 'null':
+            formatted_hours = format_opening_hours(row['opening_hours_osm'])
+            popup_text += f"Öffnungszeiten: {formatted_hours}<br>"
+        else:
+            popup_text += "Keine Öffnungszeiten verfügbar<br>"
+            
+        popup_text += f"Homepage: <a href='{row['HOMEPAGE']}' target='_blank'>{row['HOMEPAGE']}</a>"
+        
         folium.Marker(
             location=[lat, lon],
             popup=popup_text,
@@ -92,7 +100,7 @@ for idx, row in buechereien.iterrows():
         ).add_to(marker_cluster)
 
 # Add Sportstaetten
-sportstaetten = gpd.read_file(os.path.join(script_dir, 'sportstaetten_mit_opening_hours.geojson'))
+sportstaetten = gpd.read_file(os.path.join(script_dir, 'raw_data_geojson', 'sportstaetten_mit_opening_hours.geojson'))
 for idx, row in sportstaetten.iterrows():
     if row.geometry:
         lon, lat = row.geometry.x, row.geometry.y
@@ -101,6 +109,12 @@ for idx, row in sportstaetten.iterrows():
                     f"Typ: {row['Teilprodukt']}<br>" \
                     f"Adresse: {row['Strname']} {hsnr}<br>" \
                     f"PLZ: {int(row['Plz'])}"
+        
+        # Add opening hours if available
+        if 'OPENING HOURS' in row and pd.notna(row['OPENING HOURS']):
+            formatted_hours = format_opening_hours(row['OPENING HOURS'])
+            popup_text += f"Öffnungszeiten: {formatted_hours}<br>"
+        
         icon = folium.Icon(color='red', icon='flag', prefix='fa')
         folium.Marker(
             location=[lat, lon],
@@ -137,9 +151,14 @@ for idx, row in give_boxen.iterrows():
         lon, lat = row.geometry.x, row.geometry.y
         popup_text = f"<strong>{row['Bezeichnung']}</strong><br>" \
                     f"Adresse: {row['Adresse (ungefähr)']}<br>" \
-                    f"Öffnungszeiten: {row['Öffnungszeiten']}<br>" \
                     f"Betreiber: {row['Betreiber']}<br>" \
                     f"Mehr Info: <a href='{row['Infos im Internet']}' target='_blank'>{row['Infos im Internet']}</a>"
+        
+        # Add opening hours if available
+        if 'Öffnungszeiten' in row and pd.notna(row['Öffnungszeiten']):
+            formatted_hours = format_opening_hours(row['Öffnungszeiten'])
+            popup_text += f"Öffnungszeiten: {formatted_hours}<br>"
+        
         folium.Marker(
             location=[lat, lon],
             popup=popup_text,
