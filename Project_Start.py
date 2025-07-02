@@ -99,7 +99,6 @@ for idx, row in museen.iterrows():
         lon, lat = row.geometry.x, row.geometry.y
         popup_text = f"<strong>{row['NAME']}</strong><br>" \
                     f"Adresse: {row['STR_NAME']} {row['HSNR']}<br>" \
-
                     f"PLZ: {int(row['PLZ'])}<br>"
         
         # Add opening hours if available
@@ -143,13 +142,12 @@ for idx, row in sportstaetten.iterrows():
         popup_text = f"<strong>{row['Produkt']}</strong><br>" \
                     f"Typ: {row['Teilprodukt']}<br>" \
                     f"Adresse: {row['Strname']} {hsnr}<br>" \
-
                     f"PLZ: {int(row['Plz'])}"
         
         # Add opening hours if available
         if 'OPENING HOURS' in row and pd.notna(row['OPENING HOURS']):
             formatted_hours = format_opening_hours(row['OPENING HOURS'])
-            popup_text += f"Öffnungszeiten: {formatted_hours}<br>"
+            popup_text += f"<br>Öffnungszeiten: {formatted_hours}"
         
         icon = folium.Icon(color='red', icon='flag', prefix='fa')
 
@@ -231,7 +229,7 @@ for idx, row in kinos.iterrows():
             folium.Marker(
                 location=[lat, lon],
                 popup=folium.Popup("<br>".join(popup_lines), max_width=300),
-                icon=folium.Icon(color='green', icon='film', prefix='fa')
+                icon=folium.Icon(color='green', icon='ticket', prefix='fa')
             ).add_to(kinos_cluster)
 
 # Add Kinderspielplätze 
@@ -475,7 +473,7 @@ for idx, row in theater.iterrows():
             folium.Marker(
                 location=[lat, lon],
                 popup=folium.Popup("<br>".join(popup_lines), max_width=300),
-                icon=folium.Icon(color='darkpurple', icon='hand-lizard-o', prefix='fa')
+                icon=folium.Icon(color='darkpurple', icon='ticket-alt', prefix='fa')
             ).add_to(theater_cluster)
 
 # Add all feature groups to the map
