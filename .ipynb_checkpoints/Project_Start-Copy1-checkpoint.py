@@ -68,10 +68,6 @@ kinder_cluster, kinder_group = create_clustered_feature_group('Spielplätze',min
 friedhof_cluster, friedhof_group = create_clustered_feature_group('Friedhöfe',min_zoom=15)
 refill_cluster, refill_group = create_clustered_feature_group('Refillstationen',min_zoom=15)
 gastro_cluster, gastro_group = create_clustered_feature_group('Gastronomie',min_zoom=20)
-toiletten_cluster, toiletten_group = create_clustered_feature_group('Toiletten',min_zoom=15)
-baeder_cluster, baeder_group = create_clustered_feature_group('Bäder',min_zoom=15)
-theater_cluster, theater_group = create_clustered_feature_group('Theater',min_zoom=15)
-gruenflaechen_cluster, gruenflaechen_group = create_clustered_feature_group('Grünflächen',min_zoom=15)
 
 # Add Tischtennisplatten 
 tischtennis=gpd.read_file('tischtennisplatten_muenster.geojson')
@@ -91,26 +87,15 @@ for idx, row in tischtennis.iterrows():
         ).add_to(tischtennis_cluster)
 
 # Add Museen
-import os
-script_dir = os.path.dirname(os.path.abspath(__file__))
-museen = gpd.read_file(os.path.join(script_dir, 'raw_data_geojson', 'museen_mit_opening_hours.geojson'))
+museen = gpd.read_file('museen_mit_opening_hours.geojson')
 for idx, row in museen.iterrows():
     if row.geometry:
         lon, lat = row.geometry.x, row.geometry.y
         popup_text = f"<strong>{row['NAME']}</strong><br>" \
                     f"Adresse: {row['STR_NAME']} {row['HSNR']}<br>" \
-
-                    f"PLZ: {int(row['PLZ'])}<br>"
-        
-        # Add opening hours if available
-        if 'opening_hours_osm' in row and pd.notna(row['opening_hours_osm']) and row['opening_hours_osm'] != 'null':
-            formatted_hours = format_opening_hours(row['opening_hours_osm'])
-            popup_text += f"Öffnungszeiten: {formatted_hours}<br>"
-        else:
-            popup_text += "Keine Öffnungszeiten verfügbar<br>"
-            
-        popup_text += f"Homepage: <a href='{row['HOMEPAGE']}' target='_blank'>{row['HOMEPAGE']}</a>"
-        
+                    f"PLZ: {int(row['PLZ'])}<br>" \
+                    f"Öffnungszeiten: {format_opening_hours(row.get('opening_hours_osm'))}<br>" \
+                    f"Homepage: <a href='{row['HOMEPAGE']}' target='_blank'>{row['HOMEPAGE']}</a>"
         folium.Marker(
             location=[lat, lon],
             popup=popup_text,
@@ -133,9 +118,7 @@ for idx, row in buechereien.iterrows():
         ).add_to(buechereien_cluster)
 
 # Add Sportstaetten
-
-sportstaetten = gpd.read_file(os.path.join(script_dir, 'raw_data_geojson', 'sportstaetten_mit_opening_hours.geojson'))
-
+sportstaetten = gpd.read_file('sportstaetten_mit_opening_hours.geojson')
 for idx, row in sportstaetten.iterrows():
     if row.geometry:
         lon, lat = row.geometry.x, row.geometry.y
@@ -143,16 +126,8 @@ for idx, row in sportstaetten.iterrows():
         popup_text = f"<strong>{row['Produkt']}</strong><br>" \
                     f"Typ: {row['Teilprodukt']}<br>" \
                     f"Adresse: {row['Strname']} {hsnr}<br>" \
-
-                    f"PLZ: {int(row['Plz'])}"
-        
-        # Add opening hours if available
-        if 'OPENING HOURS' in row and pd.notna(row['OPENING HOURS']):
-            formatted_hours = format_opening_hours(row['OPENING HOURS'])
-            popup_text += f"Öffnungszeiten: {formatted_hours}<br>"
-        
-        icon = folium.Icon(color='red', icon='flag', prefix='fa')
-
+                    f"PLZ: {int(row['Plz'])}<br>"\
+                    f"Öffnungszeiten: {format_opening_hours(row.get('OPENING HOURS'))}"
         folium.Marker(
             location=[lat, lon],
             popup=popup_text,
@@ -183,14 +158,9 @@ for idx, row in give_boxen.iterrows():
         lon, lat = row.geometry.x, row.geometry.y
         popup_text = f"<strong>{row['Bezeichnung']}</strong><br>" \
                     f"Adresse: {row['Adresse (ungefähr)']}<br>" \
+                    f"Öffnungszeiten: {row['Öffnungszeiten']}<br>" \
                     f"Betreiber: {row['Betreiber']}<br>" \
                     f"Mehr Info: <a href='{row['Infos im Internet']}' target='_blank'>{row['Infos im Internet']}</a>"
-        
-        # Add opening hours if available
-        if 'Öffnungszeiten' in row and pd.notna(row['Öffnungszeiten']):
-            formatted_hours = format_opening_hours(row['Öffnungszeiten'])
-            popup_text += f"Öffnungszeiten: {formatted_hours}<br>"
-        
         folium.Marker(
             location=[lat, lon],
             popup=popup_text,
@@ -352,136 +322,12 @@ for idx, row in gastro.iterrows():
             ).add_to(gastro_cluster)
 
 
-#Add Toiletten
-toiletten=gpd.read_file('toiletten.geojson')
-columns_to_show=['NAME','BARRIEREFREI','opening_hours','website']
-for idx, row in toiletten.iterrows():
-    if row.geometry and pd.notnull(row.geometry):
-        lon, lat = row.geometry.x, row.geometry.y
-        
-        popup_lines = []
-        # Manually add name first if it exists
-        if 'NAME' in row and pd.notnull(row['NAME']):
-            popup_lines.append(f"<b>Name:</b> {row['NAME']}")
 
-        # Create address from street and housenumber
-        address = ""
-        if 'addr:street' in row and pd.notnull(row['addr:street']):
-            address += row['addr:street']
-        if 'addr:housenumber' in row and pd.notnull(row['addr:housenumber']):
-            address += f" {row['addr:housenumber']}"
-        if address:
-            popup_lines.append(f"<b>Address:</b> {address.strip()}")
-
-        # Add other details, excluding ones already handled
-        other_cols = ['BARRIEREFREI', 'opening_hours', 'website']
-        for col in other_cols:
-            if col in row and pd.notnull(row[col]):
-                display_name = col.replace('_', ' ').replace(':', ' ').title()
-                # Make website URL clickable
-                if col == 'website' and 'http' in str(row[col]):
-                    popup_lines.append(f"<b>{display_name}:</b> <a href='{row[col]}' target='_blank'>{row[col]}</a>")
-                elif col =='opening_hours':
-                    formatted_hours= format_opening_hours(row[col])
-                    popup_lines.append(f"<b>{display_name}:</b><br>{formatted_hours}")
-                else:
-                    popup_lines.append(f"<b>{display_name}:</b> {row[col]}")
-
-        if popup_lines:  # Only add marker if there's something to show
-            folium.Marker(
-                location=[lat, lon],
-                popup=folium.Popup("<br>".join(popup_lines), max_width=300),
-                icon=folium.Icon(color='black', icon='female', prefix='fa')
-            ).add_to(toiletten_cluster)
-
-#Add Bäder 
-baeder=gpd.read_file('baeder.geojson')
-columns_to_show=['NAME','addr:street','addr:housenumber','contact:phone','opening_hours','LINK1']
-for idx, row in baeder.iterrows():
-    if row.geometry and pd.notnull(row.geometry):
-        lon, lat = row.geometry.x, row.geometry.y
-        
-        popup_lines = []
-        # Manually add name first if it exists
-        if 'NAME' in row and pd.notnull(row['NAME']):
-            popup_lines.append(f"<b>Name:</b> {row['NAME']}")
-
-        # Create address from street and housenumber
-        address = ""
-        if 'addr:street' in row and pd.notnull(row['addr:street']):
-            address += row['addr:street']
-        if 'addr:housenumber' in row and pd.notnull(row['addr:housenumber']):
-            address += f" {row['addr:housenumber']}"
-        if address:
-            popup_lines.append(f"<b>Address:</b> {address.strip()}")
-
-        # Add other details, excluding ones already handled
-        other_cols = ['contact:phone', 'opening_hours', 'LINK1']
-        for col in other_cols:
-            if col in row and pd.notnull(row[col]):
-                display_name = col.replace('_', ' ').replace(':', ' ').title()
-                # Make website URL clickable
-                if col == 'LINK1' and 'http' in str(row[col]):
-                    popup_lines.append(f"<b>{display_name}:</b> <a href='{row[col]}' target='_blank'>{row[col]}</a>")
-                elif col =='opening_hours':
-                    formatted_hours= format_opening_hours(row[col])
-                    popup_lines.append(f"<b>{display_name}:</b><br>{formatted_hours}")
-                else:
-                    popup_lines.append(f"<b>{display_name}:</b> {row[col]}")
-
-        if popup_lines:  # Only add marker if there's something to show
-            folium.Marker(
-                location=[lat, lon],
-                popup=folium.Popup("<br>".join(popup_lines), max_width=300),
-                icon=folium.Icon(color='darkblue', icon='life-ring', prefix='fa')
-            ).add_to(baeder_cluster)
-
-#Add Theater 
-theater=gpd.read_file('theater.geojson')
-columns_to_show=['NAME','addr:street','addr:housenumber','contact:phone','opening_hours','LINK1']
-for idx, row in theater.iterrows():
-    if row.geometry and pd.notnull(row.geometry):
-        lon, lat = row.geometry.x, row.geometry.y
-        
-        popup_lines = []
-        # Manually add name first if it exists
-        if 'NAME' in row and pd.notnull(row['NAME']):
-            popup_lines.append(f"<b>Name:</b> {row['NAME']}")
-
-        # Create address from street and housenumber
-        address = ""
-        if 'addr:street' in row and pd.notnull(row['addr:street']):
-            address += row['addr:street']
-        if 'addr:housenumber' in row and pd.notnull(row['addr:housenumber']):
-            address += f" {row['addr:housenumber']}"
-        if address:
-            popup_lines.append(f"<b>Address:</b> {address.strip()}")
-
-        # Add other details, excluding ones already handled
-        other_cols = ['contact:phone', 'opening_hours', 'LINK1']
-        for col in other_cols:
-            if col in row and pd.notnull(row[col]):
-                display_name = col.replace('_', ' ').replace(':', ' ').title()
-                # Make website URL clickable
-                if col == 'LINK1' and 'http' in str(row[col]):
-                    popup_lines.append(f"<b>{display_name}:</b> <a href='{row[col]}' target='_blank'>{row[col]}</a>")
-                elif col =='opening_hours':
-                    formatted_hours= format_opening_hours(row[col])
-                    popup_lines.append(f"<b>{display_name}:</b><br>{formatted_hours}")
-                else:
-                    popup_lines.append(f"<b>{display_name}:</b> {row[col]}")
-
-        if popup_lines:  # Only add marker if there's something to show
-            folium.Marker(
-                location=[lat, lon],
-                popup=folium.Popup("<br>".join(popup_lines), max_width=300),
-                icon=folium.Icon(color='darkpurple', icon='hand-lizard-o', prefix='fa')
-            ).add_to(theater_cluster)
 
 # Add all feature groups to the map
 for group in [museen_group, buechereien_group, sportstaetten_group, tischtennis_group,
               wickelplaetze_group, give_boxen_group, kinos_group, kinder_group,
-              friedhof_group, refill_group, gastro_group, toiletten_group, baeder_group, theater_group, gruenflaechen_group]:
+              friedhof_group, refill_group, gastro_group]:
     group.add_to(muenster)
 
 # Add layer control (only need to do this once after all layers are added)
