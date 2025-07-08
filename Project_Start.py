@@ -10,31 +10,8 @@ from formatting_openhour import format_opening_hours
 #defining original directory
 original_dir = os.getcwd()
 
-#choosing directory and getting an overview over files
+#choosing directory 
 os.chdir('raw_data_geojson')
-print("Current working directory:", os.getcwd())
-
-
-
-try:
-    for file in os.listdir('.'):
-        if file.endswith('.geojson'):
-            try:
-               
-                data = gpd.read_file(file)
-                print(f"Successfully loaded {file}")
-                
-                print(f"CRS: {data.crs}")  # Coordinate Reference System
-                print(f"Number of features: {len(data)}")
-                print(f"Columns: {data.columns.tolist()}")
-                print("\nFirst 5 rows:")
-                print(data.head())
-                
-            except Exception as e:
-                print(f"Error processing {file}: {e}")
-                
-except Exception as e:
-    print(f"Something went wrong: {e}")
 
 # Create a map using folium 
 
@@ -53,25 +30,24 @@ def create_clustered_feature_group(name, min_zoom=13, show=True):
         }
     ).add_to(fg), fg
 
-
 #Creating clustered feature groups
-# Find a reasonable min_zoom for every group
+# Min_zoom here defines when markers
 
-museen_cluster, museen_group = create_clustered_feature_group('Museen', min_zoom=15)
-buechereien_cluster, buechereien_group = create_clustered_feature_group('Büchereien',min_zoom=15)
-sportstaetten_cluster, sportstaetten_group = create_clustered_feature_group('Sportstätten',min_zoom=15)
-tischtennis_cluster, tischtennis_group = create_clustered_feature_group('Tischtennisplatten',min_zoom=15)
-wickelplaetze_cluster, wickelplaetze_group = create_clustered_feature_group('Wickelplätze',min_zoom=15)
-give_boxen_cluster, give_boxen_group = create_clustered_feature_group('Give Boxen',min_zoom=15)
-kinos_cluster, kinos_group = create_clustered_feature_group('Kinos',min_zoom=15)
-kinder_cluster, kinder_group = create_clustered_feature_group('Spielplätze',min_zoom=15)
-friedhof_cluster, friedhof_group = create_clustered_feature_group('Friedhöfe',min_zoom=15)
-refill_cluster, refill_group = create_clustered_feature_group('Refillstationen',min_zoom=15)
+museen_cluster, museen_group = create_clustered_feature_group('Museen', min_zoom=20)
+buechereien_cluster, buechereien_group = create_clustered_feature_group('Büchereien',min_zoom=20)
+sportstaetten_cluster, sportstaetten_group = create_clustered_feature_group('Sportstätten',min_zoom=20)
+tischtennis_cluster, tischtennis_group = create_clustered_feature_group('Tischtennisplatten',min_zoom=20)
+wickelplaetze_cluster, wickelplaetze_group = create_clustered_feature_group('Wickelplätze',min_zoom=20)
+give_boxen_cluster, give_boxen_group = create_clustered_feature_group('Give Boxen',min_zoom=20)
+kinos_cluster, kinos_group = create_clustered_feature_group('Kinos',min_zoom=20)
+kinder_cluster, kinder_group = create_clustered_feature_group('Spielplätze',min_zoom=20)
+friedhof_cluster, friedhof_group = create_clustered_feature_group('Friedhöfe',min_zoom=20)
+refill_cluster, refill_group = create_clustered_feature_group('Refillstationen',min_zoom=20)
 gastro_cluster, gastro_group = create_clustered_feature_group('Gastronomie',min_zoom=20)
-toiletten_cluster, toiletten_group = create_clustered_feature_group('Toiletten',min_zoom=15)
-baeder_cluster, baeder_group = create_clustered_feature_group('Bäder',min_zoom=15)
-theater_cluster, theater_group = create_clustered_feature_group('Theater',min_zoom=15)
-gruenflaechen_cluster, gruenflaechen_group = create_clustered_feature_group('Grünflächen',min_zoom=15)
+toiletten_cluster, toiletten_group = create_clustered_feature_group('Toiletten',min_zoom=20)
+baeder_cluster, baeder_group = create_clustered_feature_group('Bäder',min_zoom=20)
+theater_cluster, theater_group = create_clustered_feature_group('Theater',min_zoom=20)
+gruenflaechen_cluster, gruenflaechen_group = create_clustered_feature_group('Grünflächen',min_zoom=14)
 
 # Add Tischtennisplatten 
 tischtennis=gpd.read_file('tischtennisplatten_muenster.geojson')
@@ -91,9 +67,8 @@ for idx, row in tischtennis.iterrows():
         ).add_to(tischtennis_cluster)
 
 # Add Museen
-import os
-script_dir = os.path.dirname(os.path.abspath(__file__))
-museen = gpd.read_file(os.path.join(script_dir, 'raw_data_geojson', 'museen_mit_opening_hours.geojson'))
+
+museen = gpd.read_file('museen_mit_opening_hours.geojson')
 for idx, row in museen.iterrows():
     if row.geometry:
         lon, lat = row.geometry.x, row.geometry.y
@@ -133,7 +108,7 @@ for idx, row in buechereien.iterrows():
 
 # Add Sportstaetten
 
-sportstaetten = gpd.read_file(os.path.join(script_dir, 'raw_data_geojson', 'sportstaetten_mit_opening_hours.geojson'))
+sportstaetten = gpd.read_file('sportstaetten_mit_opening_hours.geojson')
 
 for idx, row in sportstaetten.iterrows():
     if row.geometry:
@@ -475,6 +450,48 @@ for idx, row in theater.iterrows():
                 popup=folium.Popup("<br>".join(popup_lines), max_width=300),
                 icon=folium.Icon(color='darkpurple', icon='ticket-alt', prefix='fa')
             ).add_to(theater_cluster)
+
+# Add Grünflächen
+
+gruenflaechen = gpd.read_file('gruenflaechen.geojson')
+
+# Convert any timestamp columns to strings
+for col in gruenflaechen.select_dtypes(include=['datetime64']).columns:
+    gruenflaechen[col] = gruenflaechen[col].astype(str)
+
+# Define a style function for the green areas
+def style_function(feature):
+    return {
+        'fillColor': '#78c679',  # Light green fill
+        'color': '#2ca25f',      # Darker green border
+        'weight': 1,
+        'fillOpacity': 0.7,
+        'opacity': 0.8
+    }
+
+# Add the GeoJSON to the map
+folium.GeoJson(
+    gruenflaechen,
+    name='Grünflächen',
+    style_function=style_function,
+    tooltip=folium.GeoJsonTooltip(
+        fields=['name'],  # Only show name,
+        aliases=[''],
+        localize=True,
+        sticky=True,      # Makes the tooltip stay visible
+        style="""
+            font-size: 14px;
+            background-color: #F0EFEF;
+            border: 1px solid #2ca25f;
+            border-radius: 3px;
+            padding: 5px;
+        """
+    )
+).add_to(gruenflaechen_group)
+
+print(f"Successfully added {len(gruenflaechen)} green areas to the map")
+
+
 
 # Add all feature groups to the map
 for group in [museen_group, buechereien_group, sportstaetten_group, tischtennis_group,

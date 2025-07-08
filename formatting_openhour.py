@@ -61,17 +61,22 @@ def format_opening_hours(hours_str):
                 continue
                 
             # Split into days and times
-            if ':' in group:
+            if ' ' in group and ':' in group:
+                # Split at the last space before times start
+                last_space = group.rfind(' ')
+                days_part = group[:last_space].strip()
+                times_part = group[last_space:].strip()
+            elif ':' in group:
                 days_part, times_part = group.split(':', 1)
                 days_part = days_part.strip()
-                times_part = times_part.strip()
-            elif ' ' in group:
-                days_part, times_part = group.split(' ', 1)
                 times_part = times_part.strip()
             else:
                 days_part = group
                 times_part = ''
-                
+
+            #Debug
+            print(f"Before cleanup - days_part: '{days_part}' | times_part: '{times_part}'")  
+
             # Clean up and format the times
             if times_part and 'Closed' not in times_part:
                 # Remove extra spaces in times
