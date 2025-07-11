@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
 # Project Start Date: 2025-06
 from turtle import color
 import geopandas as gpd
@@ -7,17 +13,33 @@ import folium
 from folium.plugins import MarkerCluster
 from formatting_openhour import format_opening_hours
 
+
+# In[2]:
+
+
 #defining original directory
 original_dir = os.getcwd()
+
+
+# In[3]:
+
 
 #choosing directory 
 os.chdir('raw_data_geojson')
 
+
 # Create a map using folium 
+
+# In[5]:
+
 
 muenster = folium.Map(location=[51.96, 7.62], zoom_start=12.5)
 
-#function to create a feature group with clustering
+
+# function to create a feature group with clustering
+
+# In[7]:
+
 
 def create_clustered_feature_group(name, min_zoom=13, show=True):
     fg = folium.FeatureGroup(name=name, show=show)
@@ -30,8 +52,12 @@ def create_clustered_feature_group(name, min_zoom=13, show=True):
         }
     ).add_to(fg), fg
 
-#Creating clustered feature groups
+
+# Creating clustered feature groups
 # Min_zoom here defines when markers
+
+# In[9]:
+
 
 museen_cluster, museen_group = create_clustered_feature_group('Museen', min_zoom=20)
 buechereien_cluster, buechereien_group = create_clustered_feature_group('Büchereien',min_zoom=20)
@@ -49,6 +75,10 @@ baeder_cluster, baeder_group = create_clustered_feature_group('Bäder',min_zoom=
 theater_cluster, theater_group = create_clustered_feature_group('Theater',min_zoom=20)
 gruenflaechen_cluster, gruenflaechen_group = create_clustered_feature_group('Grünflächen',min_zoom=14)
 
+
+# In[10]:
+
+
 # Add Tischtennisplatten 
 tischtennis=gpd.read_file('tischtennisplatten_muenster.geojson')
 columns_to_show = ['ort','material']
@@ -63,10 +93,14 @@ for idx, row in tischtennis.iterrows():
         folium.Marker(
             location=[lat,lon],
             popup=folium.Popup(popup_text, max_width=300),
-            icon=folium.Icon(color='blue', icon='table-tennis', prefix='fa')
+            icon=folium.Icon(color='pink', icon='table-tennis', prefix='fa')
         ).add_to(tischtennis_cluster)
 
+
 # Add Museen
+
+# In[12]:
+
 
 museen = gpd.read_file('museen_mit_opening_hours.geojson')
 for idx, row in museen.iterrows():
@@ -91,6 +125,10 @@ for idx, row in museen.iterrows():
             icon=folium.Icon(color='purple', icon='museum', prefix='fa')
         ).add_to(museen_cluster)
 
+
+# In[13]:
+
+
 # Add Buechereien
 buechereien = gpd.read_file('buechereien_mit_opening_hours.geojson')
 for idx, row in buechereien.iterrows():
@@ -106,9 +144,17 @@ for idx, row in buechereien.iterrows():
             icon=folium.Icon(color='orange', icon='book', prefix='fa')
         ).add_to(buechereien_cluster)
 
+
 # Add Sportstaetten
 
+# In[15]:
+
+
 sportstaetten = gpd.read_file('sportstaetten_mit_opening_hours.geojson')
+
+
+# In[16]:
+
 
 for idx, row in sportstaetten.iterrows():
     if row.geometry:
@@ -129,11 +175,19 @@ for idx, row in sportstaetten.iterrows():
         folium.Marker(
             location=[lat, lon],
             popup=popup_text,
-            icon=folium.Icon (color='red',icon='flag',prefix='fa')
+            icon=folium.Icon (color='red',icon='basketball-ball',prefix='fa')
         ).add_to(sportstaetten_cluster)
+
+
+# In[17]:
+
 
 # Add Still & Wickelplätze
 wickelplaetze = gpd.read_file('still-und-wickelplaetze-muenster-2023.geojson')
+
+
+# In[18]:
+
 
 for idx, row in wickelplaetze.iterrows():
     if row.geometry:
@@ -147,6 +201,9 @@ for idx, row in wickelplaetze.iterrows():
             popup=popup_text,
             icon=folium.Icon(color='lightblue',icon='baby',prefix='fa')
         ).add_to(wickelplaetze_cluster)
+
+
+# In[19]:
 
 
 # Add Give Boxen
@@ -167,12 +224,20 @@ for idx, row in give_boxen.iterrows():
         folium.Marker(
             location=[lat, lon],
             popup=popup_text,
-            icon=folium.Icon(color='blue', icon='box-open',prefix='fa')
+            icon=folium.Icon(color='beige', icon='box-open',prefix='fa')
         ).add_to(give_boxen_cluster)
+
+
+# In[20]:
+
 
 # Add Kinos 
 kinos=gpd.read_file('kinos.geojson')
 columns_to_show = ['NAME', 'STR_NAME', 'HOMEPAGE','opening_hours']
+
+
+# In[21]:
+
 
 for idx, row in kinos.iterrows():
     if row.geometry:
@@ -207,6 +272,10 @@ for idx, row in kinos.iterrows():
                 icon=folium.Icon(color='green', icon='ticket', prefix='fa')
             ).add_to(kinos_cluster)
 
+
+# In[22]:
+
+
 # Add Kinderspielplätze 
 kinder=gpd.read_file('spielplaetze.geojson')
 columns_to_show=['Name']
@@ -228,12 +297,20 @@ for idx, row in kinder.iterrows():
         folium.Marker(
             location=[lat,lon],
             popup=folium.Popup(popup_text, max_width=300),
-            icon=folium.Icon(color='lightred', icon='child-reaching', prefix='fa')
+            icon=folium.Icon(color='cadetblue', icon='child', prefix='fa')
         ).add_to(kinder_cluster)
+
+
+# In[23]:
+
 
 # Add Friedhöfe
 friedhof=gpd.read_file('friedhoefe.geojson')
 columns_to_show = ['NAME','HOMEPAGE']
+
+
+# In[24]:
+
 
 for idx, row in friedhof.iterrows():
     if row.geometry:
@@ -258,9 +335,16 @@ for idx, row in friedhof.iterrows():
             ).add_to(friedhof_cluster)  
 
 
+# In[25]:
+
+
 # Add Refill Stationen 
 refill=gpd.read_file('refill_stations.geojson')
 columns_to_show = ['Name','Straße','PLZ','Beschreibung','Homepage']
+
+
+# In[26]:
+
 
 for idx, row in refill.iterrows():
     if row.geometry:
@@ -279,8 +363,12 @@ for idx, row in refill.iterrows():
             folium.Marker(
                 location=[lat, lon],
                 popup=folium.Popup("<br>".join(popup_lines), max_width=300),
-                icon=folium.Icon(color='pink', icon='tint', prefix='fa')
+                icon=folium.Icon(color='blue', icon='tint', prefix='fa')
             ).add_to(refill_cluster)
+
+
+# In[27]:
+
 
 #Add Gastronomie 
 gastro=gpd.read_file('muenster_gastronomie.geojson')
@@ -325,17 +413,25 @@ for idx, row in gastro.iterrows():
             ).add_to(gastro_cluster)
 
 
+# In[28]:
+
+
 #Add Toiletten
-toiletten=gpd.read_file('toiletten.geojson')
-columns_to_show=['NAME','BARRIEREFREI','opening_hours','website']
+toiletten=gpd.read_file('toiletten-mit-oz.geojson')
+columns_to_show=['Name','Barrierefrei','Öffnungszeiten']
 for idx, row in toiletten.iterrows():
     if row.geometry and pd.notnull(row.geometry):
         lon, lat = row.geometry.x, row.geometry.y
         
         popup_lines = []
         # Manually add name first if it exists
-        if 'NAME' in row and pd.notnull(row['NAME']):
-            popup_lines.append(f"<b>Name:</b> {row['NAME']}")
+        if 'Name' in row and pd.notnull(row['Name']):
+            popup_lines.append(f"<b>Name:</b> {row['Name']}")
+
+        bfree = []
+        if 'Barrierefrei' in row and pd.notnull(row['Barrierefrei']):
+            popup_lines.append(f"<b>Barrierefrei:</b> {row['Barrierefrei']}")
+        
 
         # Create address from street and housenumber
         address = ""
@@ -347,14 +443,14 @@ for idx, row in toiletten.iterrows():
             popup_lines.append(f"<b>Address:</b> {address.strip()}")
 
         # Add other details, excluding ones already handled
-        other_cols = ['BARRIEREFREI', 'opening_hours', 'website']
+        other_cols = ['Öffnungszeiten']
         for col in other_cols:
             if col in row and pd.notnull(row[col]):
                 display_name = col.replace('_', ' ').replace(':', ' ').title()
                 # Make website URL clickable
                 if col == 'website' and 'http' in str(row[col]):
                     popup_lines.append(f"<b>{display_name}:</b> <a href='{row[col]}' target='_blank'>{row[col]}</a>")
-                elif col =='opening_hours':
+                elif col =='Öffnungszeiten':
                     formatted_hours= format_opening_hours(row[col])
                     popup_lines.append(f"<b>{display_name}:</b><br>{formatted_hours}")
                 else:
@@ -364,8 +460,12 @@ for idx, row in toiletten.iterrows():
             folium.Marker(
                 location=[lat, lon],
                 popup=folium.Popup("<br>".join(popup_lines), max_width=300),
-                icon=folium.Icon(color='black', icon='female', prefix='fa')
+                icon=folium.Icon(color='gray', icon='restroom', prefix='fa')
             ).add_to(toiletten_cluster)
+
+
+# In[29]:
+
 
 #Add Bäder 
 baeder=gpd.read_file('baeder.geojson')
@@ -395,7 +495,7 @@ for idx, row in baeder.iterrows():
                 display_name = col.replace('_', ' ').replace(':', ' ').title()
                 # Make website URL clickable
                 if col == 'LINK1' and 'http' in str(row[col]):
-                    popup_lines.append(f"<b>{display_name}:</b> <a href='{row[col]}' target='_blank'>{row[col]}</a>")
+                    popup_lines.append(f"<b>Homepage:</b> <a href='{row[col]}' target='_blank'>{row[col]}</a>")
                 elif col =='opening_hours':
                     formatted_hours= format_opening_hours(row[col])
                     popup_lines.append(f"<b>{display_name}:</b><br>{formatted_hours}")
@@ -406,12 +506,16 @@ for idx, row in baeder.iterrows():
             folium.Marker(
                 location=[lat, lon],
                 popup=folium.Popup("<br>".join(popup_lines), max_width=300),
-                icon=folium.Icon(color='darkblue', icon='life-ring', prefix='fa')
+                icon=folium.Icon(color='lightblue', icon='swimming-pool', prefix='fa')
             ).add_to(baeder_cluster)
+
+
+# In[30]:
+
 
 #Add Theater 
 theater=gpd.read_file('theater.geojson')
-columns_to_show=['NAME','addr:street','addr:housenumber','contact:phone','opening_hours','LINK1']
+columns_to_show=['NAME','STR_NAME','HSNR','PLZ']
 for idx, row in theater.iterrows():
     if row.geometry and pd.notnull(row.geometry):
         lon, lat = row.geometry.x, row.geometry.y
@@ -423,21 +527,23 @@ for idx, row in theater.iterrows():
 
         # Create address from street and housenumber
         address = ""
-        if 'addr:street' in row and pd.notnull(row['addr:street']):
-            address += row['addr:street']
-        if 'addr:housenumber' in row and pd.notnull(row['addr:housenumber']):
-            address += f" {row['addr:housenumber']}"
+        if 'STR_NAME' in row and pd.notnull(row['STR_NAME']):
+            address += row['STR_NAME']
+        if 'HSNR' in row and pd.notnull(row['HSNR']):
+            address += f" {row['HSNR']}"
+        if 'PLZ' in row and pd.notnull(row['PLZ']):
+            address += f" {row['PLZ']}"
         if address:
-            popup_lines.append(f"<b>Address:</b> {address.strip()}")
+            popup_lines.append(f"<b>Addresse:</b> {address.strip()}")
 
         # Add other details, excluding ones already handled
-        other_cols = ['contact:phone', 'opening_hours', 'LINK1']
+        other_cols = ['contact:phone', 'opening_hours', 'HOMEPAGE']
         for col in other_cols:
             if col in row and pd.notnull(row[col]):
                 display_name = col.replace('_', ' ').replace(':', ' ').title()
                 # Make website URL clickable
-                if col == 'LINK1' and 'http' in str(row[col]):
-                    popup_lines.append(f"<b>{display_name}:</b> <a href='{row[col]}' target='_blank'>{row[col]}</a>")
+                if col == 'HOMEPAGE' and 'http' in str(row[col]):
+                    popup_lines.append(f"<b>Homepage:</b> <a href='{row[col]}' target='_blank'>{row[col]}</a>")
                 elif col =='opening_hours':
                     formatted_hours= format_opening_hours(row[col])
                     popup_lines.append(f"<b>{display_name}:</b><br>{formatted_hours}")
@@ -448,16 +554,28 @@ for idx, row in theater.iterrows():
             folium.Marker(
                 location=[lat, lon],
                 popup=folium.Popup("<br>".join(popup_lines), max_width=300),
-                icon=folium.Icon(color='darkpurple', icon='ticket-alt', prefix='fa')
+                icon=folium.Icon(color='darkpurple', icon='theater-masks', prefix='fa')
             ).add_to(theater_cluster)
+
 
 # Add Grünflächen
 
+# In[32]:
+
+
 gruenflaechen = gpd.read_file('gruenflaechen.geojson')
+
+
+# In[33]:
+
 
 # Convert any timestamp columns to strings
 for col in gruenflaechen.select_dtypes(include=['datetime64']).columns:
     gruenflaechen[col] = gruenflaechen[col].astype(str)
+
+
+# In[34]:
+
 
 # Define a style function for the green areas
 def style_function(feature):
@@ -468,6 +586,10 @@ def style_function(feature):
         'fillOpacity': 0.7,
         'opacity': 0.8
     }
+
+
+# In[35]:
+
 
 # Add the GeoJSON to the map
 folium.GeoJson(
@@ -489,8 +611,20 @@ folium.GeoJson(
     )
 ).add_to(gruenflaechen_group)
 
+
+# In[36]:
+
+
 print(f"Successfully added {len(gruenflaechen)} green areas to the map")
 
+
+# In[ ]:
+
+
+
+
+
+# In[37]:
 
 
 # Add all feature groups to the map
@@ -499,9 +633,24 @@ for group in [museen_group, buechereien_group, sportstaetten_group, tischtennis_
               friedhof_group, refill_group, gastro_group, toiletten_group, baeder_group, theater_group, gruenflaechen_group]:
     group.add_to(muenster)
 
+
+# In[38]:
+
+
 # Add layer control (only need to do this once after all layers are added)
 folium.LayerControl().add_to(muenster)
+
+
+# In[74]:
+
 
 # Go back to original directory and save map 
 os.chdir(original_dir)
 muenster.save("muenster_map.html")
+
+
+# In[ ]:
+
+
+
+

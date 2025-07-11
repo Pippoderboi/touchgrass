@@ -1,0 +1,216 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-07-11T13:28:45Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/121736959",
+        "addr:city": "Münster",
+        "addr:country": "DE",
+        "addr:housenumber": "63",
+        "addr:postcode": "48143",
+        "addr:street": "Neubrückenstraße",
+        "alt_name": "Stadttheater",
+        "amenity": "theatre",
+        "building": "civic",
+        "building:colour": "silver",
+        "building:levels": "2",
+        "building:material": "concrete",
+        "construction_date": "1956",
+        "contact:email": "info-theater@stadt-muenster.de",
+        "contact:fax": "+49 251 5909202",
+        "contact:phone": "+49 251 5909205",
+        "contact:website": "https://www.theater-muenster.com/",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/6/64/Muenster_Stadttheater_%2881%29.JPG",
+        "layer": "-1",
+        "location": "surface",
+        "name": "Theater Münster",
+        "old_name": "Städtische Bühnen Münster",
+        "roof:colour": "#F5F5DC",
+        "roof:material": "gravel",
+        "roof:shape": "flat",
+        "source": "bing",
+        "start_date": "1956",
+        "toilets": "customers",
+        "toilets:wheelchair": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q2415904",
+        "wikimedia_commons": "Category:Theater Münster",
+        "wikipedia": "de:Theater Münster",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6295639,
+          51.9648239
+        ]
+      },
+      "id": "way/121736959"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/142410322",
+        "addr:city": "Münster",
+        "addr:country": "DE",
+        "addr:housenumber": "123",
+        "addr:postcode": "48147",
+        "addr:street": "Gartenstraße",
+        "amenity": "theatre",
+        "building": "yes",
+        "check_date": "2024-06-07",
+        "name": "Pumpenhaus",
+        "phone": "+49 251 201380",
+        "toilets:wheelchair": "no",
+        "website": "https://www.pumpenhaus.de/",
+        "wheelchair": "yes",
+        "wikidata": "Q2416130",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6361038,
+          51.9733152
+        ]
+      },
+      "id": "way/142410322"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/185704854",
+        "addr:city": "Münster",
+        "addr:country": "DE",
+        "addr:housenumber": "20",
+        "addr:postcode": "48143",
+        "addr:street": "Bahnhofstraße",
+        "amenity": "theatre",
+        "building": "yes",
+        "check_date": "2024-10-23",
+        "contact:phone": "+49 251 490 9090",
+        "contact:website": "https://www.variete.de/muenster",
+        "name": "GOP Varieté-Theater",
+        "operator": "GOP Entertainment-Group GmbH & Co. KG",
+        "source": "HiRes aerial imagery 2010",
+        "wheelchair": "yes",
+        "wheelchair:description": "kleine Stufe am Eingang, Toilette rollstuhlgerecht",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6340763,
+          51.9574792
+        ]
+      },
+      "id": "way/185704854"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/241608397",
+        "addr:city": "Münster",
+        "addr:country": "DE",
+        "addr:housenumber": "48a",
+        "addr:postcode": "48155",
+        "addr:street": "Schillerstraße",
+        "amenity": "theatre",
+        "building": "yes",
+        "contact:phone": "+49 251 661759",
+        "contact:website": "https://www.derkleinebuehnenboden.de/",
+        "description": "Das Kammertheater Der Kleine Bühnenboden ist ein freies Theater im Hansaviertel, Münster, das seit 1987 vom Trägerverein THEAMA e.V. betrieben wird.",
+        "email": "info@derkleinebuehnenboden.de",
+        "name": "Der Kleine Bühnenboden",
+        "operator": "THEAMA e.V.",
+        "phone": "+49251661759",
+        "source": "NRW Atlas (ALK,DOP40);local knowledge",
+        "website": "https://derkleinebuehnenboden.de",
+        "wikidata": "Q28498608",
+        "wikipedia": "de:Der Kleine Bühnenboden",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6411471,
+          51.9557042
+        ]
+      },
+      "id": "way/241608397"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/645459340",
+        "addr:city": "Münster",
+        "addr:housenumber": "10",
+        "addr:postcode": "48155",
+        "addr:street": "Am Mittelhafen",
+        "amenity": "theatre",
+        "historic": "yes",
+        "name": "Wolfgang-Borchert-Theater",
+        "toilets:wheelchair": "yes",
+        "website": "https://www.wolfgang-borchert-theater.de/",
+        "wheelchair": "yes",
+        "wheelchair:description": "Bei Kartenkauf Rollstuhlnutzer angeben",
+        "wikidata": "Q2589278"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6400776,
+          51.9511807
+        ]
+      },
+      "id": "node/645459340"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1688810681",
+        "addr:city": "Münster",
+        "addr:country": "DE",
+        "addr:housenumber": "12-14",
+        "addr:postcode": "48143",
+        "addr:street": "Königsstraße",
+        "amenity": "theatre",
+        "name": "Boulevard Münster",
+        "phone": "+49 251 4140400",
+        "website": "https://www.boulevard-muenster.de/",
+        "wheelchair": "no",
+        "wheelchair:description": "Rollstühle müssen über den Hintereingang von außen zum Aufzug gebracht werden - es gibt beim Theatersaal keine mit dem Rollstuhl zu erreichende Toilette."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6265088,
+          51.9593931
+        ]
+      },
+      "id": "node/1688810681"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11476440486",
+        "amenity": "theatre",
+        "contact:website": "https://charivari-theater.de/",
+        "name": "Charivari Puppentheater",
+        "theatre:genre": "puppet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6167192,
+          51.9546854
+        ]
+      },
+      "id": "node/11476440486"
+    }
+  ]
+}

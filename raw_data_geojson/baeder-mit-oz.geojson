@@ -1,0 +1,911 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-07-11T11:31:32Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "relation/1394928",
+        "fee": "yes",
+        "leisure": "sports_centre",
+        "location": "outdoor",
+        "name": "Freibad Coburg",
+        "opening_hours": "Mo,Tu,Th,Fr 07:00-20:00; We 12:00-20:00; Sa,Su,PH 09:00-20:00; Oct-Apr off; 2025 May 01 12:00-20:00",
+        "operator": "Stadt Münster",
+        "phone": "+4925162523879",
+        "sport": "swimming",
+        "start_date": "1927",
+        "type": "multipolygon",
+        "website": "https://www.stadt-muenster.de/sportamt/baeder/freibad-coburg",
+        "wikidata": "Q118773297",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6093584,
+          51.9796613
+        ]
+      },
+      "id": "relation/1394928"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/28188262",
+        "leisure": "swimming_pool",
+        "wheelchair": "no",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.59276,
+          51.8898293
+        ]
+      },
+      "id": "way/28188262"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/72335499",
+        "leisure": "swimming_pool",
+        "name": "Zaubersee",
+        "source": "survey",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6106855,
+          51.9769769
+        ]
+      },
+      "id": "way/72335499"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/89098744",
+        "access": "customers",
+        "description": "Planschbecken",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6578709,
+          51.8898657
+        ]
+      },
+      "id": "way/89098744"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/89098762",
+        "access": "customers",
+        "description": "Schwimmbecken",
+        "leisure": "swimming_pool",
+        "sport": "swimming",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6584814,
+          51.889315
+        ]
+      },
+      "id": "way/89098762"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/98621394",
+        "fixme": "resurvey",
+        "leisure": "swimming_pool",
+        "sport": "swimming",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6051946,
+          51.9540148
+        ]
+      },
+      "id": "way/98621394"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/103085413",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6916486,
+          51.9477911
+        ]
+      },
+      "id": "way/103085413"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/103085417",
+        "leisure": "swimming_pool",
+        "sport": "swimming",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6919822,
+          51.9480056
+        ]
+      },
+      "id": "way/103085417"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/103746020",
+        "addr:city": "Münster",
+        "addr:country": "DE",
+        "addr:housename": "Stadtbad Roxel",
+        "addr:housenumber": "36",
+        "addr:postcode": "48161",
+        "addr:street": "Tilbecker Straße",
+        "building": "yes",
+        "leisure": "sports_centre",
+        "name": "Stadtbad Roxel",
+        "opening_hours": "Su 08:00-18:00, Mo,Th,Fr 06:30-08:00, Mo,Fr 15:00-17:00, Sa 07:00-17:00",
+        "source": "bing",
+        "sport": "swimming",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.5265243,
+          51.95458
+        ]
+      },
+      "id": "way/103746020"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/120412179",
+        "leisure": "swimming_pool",
+        "length": "25",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6100778,
+          51.9794621
+        ]
+      },
+      "id": "way/120412179"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/121411222",
+        "leisure": "swimming_pool",
+        "temperature": "15",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.5934555,
+          51.8897147
+        ]
+      },
+      "id": "way/121411222"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/136850280",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6913859,
+          51.9479362
+        ]
+      },
+      "id": "way/136850280"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/140668469",
+        "addr:city": "Münster",
+        "addr:country": "DE",
+        "addr:housenumber": "101",
+        "addr:postcode": "48145",
+        "addr:street": "Mauritz-Lindenweg",
+        "alt_name": "Stadtbad Ost",
+        "building": "civic",
+        "contact:website": "https://www.stadt-muenster.de/sportamt/baeder/hallenbad-ost.html",
+        "fee": "Erw. EUR 4;Erm. EUR 2",
+        "leisure": "sports_centre",
+        "loc_name": "Ostbad",
+        "name": "Hallenbad Ost",
+        "opening_hours": "Mo off; Tu 06:30-22:00; We off; Th 06:30-22:00; Fr 10:00-22:00; Sa 10:00-17:00; Su 09:00-16:00",
+        "roof:colour": "grey",
+        "roof:shape": "flat",
+        "sport": "swimming",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6598416,
+          51.9589479
+        ]
+      },
+      "id": "way/140668469"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/140809161",
+        "access": "private",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6553438,
+          51.9635431
+        ]
+      },
+      "id": "way/140809161"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/192323571",
+        "access": "yes",
+        "addr:city": "Münster",
+        "addr:country": "DE",
+        "addr:housenumber": "201",
+        "addr:postcode": "48165",
+        "addr:street": "Westfalenstraße",
+        "building": "yes",
+        "covered": "yes",
+        "fee": "yes",
+        "leisure": "sports_centre",
+        "name": "Hallenbad Hiltrup",
+        "operator": "Stadt Münster",
+        "operator:type": "government",
+        "sport": "swimming",
+        "toilets:wheelchair": "yes",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6402029,
+          51.9006618
+        ]
+      },
+      "id": "way/192323571"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/197847135",
+        "leisure": "swimming_pool",
+        "sport": "swimming",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.698712,
+          52.0009457
+        ]
+      },
+      "id": "way/197847135"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/197847160",
+        "leisure": "swimming_pool",
+        "sport": "swimming",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.698473,
+          52.0008613
+        ]
+      },
+      "id": "way/197847160"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/197847162",
+        "leisure": "swimming_pool",
+        "sport": "swimming",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.698745,
+          52.0007709
+        ]
+      },
+      "id": "way/197847162"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/198519408",
+        "leisure": "swimming_pool",
+        "length": "50",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6102473,
+          51.9796592
+        ]
+      },
+      "id": "way/198519408"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/207341086",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6105609,
+          51.9795138
+        ]
+      },
+      "id": "way/207341086"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/258889573",
+        "charge": "3.00 EUR",
+        "fee": "yes",
+        "leisure": "swimming_pool",
+        "name": "Solebecken",
+        "opening_hours": "Mo-We 09:00-22:00; Th 06:30-22:00; Fr 10:00-22:00; Sa 10:00-18:00; Su 08:00-18:00",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6602381,
+          51.959086
+        ]
+      },
+      "id": "way/258889573"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/280241414",
+        "access": "private",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6897055,
+          51.9308194
+        ]
+      },
+      "id": "way/280241414"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/280241415",
+        "access": "private",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6882339,
+          51.9299339
+        ]
+      },
+      "id": "way/280241415"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/281907892",
+        "access": "private",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6808392,
+          51.930034
+        ]
+      },
+      "id": "way/281907892"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/287514547",
+        "leisure": "swimming_pool",
+        "swimming_pool": "children's_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6093281,
+          51.9794767
+        ]
+      },
+      "id": "way/287514547"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/288100389",
+        "access": "private",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6123493,
+          51.9963106
+        ]
+      },
+      "id": "way/288100389"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/288100393",
+        "access": "private",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6125584,
+          51.9970032
+        ]
+      },
+      "id": "way/288100393"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/288317200",
+        "access": "private",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.5764199,
+          51.9630222
+        ]
+      },
+      "id": "way/288317200"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/291263558",
+        "access": "private",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6640983,
+          51.9060661
+        ]
+      },
+      "id": "way/291263558"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/325687151",
+        "access": "customers",
+        "leisure": "swimming_pool",
+        "sport": "cliff_diving",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6582354,
+          51.8891148
+        ]
+      },
+      "id": "way/325687151"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/337645703",
+        "leisure": "swimming_pool",
+        "level": "1",
+        "temperature": "25",
+        "wheelchair": "no",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.5928206,
+          51.8904014
+        ]
+      },
+      "id": "way/337645703"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/337645718",
+        "leisure": "swimming_pool",
+        "wheelchair": "no",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.592414,
+          51.8902565
+        ]
+      },
+      "id": "way/337645718"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/379815063",
+        "access": "private",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6835137,
+          52.0172575
+        ]
+      },
+      "id": "way/379815063"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/380368400",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.67654,
+          51.9260314
+        ]
+      },
+      "id": "way/380368400"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/390645725",
+        "access": "private",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6543715,
+          51.9191588
+        ]
+      },
+      "id": "way/390645725"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/398595755",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.5966146,
+          51.8857655
+        ]
+      },
+      "id": "way/398595755"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/399531992",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6900911,
+          51.9516742
+        ]
+      },
+      "id": "way/399531992"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/402517257",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.5978509,
+          51.9577282
+        ]
+      },
+      "id": "way/402517257"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/414656837",
+        "access": "private",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6068088,
+          51.9800515
+        ]
+      },
+      "id": "way/414656837"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/422112695",
+        "building": "hospital",
+        "building:levels": "1",
+        "leisure": "swimming_pool",
+        "sport": "swimming",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6496193,
+          51.9609282
+        ]
+      },
+      "id": "way/422112695"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/906590251",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6571261,
+          51.8897088
+        ]
+      },
+      "id": "way/906590251"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/992923056",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6225245,
+          51.8996222
+        ]
+      },
+      "id": "way/992923056"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1031021477",
+        "access": "private",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6055263,
+          51.9626159
+        ]
+      },
+      "id": "way/1031021477"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1032385094",
+        "addr:city": "Münster",
+        "addr:country": "DE",
+        "addr:housenumber": "144",
+        "addr:postcode": "48157",
+        "addr:street": "Hobbeltstraße",
+        "building": "yes",
+        "leisure": "sports_centre",
+        "name": "Bürgerbad Handorf",
+        "sport": "swimming",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.7139502,
+          51.9940237
+        ]
+      },
+      "id": "way/1032385094"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1105150868",
+        "addr:city": "Münster",
+        "addr:country": "DE",
+        "addr:housenumber": "38",
+        "addr:postcode": "48151",
+        "addr:street": "Inselbogen",
+        "building": "public_bath",
+        "contact:website": "https://www.stadt-muenster.de/sportamt/baeder/suedbad",
+        "fixme": "imprecise",
+        "leisure": "sports_centre",
+        "name": "Südbad",
+        "opening_hours": "Mo 06:30-09:00,16:00-18:00; Tu,Th 06:30-08:00; We 15:00-21:00; Fr 06:30-08:00,15:00-21:00; Sa,Su,Ph off",
+        "sport": "swimming",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6135371,
+          51.9393665
+        ]
+      },
+      "id": "way/1105150868"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1105357248",
+        "access": "private",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6534169,
+          51.9801458
+        ]
+      },
+      "id": "way/1105357248"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1361016480",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6226837,
+          51.8940083
+        ]
+      },
+      "id": "way/1361016480"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1374872661",
+        "access": "customers",
+        "description": "Wasserrutsche-Auffangbecken",
+        "leisure": "swimming_pool",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6580085,
+          51.8900212
+        ]
+      },
+      "id": "way/1374872661"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3116773061",
+        "leisure": "swimming_pool",
+        "level": "0",
+        "name": "Lehrschwimmbecken",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.5938318,
+          51.9628112
+        ]
+      },
+      "id": "node/3116773061"
+    }
+  ]
+}
