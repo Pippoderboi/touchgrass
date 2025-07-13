@@ -32,7 +32,7 @@
                 "NAME": "Hallenbad Mitte",
                 "LINK1_TXT": "weitere Informationen",
                 "LINK1": "https:\/\/www.stadt-muenster.de\/sportamt\/baeder\/hallenbad-mitte.html",
-                "opening_hours": "",
+                "opening_hours": "Mo 10:00-22:00; Tu off; We 6:30-22:00; Th off; Fr 6:30-22:00; Sa 10:00-17:00; Su 8:00-16:00",
                 "RECHTSWERT": 404910.0,
                 "HOCHWERT": 5757495.0
             },
@@ -85,7 +85,7 @@
                 "NAME": "Hallenbad Roxel",
                 "LINK1_TXT": "weitere Informationen",
                 "LINK1": "https:\/\/www.stadt-muenster.de\/sportamt\/baeder\/hallenbad-roxel.html",
-                "opening_hours": "Su 08:00-18:00, Mo,Th,Fr 06:30-08:00, Mo,Fr 15:00-17:00, Sa 07:00-17:00",
+                "opening_hours": "Su 08:00-18:00; Mo,Th,Fr 06:30-08:00; Mo,Fr 15:00-17:00; Sa 07:00-17:00",
                 "RECHTSWERT": 398743.0,
                 "HOCHWERT": 5757013.0
             },
@@ -121,7 +121,7 @@
                 "NAME": "Freibad Hiltrup",
                 "LINK1_TXT": "weitere Informationen",
                 "LINK1": "https:\/\/www.stadt-muenster.de\/sportamt\/baeder\/freibad-hiltrup.html",
-                "opening_hours": "",
+                "opening_hours": "Mo 08:00-20:00; Tu 12:00-20:00; We 08:00-20:00; Th 08:00-20:00; Fr 08:00-20:00; Sa 10:00-20:00; Su 10:00-20:00",
                 "RECHTSWERT": 407557.0,
                 "HOCHWERT": 5749568.0
             },
@@ -139,7 +139,7 @@
                 "NAME": "Freibad Coburg",
                 "LINK1_TXT": "weitere Informationen",
                 "LINK1": "https:\/\/www.stadt-muenster.de\/sportamt\/baeder\/freibad-coburg.html",
-                "opening_hours": "Mo,Tu,Th,Fr 07:00-20:00; We 12:00-20:00; Sa,Su,PH 09:00-20:00; Oct-Apr off; 2025 May 01 12:00-20:00",
+                "opening_hours": "Mo,Tu,Th,Fr 07:00-20:00; We 12:00-20:00; Sa,Su,PH 09:00-20:00; Oct-Apr off",
                 "RECHTSWERT": 404525.0,
                 "HOCHWERT": 5759604.0
             },
@@ -155,14 +155,14 @@
             "type": "Feature",
             "properties": {
                 "NAME": "Sportbad Südmühle",
-                "LINK1_TXT": "",
-                "LINK1": "",
+                "LINK1_TXT": "weitere Informationen",
+                "LINK1": "https://schwimmvereinigung.de/",
+                "opening_hours":"Mo,We,Fr 12:00-19:00; Tu,Th 13:00-19:00; Sa,Su 10:00-19:00",
                 "RECHTSWERT": 410703.0,
                 "HOCHWERT": 5761848.0
             },
             "geometry": {
                 "type": "Point",
-                "opening_hours": "",
                 "coordinates": [
                     7.699223068526779,
                     52.000098546008523
@@ -173,8 +173,8 @@
             "type": "Feature",
             "properties": {
                 "NAME": "Bürgerbad Handorf",
-                "LINK1_TXT": "",
-                "LINK1": "",
+                "LINK1_TXT": "weitere Informationen",
+                "LINK1": "https://brgerbad-handorf---bba.chayns.site/",
                 "RECHTSWERT": 411174.0,
                 "HOCHWERT": 5760618.0
             },
@@ -193,7 +193,7 @@
                 "NAME": "Freibad Stapelskotten",
                 "LINK1_TXT": "weitere Informationen",
                 "LINK1": "https:\/\/www.stadt-muenster.de\/sportamt\/baeder\/freibad-stapelskotten.html",
-                "opening_hours": "",
+                "opening_hours": "Mo 12:00-20:00; Tu 07:00-20:00; We,Th,Fr 07:00-20:00; Sa,Su 09:00-20:00",
                 "RECHTSWERT": 410017.0,
                 "HOCHWERT": 5756021.0
             },

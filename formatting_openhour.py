@@ -1,4 +1,5 @@
 import pandas as pd
+import re
 def format_opening_hours(hours_str):
     if not hours_str or pd.isna(hours_str):
         return "No opening hours available"
@@ -10,23 +11,31 @@ def format_opening_hours(hours_str):
         hours_str = hours_str.replace('jeden', 'every')
         hours_str = hours_str.replace('vom', 'from')
         hours_str = hours_str.replace('bis', 'to')
+        hours_str = hours_str.replace('?', 'No opening hours available')
+        hours_str = hours_str.replace('off', 'close')
+        hours_str = hours_str.replace('24/7', 'always open')
         
         # Create mapping for German day abbreviations
+        
         day_mapping = {
+            'Montag':'Mon', 'Dienstag':'Tue', 'Mittwoch':'Wed','Donnerstag':'Thu',
+            'Freitag':'Fri','Samstag':'Sat', 'Sonntag':'Sun',
             'Mo': 'Mon', 'Di': 'Tue', 'Mi': 'Wed', 'Do': 'Thu', 
             'Fr': 'Fri', 'Sa': 'Sat', 'So': 'Sun'
         }
+        # First process full day names (longer strings first)
+        for de_day, en_day in sorted(day_mapping.items(), key=lambda x: -len(x[0])):
+        # Use word boundaries to match whole words only
+            hours_str = re.sub(r'\b' + re.escape(de_day) + r'\b', en_day, hours_str, flags=re.IGNORECASE)
         
-        # Replace German day abbreviations
-        for de_day, en_day in day_mapping.items():
-            hours_str = hours_str.replace(de_day, en_day)
-            # Also replace full German day names
-            hours_str = hours_str.replace(de_day.lower(), en_day.lower())
-            hours_str = hours_str.replace(de_day.upper(), en_day.upper())
-        
+        # Process day names using regex for whole word matches, case-insensitive
+        # Sort by length in descending order to match longer strings first
+        for de_day, en_day in sorted(day_mapping.items(), key=lambda x: -len(x[0])):
+            hours_str = re.sub(r'\b' + re.escape(de_day) + r'\b', en_day, hours_str, flags=re.IGNORECASE)
+
         # Fix common typos
-        hours_str = hours_str.replace('Sunnntag', 'Sonntag')
-        hours_str = hours_str.replace('Sonnntag', 'Sonntag')
+        hours_str = hours_str.replace('Sunnntag', 'Sun')
+        hours_str = hours_str.replace('Sonnntag', 'Sun')
         
         # Handle special case where "geschlossen" appears
         if 'Closed' in hours_str:
