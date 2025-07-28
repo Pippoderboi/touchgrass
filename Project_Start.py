@@ -1,5 +1,3 @@
-
-
 # Project Start Date: 2025-06
 from turtle import color
 import geopandas as gpd
@@ -52,8 +50,12 @@ kinder_cluster, kinder_group = create_clustered_feature_group('Spielplätze',min
 friedhof_cluster, friedhof_group = create_clustered_feature_group('Friedhöfe',min_zoom=15)
 refill_cluster, refill_group = create_clustered_feature_group('Refillstationen',min_zoom=15)
 gastro_cluster, gastro_group = create_clustered_feature_group('Gastronomie',min_zoom=15)
+restaurant_cluster, restaurant_group = create_clustered_feature_group('Restaurants', min_zoom=15)
+bar_cluster, bar_group = create_clustered_feature_group('Bars', min_zoom=15)
+cafe_cluster, cafe_group = create_clustered_feature_group('Cafés', min_zoom=15)
 toiletten_cluster, toiletten_group = create_clustered_feature_group('Toiletten',min_zoom=15)
 baeder_cluster, baeder_group = create_clustered_feature_group('Bäder',min_zoom=15)
+sauna_cluster, sauna_group = create_clustered_feature_group('Saunen', min_zoom=15)
 theater_cluster, theater_group = create_clustered_feature_group('Theater',min_zoom=15)
 gruenflaechen_cluster, gruenflaechen_group = create_clustered_feature_group('Grünflächen',min_zoom=14)
 
@@ -168,6 +170,19 @@ for idx, row in buechereien.iterrows():
 
 # Add Sportstaetten
 sportstaetten = gpd.read_file('sportstaetten_mit_opening_hours.geojson')
+
+# Define allowed Teilprodukt values
+TEILPRODUKTE = [
+    'Krafträume', 'Dreifachhalle', 'Skateanlage', 'Speckbrettanalage', 
+    'Beachvolleyballanlage', 'Einfachhallen', 'Gymastikräume', 
+    'Trimmanlage', 'Bouleanlage'
+]
+
+# Filter the DataFrame to only include rows with allowed Teilprodukt values
+sportstaetten = sportstaetten[
+    sportstaetten['Teilprodukt'].isin(TEILPRODUKTE) | 
+    sportstaetten['Teilprodukt'].isna()
+]
 for idx, row in sportstaetten.iterrows():
     if row.geometry:
         lon, lat = row.geometry.x, row.geometry.y
@@ -180,6 +195,10 @@ for idx, row in sportstaetten.iterrows():
         # Type
         if 'Produkt' in row and pd.notnull(row['Produkt']):
             popup_lines.append(f"<b>Art:</b> {row['Produkt']}")
+        
+        # Teilprodukt
+        if 'Teilprodukt' in row and pd.notnull(row['Teilprodukt']):
+            popup_lines.append(f"<b>Teilprodukt:</b> {row['Teilprodukt']}")
             
         # Address
         address_parts = []
@@ -323,21 +342,30 @@ columns_to_show=['Name']
 for idx, row in kinder.iterrows():
     if row.geometry:
         lon, lat= row.geometry.x, row.geometry.y
-        # Format the values in the name column, so that the street names are not in caps
-        name =str(row['Name'])
+        
+        name = str(row['Name'])
         if name.startswith('SP'):
             formatted_name ='SP'+' '+name[2:].strip().title()
         else:
-            formatted_name=name.strip().title()
+            formatted_name = name.strip().title()
 
-        popup_text = "<br>".join(
-            f"<b>{col}:</b> {formatted_name if col == 'Name' else row[col]}" 
-                for col in columns_to_show 
-                if col in kinder.columns and pd.notnull(row[col])
-        )
+        popup_lines = [f"<b>Name:</b> {formatted_name}"]
+        
+        # Add Ballspielplatz information if Ball is 1 or 2
+        if 'Ball' in row and pd.notnull(row['Ball']) and row['Ball'] in [1, 2]:
+            popup_lines.append("Ballspielplatz vorhanden")
+            
+        # Add Skateanlage information if Skater is 'ja'
+        if 'Skater' in row and pd.notnull(row['Skater']) and str(row['Skater']).strip().lower() == 'ja':
+            popup_lines.append("Skateanlage vorhanden")
+            
+        # Add Streetballplatz information if Streetball is 'ja'
+        if 'Streetball' in row and pd.notnull(row['Streetball']) and str(row['Streetball']).strip().lower() == 'ja':
+            popup_lines.append("Streetballplatz vorhanden")
+        
         folium.Marker(
             location=[lat,lon],
-            popup=folium.Popup(popup_text, max_width=300),
+            popup=folium.Popup("<br>".join(popup_lines), max_width=300),
             icon=folium.Icon(color='cadetblue', icon='child', prefix='fa')
         ).add_to(kinder_cluster)
 
@@ -394,8 +422,8 @@ for idx, row in refill.iterrows():
                 icon=folium.Icon(color='blue', icon='tint', prefix='fa')
             ).add_to(refill_cluster)
 
-#Add Gastronomie 
-gastro=gpd.read_file('muenster_gastronomie.geojson')
+# Add Gastronomie 
+gastro = gpd.read_file('muenster_gastronomie.geojson')
 for idx, row in gastro.iterrows():
     if row.geometry and pd.notnull(row.geometry):
         lon, lat = row.geometry.x, row.geometry.y
@@ -433,14 +461,43 @@ for idx, row in gastro.iterrows():
             formatted_hours = format_opening_hours(row['opening_hours'])
             popup_lines.append(f"<b>Öffnungszeiten:</b><br>{formatted_hours}")
         
+        # Determine the category and add to appropriate feature group
         if popup_lines:
-            folium.Marker(
+            # Default to restaurant icon
+            icon_type = 'cutlery'
+            icon_color = 'lightred'
+
+            amenity = str(row.get('amenity', '')).lower()
+            if amenity == 'cafe':
+                icon_type = 'coffee'
+                icon_color = 'red'
+                marker_group = cafe_cluster
+            elif amenity == 'bar' or amenity == 'pub':
+                icon_type = 'beer'
+                icon_color = 'darkred'
+                marker_group = bar_cluster
+            else:  # Default to restaurants
+                marker_group = restaurant_cluster
+
+            # Create marker with appropriate icon
+            marker = folium.Marker(
                 location=[lat, lon],
                 popup=folium.Popup("<br>".join(popup_lines), max_width=300),
-                icon=folium.Icon(color='lightred', icon='cutlery', prefix='fa')
-            ).add_to(gastro_cluster)
+                icon=folium.Icon(color=icon_color, icon=icon_type, prefix='fa')
+            ).add_to(marker_group)
+            
+            
+            # Categorize based only on the 'amenity' field
+            amenity = str(row.get('amenity', '')).lower()
+            if amenity == 'cafe':
+                marker.add_to(cafe_cluster)
+            elif amenity == 'bar' or amenity == 'pub':
+                marker.add_to(bar_cluster)
+            else:  # Default to restaurants (includes 'restaurant', 'fast_food', etc.)
+                marker.add_to(restaurant_cluster)
 
-#Add Toiletten
+
+# Add Toiletten
 toiletten=gpd.read_file('toiletten-mit-oz.geojson')
 columns_to_show=['Name','Barrierefrei','Öffnungszeiten']
 for idx, row in toiletten.iterrows():
@@ -517,7 +574,51 @@ for idx, row in baeder.iterrows():
                 icon=folium.Icon(color='lightblue', icon='swimming-pool', prefix='fa')
             ).add_to(baeder_cluster)
 
-
+#Add Sauna
+sauna = gpd.read_file('sauna.geojson')
+for idx, row in sauna.iterrows():
+    if row.geometry and row.geometry.is_valid:
+        # Get the centroid for placing the marker if it's a polygon
+        if row.geometry.geom_type == 'Polygon':
+            point = row.geometry.centroid
+            lon, lat = point.x, point.y
+        elif row.geometry.geom_type == 'Point':
+            lon, lat = row.geometry.x, row.geometry.y
+        else:
+            continue  # Skip if it's neither Point nor Polygon
+            
+        popup_lines = []
+        # Add name
+        if 'name' in row and pd.notnull(row['name']):
+            popup_lines.append(f"<b>Name:</b> {row['name']}")
+        
+        # Add formatted opening hours
+        if 'opening_hours' in row and pd.notnull(row['opening_hours']):
+            formatted_hours = format_opening_hours(str(row['opening_hours']))
+            popup_lines.append(f"<b>Öffnungszeiten:</b><br>{formatted_hours}")
+        
+        # Add phone number
+        if 'phone' in row and pd.notnull(row['phone']):
+            phone = str(row['phone']).strip()
+            if phone:  # Only add if not empty after stripping
+                popup_lines.append(f"<b>Telefon:</b> {phone}")
+        
+        # Add website if available
+        if 'website' in row and pd.notnull(row['website']):
+            website = str(row['website']).strip()
+            if website:  # Only add if not empty after stripping
+                # Ensure the URL has a protocol
+                if not website.startswith(('http://', 'https://')):
+                    website = 'https://' + website
+                popup_lines.append(f"<b>Homepage:</b> <a href='{website}' target='_blank'>{website}</a>")
+        
+        # Only add marker if there's something to show
+        if popup_lines:
+            folium.Marker(
+                location=[lat, lon],
+                popup=folium.Popup("<br>".join(popup_lines), max_width=300),
+                icon=folium.Icon(color='darkblue', icon='hot-tub', prefix='fa')
+            ).add_to(sauna_cluster)
 
 #Add Theater 
 theater=gpd.read_file('theater.geojson')
@@ -604,14 +705,10 @@ folium.GeoJson(
     )
 ).add_to(gruenflaechen_group)
 
-
-print(f"Successfully added {len(gruenflaechen)} green areas to the map")
-
-
 # Add all feature groups to the map
 for group in [museen_group, buechereien_group, sportstaetten_group, tischtennis_group,
               wickelplaetze_group, give_boxen_group, kinos_group, kinder_group,
-              friedhof_group, refill_group, gastro_group, toiletten_group, baeder_group, theater_group, gruenflaechen_group]:
+              friedhof_group, refill_group, restaurant_group, bar_group, cafe_group, toiletten_group, baeder_group,sauna_group, theater_group, gruenflaechen_group]:
     group.add_to(muenster)
 
 
@@ -624,8 +721,4 @@ os.chdir(original_dir)
 muenster.save("muenster_map.html")
 
 
-
-
-
-
-
+print(f"Successfully added {len(gruenflaechen)} green areas to the map")
