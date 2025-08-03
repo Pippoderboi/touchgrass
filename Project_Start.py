@@ -305,6 +305,10 @@ for idx, row in museen.iterrows():
         create_marker(lat, lon, popup_text, 'purple', 'museum').add_to(m)
 
 # Add Buechereien
+print("Adding Büchereien markers...")
+# Create a new feature group for Büchereien to ensure clean state
+buechereien_group = folium.FeatureGroup(name='Büchereien', show=True)
+
 buechereien = gpd.read_file('buechereien_mit_opening_hours.geojson')
 for idx, row in buechereien.iterrows():
     if row.geometry:
@@ -313,7 +317,12 @@ for idx, row in buechereien.iterrows():
                     f"Telefon: {row['TEL']}<br>" \
                     f"Öffnungszeiten: {format_opening_hours(row.get('OPENING HOURS'))}<br>" \
                     f"Homepage: <a href='{row['LINK1']}' target='_blank'>{row['LINK1']}</a>"
-        create_marker(lat, lon, popup_text, 'orange', 'book').add_to(buechereien_group)
+        # Add marker with consistent orange color and book-reader icon
+        create_marker(lat, lon, popup_text, 'orange', 'book-reader').add_to(buechereien_group)
+        print(f"Added Bücherei: {row['NAME']} at ({lat}, {lon})")
+
+# Add the Büchereien group to the map
+buechereien_group.add_to(m)
 
 # Add Sportstaetten
 sportstaetten = gpd.read_file('sportstaetten_mit_opening_hours.geojson')
@@ -365,7 +374,7 @@ for idx, row in sportstaetten.iterrows():
             formatted_hours = format_opening_hours(row['OPENING HOURS'])
             popup_lines.append(f"<b>Öffnungszeiten:</b><br>{formatted_hours}")
         
-        create_marker(lat, lon, popup_text, 'green', 'soccer-ball-o').add_to(sportstaetten_group)
+        create_marker(lat, lon, popup_text, 'red', 'dumbbell').add_to(sportstaetten_group)
 
 # Add Still & Wickelplätze
 wickelplaetze = gpd.read_file('still-und-wickelplaetze-muenster-2023.geojson')
