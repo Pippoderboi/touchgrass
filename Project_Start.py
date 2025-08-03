@@ -41,7 +41,8 @@ def create_clustered_feature_group(name, min_zoom=13, show=False):
 
 museen_cluster, museen_group = create_clustered_feature_group('Museen', min_zoom=15)
 buechereien_cluster, buechereien_group = create_clustered_feature_group('Büchereien',min_zoom=15)
-sportstaetten_cluster, sportstaetten_group = create_clustered_feature_group('Sportstätten',min_zoom=15)
+sport_drinnen_cluster, sport_drinnen_group = create_clustered_feature_group('Sportstätte drinnen', min_zoom=15)
+sport_draussen_cluster, sport_draussen_group = create_clustered_feature_group('Sportstätte draußen', min_zoom=15)
 tischtennis_cluster, tischtennis_group = create_clustered_feature_group('Tischtennisplatten',min_zoom=15)
 wickelplaetze_cluster, wickelplaetze_group = create_clustered_feature_group('Wickelplätze',min_zoom=15)
 give_boxen_cluster, give_boxen_group = create_clustered_feature_group('Give Boxen',min_zoom=15)
@@ -171,16 +172,21 @@ for idx, row in buechereien.iterrows():
 # Add Sportstaetten
 sportstaetten = gpd.read_file('sportstaetten_mit_opening_hours.geojson')
 
-# Define allowed Teilprodukt values
-TEILPRODUKTE = [
-    'Krafträume', 'Dreifachhalle', 'Skateanlage', 'Speckbrettanalage', 
-    'Beachvolleyballanlage', 'Einfachhallen', 'Gymastikräume', 
-    'Trimmanlage', 'Bouleanlage'
+# Define Indoor and outdoor
+INDOOR_SPORTS = [
+    'Krafträume', 'Dreifachhalle', 'Einfachhallen', 'Gymnastikräume',
+    'Zweifachhalle', 'Gymnastikräume', 'Gymnastikraum'
 ]
 
-# Filter the DataFrame to only include rows with allowed Teilprodukt values
+OUTDOOR_SPORTS = [
+    'Skateanlage', 'Skateanlagen', 'Speckbrettanlage', 'Speckbrettanlagen',
+    'Beachvolleyballanlage', 'Beachvolleyballanlagen', 'Trimmanlage', 
+    'Trimmanlagen', 'Bouleanlage', 'Bouleanlagen'
+]
+
+# Filter the DataFrame 
 sportstaetten = sportstaetten[
-    sportstaetten['Teilprodukt'].isin(TEILPRODUKTE) | 
+    sportstaetten['Teilprodukt'].isin(INDOOR_SPORTS + OUTDOOR_SPORTS) | 
     sportstaetten['Teilprodukt'].isna()
 ]
 for idx, row in sportstaetten.iterrows():
@@ -218,12 +224,28 @@ for idx, row in sportstaetten.iterrows():
             formatted_hours = format_opening_hours(row['OPENING HOURS'])
             popup_lines.append(f"<b>Öffnungszeiten:</b><br>{formatted_hours}")
         
-        if popup_lines:
-            folium.Marker(
-                location=[lat, lon],
-                popup=folium.Popup("<br>".join(popup_lines), max_width=300),
-                icon=folium.Icon(color='red', icon='basketball-ball', prefix='fa')
-            ).add_to(sportstaetten_cluster)
+        # Determine if it´s an indoor our outdoor sport facility
+        is_indoor = row['Teilprodukt'] in INDOOR_SPORTS if pd.notnull(row['Teilprodukt']) else False
+
+
+        
+        # Create marker with appropriate icon and add to the correct group
+        marker = folium.Marker(
+            location=[lat, lon],
+            popup=folium.Popup("<br>".join(popup_lines), max_width=300),
+            icon=folium.Icon(
+                color='red' if is_indoor else 'cadetblue',
+                icon='dumbbell' if is_indoor else 'volleyball-ball',
+                prefix='fa'
+            )
+        )
+
+        # Add to the appropriate group
+        if is_indoor:
+            marker.add_to(sport_drinnen_cluster)
+        else:
+            marker.add_to(sport_draussen_cluster)
+
 
 # Add Still & Wickelplätze
 wickelplaetze = gpd.read_file('still-und-wickelplaetze-muenster-2023.geojson')
@@ -706,7 +728,7 @@ folium.GeoJson(
 ).add_to(gruenflaechen_group)
 
 # Add all feature groups to the map
-for group in [museen_group, buechereien_group, sportstaetten_group, tischtennis_group,
+for group in [museen_group, buechereien_group, sport_drinnen_group, sport_draussen_group, tischtennis_group,
               wickelplaetze_group, give_boxen_group, kinos_group, kinder_group,
               friedhof_group, refill_group, restaurant_group, bar_group, cafe_group, toiletten_group, baeder_group,sauna_group, theater_group, gruenflaechen_group]:
     group.add_to(muenster)
