@@ -4,8 +4,10 @@ import geopandas as gpd
 import pandas as pd
 import os 
 import folium 
-from folium.plugins import MarkerCluster
+from folium.plugins import MarkerCluster, LocateControl
+from folium import FeatureGroup, LayerControl, Map
 from formatting_openhour import format_opening_hours
+import math
 
 #defining original directory
 original_dir = os.getcwd()
@@ -36,9 +38,150 @@ try:
 except Exception as e:
     print(f"Something went wrong: {e}")
 
-# Create a map using folium 
+# Create a map using folium with# Create a map centered on Münster
+m = folium.Map(location=[51.9607, 7.6261], zoom_start=13, control_scale=True)
 
-muenster = folium.Map(location=[51.96, 7.62], zoom_start=12.5)
+# Add CSS for the radius slider control
+radius_control = """
+<div style="position: fixed; 
+            top: 20px; 
+            right: 20px; 
+            z-index: 1000; 
+            background: white; 
+            padding: 15px; 
+            border-radius: 8px; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            width: 220px;">
+    <div style="margin-bottom: 10px; font-weight: bold;">
+        <i class="fa fa-arrows-alt-h" style="margin-right: 5px;"></i> Umkreis: 
+        <span id="radiusValue">1</span> km
+    </div>
+    <input type="range" 
+           id="radiusSlider" 
+           min="0.5" 
+           max="10" 
+           step="0.5" 
+           value="1" 
+           style="width: 100%;">
+    <div style="display: flex; justify-content: space-between; margin-top: 5px; font-size: 12px; color: #666;">
+        <span>0.5 km</span>
+        <span>10 km</span>
+    </div>
+</div>
+"""
+
+# Add the radius control to the map
+m.get_root().html.add_child(folium.Element(radius_control))
+
+# Add JavaScript for radius slider
+radius_js = """
+<script>
+// Store all markers with their layer groups
+var allMarkers = [];
+var currentRadius = 1000; // Default 1km in meters
+var userPosition = null;
+
+// Function to calculate distance between two points in meters
+function getDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371e3; // Earth's radius in meters
+    const φ1 = lat1 * Math.PI/180;
+    const φ2 = lat2 * Math.PI/180;
+    const Δφ = (lat2-lat1) * Math.PI/180;
+    const Δλ = (lon2-lon1) * Math.PI/180;
+
+    const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+              Math.cos(φ1) * Math.cos(φ2) *
+              Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    return R * c;
+}
+
+// Function to update marker visibility based on radius
+function updateMarkersByRadius() {
+    if (!userPosition) return;
+    
+    allMarkers.forEach(marker => {
+        const markerLatLng = marker.getLatLng();
+        const distance = getDistance(
+            userPosition.lat, 
+            userPosition.lng,
+            markerLatLng.lat,
+            markerLatLng.lng
+        );
+        
+        if (distance <= currentRadius) {
+            marker.addTo(marker._group);
+            marker.setOpacity(1.0);
+        } else {
+            marker.setOpacity(0.3);
+        }
+    });
+}
+
+// Store original addTo method
+var originalAddTo = L.Marker.prototype.addTo;
+L.Marker.prototype.addTo = function(map) {
+    allMarkers.push(this);
+    this._group = map; // Store the group this marker belongs to
+    return originalAddTo.call(this, map);
+};
+
+// Handle location found and slider changes
+document.addEventListener('DOMContentLoaded', function() {
+    const slider = document.getElementById('radiusSlider');
+    const radiusValue = document.getElementById('radiusValue');
+    
+    // Update radius when slider changes
+    slider.addEventListener('input', function() {
+        currentRadius = parseFloat(this.value) * 1000; // Convert km to meters
+        radiusValue.textContent = this.value;
+        updateMarkersByRadius();
+    });
+    
+    // Listen for location found event
+    document._map.on('locationfound', function(e) {
+        userPosition = e.latlng;
+        updateMarkersByRadius();
+    });
+    
+    // Trigger initial update
+    updateMarkersByRadius();
+});
+</script>
+"""
+
+# Add the JavaScript to the map
+m.get_root().html.add_child(folium.Element(radius_js))
+
+# Add location control with simpler marker style
+locate_control = LocateControl(
+    position='topleft',
+    drawCircle=False,  # Disable circle drawing to avoid serialization issues
+    flyTo=True,
+    keepCurrentZoomLevel=False,
+    showPopup=True,
+    showCompass=True,
+    icon='location-arrow',
+    icon_color='#0078A8',
+    circleStyle={
+        'weight': 2,
+        'color': '#0078A8',
+        'fillColor': '#0078A8',
+        'fillOpacity': 0.2
+    }
+)
+locate_control.add_to(m)
+
+# Function to calculate distance between two points in kilometers
+def calculate_distance(lat1, lon1, lat2, lon2):
+    R = 6371  # Earth radius in kilometers
+    dLat = math.radians(lat2 - lat1)
+    dLon = math.radians(lon2 - lon1)
+    a = math.sin(dLat/2) * math.sin(dLat/2) + math.cos(math.radians(lat1)) * \
+        math.cos(math.radians(lat2)) * math.sin(dLon/2) * math.sin(dLon/2)
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
+    return R * c
 
 #function to create a feature group with clustering
 
@@ -73,6 +216,14 @@ baeder_cluster, baeder_group = create_clustered_feature_group('Bäder',min_zoom=
 theater_cluster, theater_group = create_clustered_feature_group('Theater',min_zoom=15)
 gruenflaechen_cluster, gruenflaechen_group = create_clustered_feature_group('Grünflächen',min_zoom=15)
 
+# Helper function to create markers with consistent styling
+def create_marker(lat, lon, popup_text, icon_color, icon_name):
+    return folium.Marker(
+        location=[lat, lon],
+        popup=popup_text,
+        icon=folium.Icon(color=icon_color, icon=icon_name, prefix='fa')
+    )
+
 # Add Tischtennisplatten 
 tischtennis=gpd.read_file('tischtennisplatten_muenster.geojson')
 columns_to_show = ['ort','material']
@@ -84,16 +235,34 @@ for idx, row in tischtennis.iterrows():
                 for col in columns_to_show 
                 if col in tischtennis.columns and pd.notnull(row[col])
         )
-        folium.Marker(
-            location=[lat,lon],
-            popup=folium.Popup(popup_text, max_width=300),
-            icon=folium.Icon(color='blue', icon='table-tennis', prefix='fa')
-        ).add_to(tischtennis_cluster)
+        create_marker(lat, lon, popup_text, 'blue', 'table-tennis').add_to(m)
 
 # Add Museen
 import os
 script_dir = os.path.dirname(os.path.abspath(__file__))
 museen = gpd.read_file(os.path.join(script_dir, 'raw_data_geojson', 'museen_mit_opening_hours.geojson'))
+
+# Add location control with simpler marker style
+locate_control = LocateControl(
+    position='topleft',
+    drawCircle=False,  # Disable circle drawing to avoid serialization issues
+    flyTo=True,
+    keepCurrentZoomLevel=False,
+    showPopup=True,
+    showCompass=True,
+    icon='location-arrow',
+    icon_color='#0078A8',
+    circleStyle={
+        'weight': 2,
+        'color': '#0078A8',
+        'fillColor': '#0078A8',
+        'fillOpacity': 0.2
+    }
+)
+locate_control.add_to(m)
+
+
+# Add Museen markers with initial visibility
 for idx, row in museen.iterrows():
     if row.geometry:
         lon, lat = row.geometry.x, row.geometry.y
@@ -110,11 +279,7 @@ for idx, row in museen.iterrows():
             
         popup_text += f"Homepage: <a href='{row['HOMEPAGE']}' target='_blank'>{row['HOMEPAGE']}</a>"
         
-        folium.Marker(
-            location=[lat, lon],
-            popup=popup_text,
-            icon=folium.Icon(color='purple', icon='museum', prefix='fa')
-        ).add_to(museen_cluster)
+        create_marker(lat, lon, popup_text, 'purple', 'museum').add_to(m)
 
 # Add Buechereien
 buechereien = gpd.read_file('buechereien_mit_opening_hours.geojson')
@@ -125,11 +290,7 @@ for idx, row in buechereien.iterrows():
                     f"Telefon: {row['TEL']}<br>" \
                     f"Öffnungszeiten: {format_opening_hours(row.get('OPENING HOURS'))}<br>" \
                     f"Homepage: <a href='{row['LINK1']}' target='_blank'>{row['LINK1']}</a>"
-        folium.Marker(
-            location=[lat, lon],
-            popup=popup_text,
-            icon=folium.Icon(color='orange', icon='book', prefix='fa')
-        ).add_to(buechereien_cluster)
+        create_marker(lat, lon, popup_text, 'orange', 'book').add_to(buechereien_group)
 
 # Add Sportstaetten
 
@@ -149,13 +310,7 @@ for idx, row in sportstaetten.iterrows():
             formatted_hours = format_opening_hours(row['OPENING HOURS'])
             popup_text += f"<br>Öffnungszeiten: {formatted_hours}"
         
-        icon = folium.Icon(color='red', icon='flag', prefix='fa')
-
-        folium.Marker(
-            location=[lat, lon],
-            popup=popup_text,
-            icon=folium.Icon (color='red',icon='flag',prefix='fa')
-        ).add_to(sportstaetten_cluster)
+        create_marker(lat, lon, popup_text, 'green', 'soccer-ball-o').add_to(sportstaetten_group)
 
 # Add Still & Wickelplätze
 wickelplaetze = gpd.read_file('still-und-wickelplaetze-muenster-2023.geojson')
@@ -480,11 +635,11 @@ for idx, row in theater.iterrows():
 for group in [museen_group, buechereien_group, sportstaetten_group, tischtennis_group,
               wickelplaetze_group, give_boxen_group, kinos_group, kinder_group,
               friedhof_group, refill_group, gastro_group, toiletten_group, baeder_group, theater_group, gruenflaechen_group]:
-    group.add_to(muenster)
+    group.add_to(m)
 
 # Add layer control (only need to do this once after all layers are added)
-folium.LayerControl().add_to(muenster)
+folium.LayerControl().add_to(m)
 
 # Go back to original directory and save map 
 os.chdir(original_dir)
-muenster.save("muenster_map.html")
+m.save("muenster_map.html")
