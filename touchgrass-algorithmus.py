@@ -53,7 +53,7 @@ class EmpfehlungsAlgorithmus:
         self.kategorien_scores = {
             'drinnen': {
                 'bäder': {'aktiv': 3, 'entspannt': 3, 'kulturell': 0, 'ruhe': 2, 'gesellschaft': 2},
-                'saunen': {'aktiv': 2, 'entspannt': 3, 'kulturell': 1, 'ruhe': 3, 'gesellschaft': 2},
+                'saunen': {'aktiv': 1, 'entspannt': 3, 'kulturell': 1, 'ruhe': 3, 'gesellschaft': 2},
                 'büchereien': {'aktiv': 1, 'entspannt': 3, 'kulturell': 3, 'ruhe': 3, 'gesellschaft': 1},
                 'kinos': {'aktiv': 1, 'entspannt': 2, 'kulturell': 3, 'ruhe': 2, 'gesellschaft': 2},
                 'theater': {'aktiv': 1, 'entspannt': 2, 'kulturell': 3, 'ruhe': 2, 'gesellschaft': 3},
@@ -64,7 +64,7 @@ class EmpfehlungsAlgorithmus:
                 'bäder': {'aktiv': 3, 'entspannt': 3, 'kulturell': 0, 'ruhe': 2, 'gesellschaft': 2},
                 'friedhöfe': {'aktiv': 1, 'entspannt': 3, 'kulturell': 2, 'ruhe': 3, 'gesellschaft': 0},
                 'give_boxen': {'aktiv': 2, 'entspannt': 2, 'kulturell': 1, 'ruhe': 2, 'gesellschaft': 2},
-                'grünflächen': {'aktiv': 3, 'entspannt': 3, 'kulturell': 1, 'ruhe': 3, 'gesellschaft': 2},
+                'grünflächen': {'aktiv': 3, 'entspannt': 3, 'kulturell': 0, 'ruhe': 3, 'gesellschaft': 2},
                 'spielplätze': {'aktiv': 3, 'entspannt': 2, 'kulturell': 0, 'ruhe': 1, 'gesellschaft': 3},
                 'tischtennisplatten': {'aktiv': 3, 'entspannt': 1, 'kulturell': 0, 'ruhe': 2, 'gesellschaft': 3},
                 'outdoor_sports': {'aktiv': 3, 'entspannt': 1, 'kulturell': 0, 'ruhe': 1, 'gesellschaft': 2},
