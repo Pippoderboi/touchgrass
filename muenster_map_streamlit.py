@@ -1,11 +1,146 @@
 from streamlit_folium import st_folium
+import time
 import streamlit as st
 import geopandas as gpd
 import pandas as pd
 import os
 import folium
+import re
 from folium.plugins import MarkerCluster
 from formatting_openhour import format_opening_hours
+from functools import lru_cache
+from typing import Optional, List, Dict, Any
+
+
+def _first_val(row: Dict[str, Any], keys: List[str]) -> Optional[str]:
+    for k in keys:
+        if k in row and pd.notnull(row[k]):
+            return str(row[k]).strip()
+    return None
+
+def _normalize_plz(plz: Optional[str]) -> Optional[str]:
+    if plz is None:
+        return None
+    s = str(plz).strip()
+    # Hole eine 5-stellige PLZ aus gemischten Strings (z.B. "48143.0" oder "48143 Münster")
+    m = re.search(r'\b(\d{5})\b', s)
+    return m.group(1) if m else s
+
+def format_address(
+    row,
+    street_keys=("addr:street","STR_NAME","Strname","Straße","street","strasse"),
+    hnr_keys=("addr:housenumber","HSNR","Hsnr","Hausnummer","hnr"),
+    plz_keys=("addr:postcode","PLZ","Plz","postcode","zip"),
+    city="Münster",
+):
+    def first(keys):
+        for k in keys:
+            if k in row and pd.notnull(row[k]):
+                return str(row[k]).strip()
+        return None
+
+    def normalize_hnr(h):
+        if h is None:
+            return None
+        if isinstance(h, float):
+            return str(int(h)) if h.is_integer() else str(h).rstrip("0").rstrip(".")
+        s = str(h).strip()
+        m = re.fullmatch(r'(\d+)(?:\.0+)?', s)
+        return m.group(1) if m else s
+
+    def normalize_plz(p):
+        if p is None:
+            return None
+        s = str(p).strip()
+        m = re.search(r'\b(\d{5})\b', s)
+        return m.group(1) if m else None
+
+    street = first(street_keys)
+    hnr    = normalize_hnr(first(hnr_keys))
+    plz    = normalize_plz(first(plz_keys))
+
+    # Wenn keine Straße vorhanden → keine PLZ, kein Münster
+    if not street:
+        return ""
+
+    # Straße + ggf. Hausnummer
+    main_parts = [street]
+    if hnr:
+        main_parts.append(hnr)
+    main = " ".join(main_parts).strip()
+
+    # Falls PLZ vorhanden → Komma + PLZ + Münster
+    if plz:
+        return f"{main}, {plz} {city}"
+    else:
+        return main
+
+# ----Cache -Loader for geo files
+@lru_cache(maxsize=8192)
+def fmt_hours_cached(s: str) -> str:
+    return format_opening_hours(s)
+
+@st.cache_data (show_spinner=False)
+def preprocess_gastro(path: str, mtime:float):
+    gdf = gpd.read_file(path)
+    gdf= gdf[gdf.geometry.notnull()].copy()
+    gdf["lon"]=gdf.geometry.x
+    gdf["lat"]=gdf.geometry.y
+    gdf["amenity_lc"] = gdf.get("amenity","").str.lower()
+    
+    def popup_html(row:pd.Series)-> str:
+        lines=[]
+        name=row.get("name")
+        if pd.notnull(name):
+            lines.append(f"<b>Name:</b> {name}")
+        # Adresse
+        address = format_address(row)
+        if address:
+            lines.append(f"<b>Adresse:</b> {address}")
+
+        phone = row.get("contact:phone")
+        if pd.notnull(phone):
+            lines.append(f"<b>Telefonnummer:</b> {phone}")
+
+        website = row.get("website")
+        if pd.notnull(website):
+            lines.append(f"<b>Homepage:</b> <a href='{website}' target='_blank'>{website}</a>")
+
+        oh = row.get("opening_hours")
+        if pd.notnull(oh):
+            lines.append(f"<b>Öffnungszeiten:</b><br>{fmt_hours_cached(str(oh))}")
+
+        return "<br>".join(lines)
+
+    gdf["popup"] = gdf.apply(popup_html, axis=1)
+
+    def to_list(df):
+        # [(lat, lon, popup_html), ...]
+        return list(zip(df["lat"].tolist(), df["lon"].tolist(), df["popup"].tolist()))
+
+    cafes = to_list(gdf[gdf["amenity_lc"] == "cafe"])
+    bars  = to_list(gdf[gdf["amenity_lc"].isin(["bar", "pub"])])
+    rest  = to_list(gdf[~gdf["amenity_lc"].isin(["cafe", "bar", "pub"])])
+
+    return {"cafes": cafes, "bars": bars, "restaurants": rest}        
+
+DEBUG_CACHE = False
+
+@st.cache_data (show_spinner=False)
+def _load_gdf_cached(path: str, mtime: float):
+    return gpd.read_file(path)
+
+def cached_read(filename:str):
+    path= os.path.join(data_dir, filename)
+    mtime=os.path.getmtime(path)
+
+    t0 =time.perf_counter()
+    gdf =_load_gdf_cached(path,mtime)
+    dt=time.perf_counter()-t0
+    if DEBUG_CACHE:
+        label="HIT" if dt <0.01 else "MISS"
+        st.caption(f"⏱️ {os.path.basename(filename)} geladen in {dt:.4f}s — {label}")
+    return gdf
 
 # ---- Setup ----
 st.set_page_config(layout="wide")
@@ -24,9 +159,15 @@ def create_clustered_feature_group(name, min_zoom=13, show=True):
     cluster = MarkerCluster(
         name=name,
         options={
-            'maxClusterRadius': 80,
-            'disableClusteringAtZoom': min_zoom,
-            'spiderfyDistanceMultiplier': 2
+            "maxClusterRadius": 80,
+            "disableClusteringAtZoom": min_zoom,
+            "spiderfyDistanceMultiplier": 2,
+            # clientseitiges chunked Loading
+            "chunkedLoading": True,     # Marker in Blöcken einfügen
+            "chunkInterval": 100,       # ms Arbeitszeit pro Block (Default: ~200)
+            "chunkDelay": 25,           # ms Pause zwischen Blöcken
+            # Optional: spart CPU beim Hover (Polygon-Abdeckung)
+            "showCoverageOnHover": False
         }
     ).add_to(fg)
     return cluster, fg
@@ -58,22 +199,16 @@ show_gruen = st.sidebar.checkbox("Grünflächen", False)
 # Museen
 if show_museen:
     museen_cluster, museen_group = create_clustered_feature_group('Museen', min_zoom=15)
-    museen = gpd.read_file(os.path.join(data_dir, 'museen_mit_opening_hours.geojson'))
+    museen = cached_read('museen_mit_opening_hours.geojson')
     for idx, row in museen.iterrows():
         if row.geometry:
             lon, lat = row.geometry.x, row.geometry.y
             popup_lines = []
             if 'NAME' in row and pd.notnull(row['NAME']):
                 popup_lines.append(f"<b>Name:</b> {row['NAME']}")
-            address_parts = []
-            if 'STR_NAME' in row and pd.notnull(row['STR_NAME']):
-                address_parts.append(str(row['STR_NAME']))
-                if 'HSNR' in row and pd.notnull(row['HSNR']):
-                    address_parts.append(str(int(row['HSNR'])))
-            if 'PLZ' in row and pd.notnull(row['PLZ']):
-                address_parts.append(', ' + str(int(row['PLZ']))) 
-            if address_parts:
-                popup_lines.append(f"<b>Adresse:</b> {' '.join(address_parts)}")
+            address = format_address(row)
+            if address:
+                popup_lines.append(f"<b>Adresse:</b> {address}")
             if 'opening_hours_osm' in row and pd.notnull(row['opening_hours_osm']) and row['opening_hours_osm'] != 'null':
                 formatted_hours = format_opening_hours(row['opening_hours_osm'])
                 popup_lines.append(f"<b>Öffnungszeiten:</b><br>{formatted_hours}")
@@ -92,22 +227,16 @@ if show_museen:
 # Büchereien
 if show_buechereien:
     buechereien_cluster, buechereien_group = create_clustered_feature_group('Büchereien', min_zoom=15)
-    buechereien = gpd.read_file(os.path.join(data_dir, 'buechereien_mit_opening_hours.geojson'))
+    buechereien = cached_read('buechereien_mit_opening_hours.geojson')
     for idx, row in buechereien.iterrows():
         if row.geometry:
             lon, lat = row.geometry.x, row.geometry.y
             popup_lines = []
             if 'NAME' in row and pd.notnull(row['NAME']):
                 popup_lines.append(f"<b>Name:</b> {row['NAME']}")
-            address_parts = []
-            if 'STR_NAME' in row and pd.notnull(row['STR_NAME']):
-                address_parts.append(str(row['STR_NAME']))
-                if 'HSNR' in row and pd.notnull(row['HSNR']):
-                    address_parts.append(str(int(row['HSNR'])))
-            if 'PLZ' in row and pd.notnull(row['PLZ']):
-                address_parts.append(', ' + str(int(row['PLZ'])))
-            if address_parts:
-                popup_lines.append(f"<b>Adresse:</b> {' '.join(address_parts)}")
+            address = format_address(row)
+            if address:
+                popup_lines.append(f"<b>Adresse:</b> {address}")
             if 'TEL' in row and pd.notnull(row['TEL']):
                 popup_lines.append(f"<b>Telefonnummer:</b> {row['TEL']}")
             if 'OPENING HOURS' in row and pd.notnull(row['OPENING HOURS']):
@@ -125,11 +254,13 @@ if show_buechereien:
                 ).add_to(buechereien_cluster)
     buechereien_group.add_to(muenster)
 
+#Sportstätten
+
 if show_sport_drinnen or show_sport_draussen:
     sport_drinnen_cluster, sport_drinnen_group = create_clustered_feature_group('Sportstätte drinnen', min_zoom=15)
     sport_draussen_cluster, sport_draussen_group = create_clustered_feature_group('Sportstätte draußen', min_zoom=15)
     
-    sportstaetten = gpd.read_file(os.path.join(data_dir, 'sportstaetten_mit_opening_hours.geojson'))
+    sportstaetten = cached_read('sportstaetten_mit_opening_hours.geojson')
 
     INDOOR_SPORTS = [
         'Krafträume', 'Dreifachhalle', 'Einfachhallen', 'Gymnastikräume',
@@ -161,15 +292,9 @@ if show_sport_drinnen or show_sport_draussen:
                 popup_lines.append(f"<b>Teilprodukt:</b> {row['Teilprodukt']}")
             
             # Address
-            address_parts = []
-            if 'Strname' in row and pd.notnull(row['Strname']):
-                address_parts.append(str(row['Strname']))
-                if 'Hsnr' in row and pd.notna(row['Hsnr']):
-                    address_parts.append(str(int(row['Hsnr'])))
-            if 'Plz' in row and pd.notnull(row['Plz']):
-                address_parts.append(', ' + str(int(row['Plz'])))
-            if address_parts:
-                popup_lines.append(f"<b>Adresse:</b> {' '.join(address_parts)}")
+            address = format_address(row)
+            if address:
+                popup_lines.append(f"<b>Adresse:</b> {address}")
             
             # Opening hours
             if 'OPENING HOURS' in row and pd.notna(row['OPENING HOURS']):
@@ -201,7 +326,7 @@ if show_sport_drinnen or show_sport_draussen:
 # ---- Tischtennisplatten ----
 if show_tischtennis:
     tischtennis_cluster, tischtennis_group = create_clustered_feature_group('Tischtennisplatten', min_zoom=15)
-    tischtennis = gpd.read_file(os.path.join(data_dir, 'tischtennisplatten_muenster.geojson'))
+    tischtennis = cached_read('tischtennisplatten_muenster.geojson')
 
     for idx, row in tischtennis.iterrows():
         if row.geometry:
@@ -223,7 +348,7 @@ if show_tischtennis:
 # ---- Wickelplätze ----
 if show_wickelplaetze:
     wickelplaetze_cluster, wickelplaetze_group = create_clustered_feature_group('Wickelplätze', min_zoom=15)
-    wickelplaetze = gpd.read_file(os.path.join(data_dir, 'still-und-wickelplaetze-muenster-2023.geojson'))
+    wickelplaetze = cached_read('still-und-wickelplaetze-muenster-2023.geojson')
 
     for idx, row in wickelplaetze.iterrows():
         if row.geometry:
@@ -235,13 +360,9 @@ if show_wickelplaetze:
                 popup_lines.append(f"<b>Name:</b> {row['Name']}")
             
             # Address & Stockwerk
-            address = []
-            if 'Straße' in row and pd.notnull(row['Straße']):
-                address.append(str(row['Straße']))
-                if 'Stockwerk' in row and pd.notnull(row['Stockwerk']):
-                    address.append(f"Stockwerk: {row['Stockwerk']}")
+            address = format_address(row)
             if address:
-                popup_lines.append(f"<b>Adresse:</b> {', '.join(address)}")
+                popup_lines.append(f"<b>Adresse:</b> {address}")
             
             # Type
             if 'Typ' in row and pd.notnull(row['Typ']):
@@ -261,7 +382,7 @@ if show_wickelplaetze:
 # ---- Give Boxen ----
 if show_giveboxen:
     give_boxen_cluster, give_boxen_group = create_clustered_feature_group('Give Boxen', min_zoom=15)
-    give_boxen = gpd.read_file(os.path.join(data_dir, 'give_boxen.geojson'))
+    give_boxen = cached_read('give_boxen.geojson')
 
     for idx, row in give_boxen.iterrows():
         if row.geometry:
@@ -305,7 +426,7 @@ if show_giveboxen:
 # ---- Kinos ----
 if show_kinos:
     kinos_cluster, kinos_group = create_clustered_feature_group('Kinos', min_zoom=15)
-    kinos = gpd.read_file(os.path.join(data_dir, 'kinos.geojson'))
+    kinos = cached_read('kinos.geojson')
 
     for idx, row in kinos.iterrows():
         if row.geometry:
@@ -317,12 +438,8 @@ if show_kinos:
                 popup_lines.append(f"<b>Name:</b> {row['NAME']}")
             
             # Address with HSNR + PLZ
-            if 'STR_NAME' in row and pd.notnull(row['STR_NAME']):
-                address = str(row['STR_NAME'])
-                if 'HSNR' in row and pd.notnull(row['HSNR']):
-                    address += f" {int(row['HSNR'])}"
-                if 'PLZ' in row and pd.notnull(row['PLZ']):
-                    address += f", {int(row['PLZ'])}"
+            address = format_address(row)
+            if address:
                 popup_lines.append(f"<b>Adresse:</b> {address}")
             
             # Website
@@ -346,7 +463,7 @@ if show_kinos:
 # ---- Spielplätze ----
 if show_kinder:
     kinder_cluster, kinder_group = create_clustered_feature_group('Spielplätze', min_zoom=15)
-    kinder = gpd.read_file(os.path.join(data_dir, 'spielplaetze.geojson'))
+    kinder = cached_read('spielplaetze.geojson')
 
     for idx, row in kinder.iterrows():
         if row.geometry:
@@ -376,7 +493,7 @@ if show_kinder:
 # ---- Friedhöfe ----
 if show_friedhof:
     friedhof_cluster, friedhof_group = create_clustered_feature_group('Friedhöfe', min_zoom=15)
-    friedhof = gpd.read_file(os.path.join(data_dir, 'friedhoefe.geojson'))
+    friedhof = cached_read('friedhoefe.geojson')
 
     for idx, row in friedhof.iterrows():
         if row.geometry:
@@ -401,7 +518,7 @@ if show_friedhof:
 # ---- Refillstationen ----
 if show_refill:
     refill_cluster, refill_group = create_clustered_feature_group('Refillstationen', min_zoom=15)
-    refill = gpd.read_file(os.path.join(data_dir, 'refill_stations.geojson'))
+    refill = cached_read('refill_stations.geojson')
 
     for idx, row in refill.iterrows():
         if row.geometry:
@@ -425,69 +542,39 @@ if show_refill:
     refill_group.add_to(muenster)
 
 
-# ---- Gastronomie ----
+# ---- Gastronomie (vorverarbeitet + gecached) ----
 if show_restaurants or show_cafes or show_bars:
     restaurant_cluster, restaurant_group = create_clustered_feature_group('Restaurants', min_zoom=15)
     bar_cluster, bar_group = create_clustered_feature_group('Bars', min_zoom=15)
     cafe_cluster, cafe_group = create_clustered_feature_group('Cafés', min_zoom=15)
-    
-    gastro = gpd.read_file(os.path.join(data_dir, 'muenster_gastronomie.geojson'))
 
-    for idx, row in gastro.iterrows():
-        if row.geometry and pd.notnull(row.geometry):
-            lon, lat = row.geometry.x, row.geometry.y
-            amenity = str(row.get('amenity', '')).lower()
-            
-            # Determine which group to show
-            if amenity == 'cafe' and not show_cafes:
-                continue
-            if amenity in ['bar', 'pub'] and not show_bars:
-                continue
-            if amenity not in ['cafe', 'bar', 'pub'] and not show_restaurants:
-                continue
+    gastro_path = os.path.join(data_dir, 'muenster_gastronomie.geojson')
+    g = preprocess_gastro(gastro_path, os.path.getmtime(gastro_path))  # liest + cached + baut Marker-Listen
 
-            popup_lines = []
-            if 'name' in row and pd.notnull(row['name']):
-                popup_lines.append(f"<b>Name:</b> {row['name']}")
-            
-            # Address
-            address_parts = []
-            if 'addr:street' in row and pd.notnull(row['addr:street']):
-                address_parts.append(str(row['addr:street']))
-                if 'addr:housenumber' in row and pd.notnull(row['addr:housenumber']):
-                    address_parts.append(str(row['addr:housenumber']) + ',')
-            if 'addr:postcode' in row and pd.notnull(row['addr:postcode']):
-                address_parts.append(str(row['addr:postcode']))
-            if address_parts:
-                popup_lines.append(f"<b>Adresse:</b> {' '.join(address_parts)}")
-            
-            # Phone
-            if 'contact:phone' in row and pd.notnull(row['contact:phone']):
-                popup_lines.append(f"<b>Telefonnummer:</b> {row['contact:phone']}")
-            
-            # Website
-            if 'website' in row and pd.notnull(row['website']):
-                popup_lines.append(f"<b>Homepage:</b> <a href='{row['website']}' target='_blank'>{row['website']}</a>")
-            
-            # Opening hours
-            if 'opening_hours' in row and pd.notnull(row['opening_hours']):
-                formatted_hours = format_opening_hours(row['opening_hours'])
-                popup_lines.append(f"<b>Öffnungszeiten:</b><br>{formatted_hours}")
-            
-            # Determine category
-            if amenity == 'cafe':
-                group, icon, color = cafe_cluster, 'coffee', 'red'
-            elif amenity in ['bar', 'pub']:
-                group, icon, color = bar_cluster, 'beer', 'darkred'
-            else:
-                group, icon, color = restaurant_cluster, 'cutlery', 'lightred'
-            
+    if show_cafes:
+        for lat, lon, html in g["cafes"]:
             folium.Marker(
                 location=[lat, lon],
-                popup=folium.Popup("<br>".join(popup_lines), max_width=300),
-                icon=folium.Icon(color=color, icon=icon, prefix='fa')
-            ).add_to(group)
-    
+                popup=folium.Popup(html, max_width=300),
+                icon=folium.Icon(color='red', icon='coffee', prefix='fa')
+            ).add_to(cafe_cluster)
+
+    if show_bars:
+        for lat, lon, html in g["bars"]:
+            folium.Marker(
+                location=[lat, lon],
+                popup=folium.Popup(html, max_width=300),
+                icon=folium.Icon(color='darkred', icon='beer', prefix='fa')
+            ).add_to(bar_cluster)
+
+    if show_restaurants:
+        for lat, lon, html in g["restaurants"]:
+            folium.Marker(
+                location=[lat, lon],
+                popup=folium.Popup(html, max_width=300),
+                icon=folium.Icon(color='lightred', icon='cutlery', prefix='fa')
+            ).add_to(restaurant_cluster)
+
     if show_restaurants:
         restaurant_group.add_to(muenster)
     if show_bars:
@@ -498,7 +585,7 @@ if show_restaurants or show_cafes or show_bars:
 # ---- Toiletten ----
 if show_toiletten:
     toiletten_cluster, toiletten_group = create_clustered_feature_group('Toiletten', min_zoom=15)
-    toiletten = gpd.read_file(os.path.join(data_dir, 'toiletten-mit-oz.geojson'))
+    toiletten = cached_read('toiletten-mit-oz.geojson')
 
     for idx, row in toiletten.iterrows():
         if row.geometry:
@@ -511,11 +598,7 @@ if show_toiletten:
                 popup_lines.append(f"<b>Barrierefrei:</b> {row['Barrierefrei']}")
             
             # Address
-            address = ''
-            if 'addr:street' in row and pd.notnull(row['addr:street']):
-                address += row['addr:street']
-            if 'addr:housenumber' in row and pd.notnull(row['addr:housenumber']):
-                address += f" {row['addr:housenumber']}"
+            address = format_address(row)
             if address:
                 popup_lines.append(f"<b>Adresse:</b> {address}")
             
@@ -534,7 +617,7 @@ if show_toiletten:
 # ---- Bäder ----
 if show_baeder:
     baeder_cluster, baeder_group = create_clustered_feature_group('Bäder', min_zoom=15)
-    baeder = gpd.read_file(os.path.join(data_dir, 'baeder.geojson'))
+    baeder = cached_read('baeder.geojson')
 
     for idx, row in baeder.iterrows():
         if row.geometry:
@@ -561,7 +644,7 @@ if show_baeder:
 # ---- Saunen ----
 if show_sauna:
     sauna_cluster, sauna_group = create_clustered_feature_group('Saunen', min_zoom=15)
-    sauna = gpd.read_file(os.path.join(data_dir, 'sauna.geojson'))
+    sauna = cached_read('sauna.geojson')
 
     for idx, row in sauna.iterrows():
         if row.geometry and row.geometry.is_valid:
@@ -598,7 +681,7 @@ if show_sauna:
 # ---- Theater ----
 if show_theater:
     theater_cluster, theater_group = create_clustered_feature_group('Theater', min_zoom=15)
-    theater = gpd.read_file(os.path.join(data_dir, 'theater.geojson'))
+    theater = cached_read('theater.geojson')
 
     for idx, row in theater.iterrows():
         if row.geometry:
@@ -607,15 +690,9 @@ if show_theater:
             
             if 'NAME' in row and pd.notnull(row['NAME']):
                 popup_lines.append(f"<b>Name:</b> {row['NAME']}")
-            address_parts = []
-            if 'STR_NAME' in row and pd.notnull(row['STR_NAME']):
-                address_parts.append(str(row['STR_NAME']))
-                if 'HSNR' in row and pd.notnull(row['HSNR']):
-                    address_parts.append(str(int(row['HSNR'])) + ',')
-            if 'PLZ' in row and pd.notnull(row['PLZ']):
-                address_parts.append(str(int(row['PLZ'])))
-            if address_parts:
-                popup_lines.append(f"<b>Adresse:</b> {' '.join(address_parts)}")
+            address = format_address(row)
+            if address:
+                popup_lines.append(f"<b>Adresse:</b> {address}")
             if 'TEL' in row and pd.notnull(row['TEL']):
                 popup_lines.append(f"<b>Telefonnummer:</b> {row['TEL']}")
             if 'HOMEPAGE' in row and pd.notnull(row['HOMEPAGE']):
@@ -637,7 +714,7 @@ if show_theater:
 # ---- Grünflächen ----
 if show_gruen:
     gruenflaechen_cluster, gruenflaechen_group = create_clustered_feature_group('Grünflächen', min_zoom=14)
-    gruenflaechen = gpd.read_file(os.path.join(data_dir, 'gruenflaechen.geojson'))
+    gruenflaechen = cached_read('gruenflaechen.geojson')
     
     for col in gruenflaechen.select_dtypes(include=['datetime64']).columns:
         gruenflaechen[col] = gruenflaechen[col].astype(str)
@@ -675,5 +752,11 @@ if show_gruen:
 
 # ---- Layer control & Display ----
 folium.LayerControl().add_to(muenster)
-st_folium(muenster, width=1200, height=800)
+st_folium(
+    muenster,
+    width=1200,
+    height=800,
+    key="map",
+    returned_objects=[]  # <- keine Events zurück → kein Rerun bei Map-Bewegung
+)
 
