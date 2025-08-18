@@ -175,12 +175,6 @@ def create_clustered_feature_group(name, min_zoom=13, show=True):
         }
     ).add_to(fg)
     return cluster, fg
-def filter_by_radius(df, center, radius_km):
-    """Filtert GeoDataFrame nach Entfernung zum Zentrum in km"""
-    return df[df.apply(
-        lambda row: geodesic((row.geometry.y, row.geometry.x), center).km <= radius_km,
-        axis=1
-    )]
 # ---- Sidebar ----
 st.sidebar.header("Kategorien auswählen")
 show_museen = st.sidebar.checkbox("Museen", False)
@@ -202,8 +196,6 @@ show_baeder = st.sidebar.checkbox("Bäder", False)
 show_sauna = st.sidebar.checkbox("Saunen", False)
 show_theater = st.sidebar.checkbox("Theater", False)
 show_gruen = st.sidebar.checkbox("Grünflächen", False)
-st.sidebar.header("Standort & Umkreis")
-radius_km = st.sidebar.slider("Umkreis in km", 1, 20, 5)
 # ---- Categories ----
 
 # Museen
@@ -852,164 +844,43 @@ map_data = st_folium(
     returned_objects=["bounds", "zoom"]
 )
 
-# Function to add filtered markers to the map
-def add_filtered_markers(gdf, marker_group, color, icon_name, popup_field=None, name_field='name'):
-    if not gdf.empty and radius_km > 0 and st.session_state.user_location:
-        center = (st.session_state.user_location['lat'], st.session_state.user_location['lng'])
-        filtered = filter_by_radius(gdf, center, radius_km)
-        for _, row in filtered.iterrows():
-            popup = f"<b>{row.get(name_field, 'Unbenannt')}</b>"
-            if popup_field and popup_field in row and pd.notna(row[popup_field]):
-                popup += f"<br/>{row[popup_field]}"
-            
-            folium.Marker(
-                location=[row.geometry.y, row.geometry.x],
-                popup=folium.Popup(popup, max_width=300),
-                icon=folium.Icon(color=color, icon=icon_name, prefix='fa')
-            ).add_to(marker_group)
-
-# Add a marker at the user's location and filter data within radius
+# Add a marker at the user's location
 if st.session_state.user_location:
     user_lat = st.session_state.user_location['lat']
     user_lng = st.session_state.user_location['lng']
     accuracy = st.session_state.user_location.get('accuracy', 0)
     
-    # Update the map center to user's location
+    # Add marker for user's location
+    folium.CircleMarker(
+        location=[user_lat, user_lng],
+        radius=10,
+        color='#3388ff',
+        fill=True,
+        fill_color='#3388ff',
+        fill_opacity=0.7,
+        popup=f"Ihr Standort (Genauigkeit: {accuracy:.0f}m)"
+    ).add_to(muenster)
+    
+    # Add circle for accuracy
+    if accuracy > 0:
+        folium.Circle(
+            location=[user_lat, user_lng],
+            radius=accuracy,
+            color='#3388ff',
+            fill=True,
+            fill_color='#3388ff',
+            fill_opacity=0.2,
+            popup=f'Genauigkeit: {accuracy:.0f} Meter'
+        ).add_to(muenster)
+    
+    # Add a button to center the map on the user's location
+    if st.button('Karte auf meinen Standort zentrieren'):
+        muenster.location = [user_lat, user_lng]
+        muenster.zoom_start = 15
+    
+    # Center the map on the user's location by default
     muenster.location = [user_lat, user_lng]
-    muenster.zoom_start = 14  # Zoom in a bit more when showing user location
-    
-    # Add a blue marker at the user's location
-    folium.Marker(
-        location=[user_lat, user_lng],
-        popup=f"Ihr Standort (Genauigkeit: ~{int(accuracy)}m)",
-        icon=folium.Icon(color='blue', icon='user', prefix='fa')
-    ).add_to(muenster)
-    
-    # Add a circle to show the location accuracy
-    folium.Circle(
-        location=[user_lat, user_lng],
-        radius=accuracy,
-        color='#3186cc',
-        fill=True,
-        fill_color='#3186cc',
-        fill_opacity=0.2,
-        popup=f'Standortgenauigkeit: ~{int(accuracy)}m'
-    ).add_to(muenster)
-    
-    # Add a circle to show the filter radius
-    folium.Circle(
-        location=[user_lat, user_lng],
-        radius=radius_km * 1000,  # Convert km to meters
-        color='#ff7800',
-        fill=True,
-        fill_color='#ff7800',
-        fill_opacity=0.1,
-        popup=f'Filterradius: {radius_km} km'
-    ).add_to(muenster)
-    
-    # Display the user's location
-    location_container.info(f"Ihr Standort: Breite: {user_lat:.5f}°, Länge: {user_lng:.5f}° (Genauigkeit: ~{int(accuracy)}m)")
-    
-    # Apply radius filter to all categories
-    if radius_km > 0:
-        # Museen
-        if show_museen:
-            museen = cached_read('museen.geojson')
-            add_filtered_markers(museen, muenster, 'purple', 'university', 'name')
-        
-        # Büchereien
-        if show_buechereien:
-            buechereien = cached_read('buechereien.geojson')
-            add_filtered_markers(buechereien, muenster, 'orange', 'book', 'name')
-        
-        # Sportstätten
-        if show_sport_drinnen or show_sport_draussen:
-            sportstaetten = cached_read('sportstaetten_mit_opening_hours.geojson')
-            add_filtered_markers(sportstaetten, muenster, 'green', 'futbol', 'name')
-        
-        # Tischtennisplatten
-        if show_tt_platten:
-            tischtennis = cached_read('tischtennisplatten_muenster.geojson')
-            add_filtered_markers(tischtennis, muenster, 'blue', 'table-tennis', 'name')
-        
-        # Wickelplätze
-        if show_wickelplaetze:
-            wickelplaetze = cached_read('still-und-wickelplaetze-muenster-2023.geojson')
-            add_filtered_markers(wickelplaetze, muenster, 'pink', 'baby', 'name')
-        
-        # Give Boxen
-        if show_giveboxen:
-            giveboxen = cached_read('give_boxen.geojson')
-            add_filtered_markers(giveboxen, muenster, 'brown', 'gift', 'name')
-        
-        # Kinos
-        if show_kinos:
-            kinos = cached_read('kinos.geojson')
-            add_filtered_markers(kinos, muenster, 'red', 'film', 'name')
-        
-        # Spielplätze
-        if show_spielplaetze:
-            spielplaetze = cached_read('spielplaetze.geojson')
-            add_filtered_markers(spielplaetze, muenster, 'yellow', 'child', 'name')
-        
-        # Friedhöfe
-        if show_friedhof:
-            friedhoefe = cached_read('friedhoefe.geojson')
-            add_filtered_markers(friedhoefe, muenster, 'gray', 'tree', 'name')
-        
-        # Refill Stationen
-        if show_refill:
-            refill = cached_read('refill-stationen-muenster.geojson')
-            add_filtered_markers(refill, muenster, 'lightblue', 'tint', 'name')
-        
-        # Toiletten
-        if show_toiletten:
-            toiletten = cached_read('toiletten-mit-oz.geojson')
-            add_filtered_markers(toiletten, muenster, 'gray', 'restroom', 'name')
-        
-        # Bäder
-        if show_baeder:
-            baeder = cached_read('baeder.geojson')
-            add_filtered_markers(baeder, muenster, 'lightblue', 'swimming-pool', 'name')
-        
-        # Saunen
-        if show_sauna:
-            sauna = cached_read('sauna.geojson')
-            add_filtered_markers(sauna, muenster, 'darkblue', 'hot-tub', 'name')
-        
-        # Theater
-        if show_theater:
-            theater = cached_read('theater.geojson')
-            add_filtered_markers(theater, muenster, 'darkpurple', 'theater-masks', 'name')
-        
-        # Gastronomie
-        if show_restaurants or show_bars or show_cafes:
-            gastro_path = 'gastronomie.geojson'
-            g = preprocess_gastro(gastro_path, os.path.getmtime(gastro_path))
-            
-            if show_restaurants:
-                for lat, lon, html in g["restaurants"]:
-                    folium.Marker(
-                        location=[lat, lon],
-                        popup=folium.Popup(html, max_width=300),
-                        icon=folium.Icon(color='lightred', icon='cutlery', prefix='fa')
-                    ).add_to(muenster)
-            
-            if show_bars:
-                for lat, lon, html in g["bars"]:
-                    folium.Marker(
-                        location=[lat, lon],
-                        popup=folium.Popup(html, max_width=300),
-                        icon=folium.Icon(color='darkred', icon='beer', prefix='fa')
-                    ).add_to(muenster)
-            
-            if show_cafes:
-                for lat, lon, html in g["cafes"]:
-                    folium.Marker(
-                        location=[lat, lon],
-                        popup=folium.Popup(html, max_width=300),
-                        icon=folium.Icon(color='red', icon='coffee', prefix='fa')
-                    ).add_to(muenster)
+    muenster.zoom_start = 13
 else:
     # Default view when location is not available
     location_container.warning("Warte auf Standortermittlung... Bitte erlauben Sie den Zugriff auf Ihren Standort.")
