@@ -1,6 +1,8 @@
 from streamlit_folium import st_folium
 import time
 import streamlit as st
+import streamlit.components.v1 as components 
+from streamlit_js_eval import get_geolocation
 import geopandas as gpd
 import pandas as pd
 import os
@@ -151,8 +153,15 @@ st.title("Münster Map")
 base_dir = os.path.dirname(__file__)
 data_dir = os.path.join(base_dir, "raw_data_geojson")
 
-# Base map
-muenster = folium.Map(location=[51.96, 7.62], zoom_start=12.5)
+#Base map
+
+if "map_view" not in st.session_state:
+    st.session_state.map_view = {"center": [51.96, 7.62], "zoom": 12.5}
+
+center = st.session_state.map_view["center"]
+zoom   = st.session_state.map_view["zoom"]
+
+muenster = folium.Map(location=center, zoom_start=zoom)
 
 # Add Location Control
 LocateControl(auto_start=False).add_to(muenster)
@@ -742,115 +751,58 @@ if show_gruen:
     
     gruenflaechen_group.add_to(muenster)
 
-# Add JavaScript to request location and handle the browser's native prompt
-st.markdown("""
-<script>
-// Function to get the user's current position
-function requestLocation() {
-    if (navigator.geolocation) {
-        // This will trigger the browser's native location prompt
-        navigator.geolocation.getCurrentPosition(
-            // Success callback
-            function(position) {
-                const lat = position.coords.latitude;
-                const lng = position.coords.longitude;
-                const accuracy = position.coords.accuracy;
-                
-                // Send data to Streamlit
-                const event = new CustomEvent('userLocation', {
-                    detail: { 
-                        lat: lat, 
-                        lng: lng, 
-                        accuracy: accuracy,
-                        error: false 
-                    }
-                });
-                window.parent.document.dispatchEvent(event);
-            },
-            // Error callback
-            function(error) {
-                console.error("Error getting location: ", error);
-                // Default to Münster if geolocation fails
-                const event = new CustomEvent('userLocation', {
-                    detail: { 
-                        lat: 51.96, 
-                        lng: 7.62,
-                        accuracy: 1000,
-                        error: true
-                    }
-                });
-                window.parent.document.dispatchEvent(event);
-            },
-            // Options
-            {
-                enableHighAccuracy: true,
-                timeout: 10000,  // 10 seconds timeout
-                maximumAge: 0
-            }
-        );
-    } else {
-        console.error("Geolocation is not supported by this browser.");
-    }
-}
+# -----------------------------
+# Geolocation (minimal, ohne Refresh-Button)
+# -----------------------------
 
-// Request location as soon as the page loads
-document.addEventListener('DOMContentLoaded', function() {
-    // First, add a small delay to ensure the page is fully loaded
-    setTimeout(requestLocation, 500);
-});
-</script>
-""", unsafe_allow_html=True)
-
-# Add a container to display the user's location
+# Container für Hinweise
 location_container = st.empty()
 
-# Initialize session state for user location if it doesn't exist
-if 'user_location' not in st.session_state:
+# Session-State vorbereiten
+if "user_location" not in st.session_state:
     st.session_state.user_location = None
 
-# Listen for the custom event with user's location
-st.markdown("""
+# Geolocation-Component: fragt Browser-Standort ab
+geo_val = components.html("""
 <script>
-// Listen for the custom event and send data to Streamlit
-window.parent.document.addEventListener('userLocation', function(e) {
-    const { lat, lng, accuracy, error } = e.detail;
-    const data = { lat, lng, accuracy, error: error || false };
-    
-    // Send data to Streamlit
-    const { Streamlit } = window;
-    if (Streamlit) {
-        Streamlit.setComponentValue(data);
+(function(){
+  function requestLocation() {
+    if (!navigator.geolocation) {
+      Streamlit.setComponentValue({lat: 51.96, lng: 7.62, accuracy: 1000, error: true});
+      return;
     }
-});
+    navigator.geolocation.getCurrentPosition(
+      function(position) {
+        const { latitude: lat, longitude: lng, accuracy } = position.coords;
+        Streamlit.setComponentValue({ lat: lat, lng: lng, accuracy: accuracy, error: false });
+      },
+      function() {
+        Streamlit.setComponentValue({ lat: 51.96, lng: 7.62, accuracy: 1000, error: true });
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+    );
+  }
+  document.addEventListener("DOMContentLoaded", function(){ setTimeout(requestLocation, 500); });
+})();
 </script>
-""", unsafe_allow_html=True)
+""", height=0)
 
-# Get the user's location from the component
-user_location = st.empty()
+# Rückgabewert übernehmen und Hinweis ausblenden
+if isinstance(geo_val, dict) and "lat" in geo_val and "lng" in geo_val:
+    st.session_state.user_location = {
+        "lat": geo_val["lat"],
+        "lng": geo_val["lng"],
+        "accuracy": geo_val.get("accuracy", 0),
+        "error": geo_val.get("error", False),
+    }
+    location_container.empty()   # Nachricht sofort weg
 
-# Add a button to refresh location with a unique key
-if st.sidebar.button('Standort aktualisieren', key='refresh_location_btn'):
-    st.rerun()
-
-# ---- Layer control & Display ----
-folium.LayerControl().add_to(muenster)
-
-# Display the map
-map_data = st_folium(
-    muenster,
-    width=1200,
-    height=800,
-    key="map",
-    returned_objects=["bounds", "zoom"]
-)
-
-# Add a marker at the user's location
+# Wenn Standort vorhanden: Marker + Center-Button
 if st.session_state.user_location:
     user_lat = st.session_state.user_location['lat']
     user_lng = st.session_state.user_location['lng']
     accuracy = st.session_state.user_location.get('accuracy', 0)
-    
-    # Add marker for user's location
+
     folium.CircleMarker(
         location=[user_lat, user_lng],
         radius=10,
@@ -860,8 +812,7 @@ if st.session_state.user_location:
         fill_opacity=0.7,
         popup=f"Ihr Standort (Genauigkeit: {accuracy:.0f}m)"
     ).add_to(muenster)
-    
-    # Add circle for accuracy
+
     if accuracy > 0:
         folium.Circle(
             location=[user_lat, user_lng],
@@ -872,93 +823,33 @@ if st.session_state.user_location:
             fill_opacity=0.2,
             popup=f'Genauigkeit: {accuracy:.0f} Meter'
         ).add_to(muenster)
-    
-    # Add a button to center the map on the user's location
+
     if st.button('Karte auf meinen Standort zentrieren'):
-        muenster.location = [user_lat, user_lng]
-        muenster.zoom_start = 15
-    
-    # Center the map on the user's location by default
-    muenster.location = [user_lat, user_lng]
-    muenster.zoom_start = 13
-else:
-    # Default view when location is not available
-    location_container.warning("Warte auf Standortermittlung... Bitte erlauben Sie den Zugriff auf Ihren Standort.")
+        st.session_state.map_view = {"center": [user_lat, user_lng], "zoom": 15}
+#else:
+ #   location_container.warning("Warte auf Standortermittlung... Bitte erlauben Sie den Zugriff auf Ihren Standort.")
 
-# Handle the user location from JavaScript
-user_location_data = st.empty()
+# ---- Layer control & Display ----
+folium.LayerControl().add_to(muenster)
 
-# This will be updated by the JavaScript
-if st.session_state.get('user_location') is None:
-    st.session_state.user_location = None
+# Karte rendern (Map-Interaktionen lösen KEINEN Rerun mehr aus)
+map_event = st_folium(
+    muenster,
+    width=1200,
+    height=800,
+    key="map",
+    returned_objects=[],  # weiterhin leer -> keine Reruns durch Pan/Zoom
+    center=st.session_state.map_view["center"],
+    zoom=st.session_state.map_view["zoom"],
+)
 
-# Add a callback to update the user location
-def update_user_location():
-    if 'user_location' in st.session_state and st.session_state.user_location is None:
-        st.session_state.user_location = st.session_state.get('_user_location_data')
-
-# Create a hidden component to receive location data from JavaScript
-location_data = st.empty()
-
-# This will be called when the user's location is available
-if st.session_state.get('_user_location_data'):
-    st.session_state.user_location = st.session_state._user_location_data
-    st.rerun()
-
-# Add a hidden input to receive location data
-st.markdown("""
-<div id="location-data" style="display: none;"></div>
-""", unsafe_allow_html=True)
-
-# Add JavaScript to handle location data
-st.markdown("""
-<script>
-// Listen for the custom event with user's location
-window.parent.document.addEventListener('userLocation', function(e) {
-    const { lat, lng, accuracy, error } = e.detail;
-    const data = { lat, lng, accuracy, error: error || false };
-    
-    // Update the hidden div
-    const div = document.getElementById('location-data');
-    div.dataset.lat = lat;
-    div.dataset.lng = lng;
-    div.dataset.accuracy = accuracy;
-    div.dataset.error = error || false;
-    
-    // Trigger a Streamlit event
-    const event = new CustomEvent('locationUpdated', { detail: data });
-    window.parent.document.dispatchEvent(event);
-    
-    // Also update the session state
-    const { Streamlit } = window;
-    if (Streamlit) {
-        Streamlit.setComponentValue(data);
+# Falls unser JS via Streamlit.setComponentValue(...) Daten geschickt hat:
+if isinstance(map_event, dict) and "lat" in map_event and "lng" in map_event:
+    st.session_state.user_location = {
+        "lat": map_event["lat"],
+        "lng": map_event["lng"],
+        "accuracy": map_event.get("accuracy", 0),
+        "error": map_event.get("error", False),
     }
-});
-</script>
-""", unsafe_allow_html=True)
-
-# Add a component to handle the location data
-location_data = st.empty()
-
-# This will be called when the location data is updated
-if st.session_state.get('_user_location_data') is None:
-    st.session_state._user_location_data = None
-
-# Add a callback to update the user location when the component value changes
-def on_location_change():
-    if '_user_location_data' not in st.session_state or st.session_state._user_location_data is None:
-        st.session_state._user_location_data = st.session_state.get('_user_location_component')
-        if st.session_state._user_location_data:
-            st.rerun()
-
-# Create a hidden component to receive location data
-location_component = st.empty()
-
-# This will be called when the component value changes
-if st.session_state.get('_user_location_component') is None:
-    st.session_state._user_location_component = None
-
-# Location update functionality is handled by the button at line 851
-
+    location_container.empty()  # Warnung sofort weg
 
