@@ -386,7 +386,7 @@ def run_algorithm():
     """
     algorithmus = EmpfehlungsAlgorithmus()
     
-    st.title("🗺️ Empfehlungsalgorithmus für Orte und Aktivitäten")
+    st.title("🗺️ Touchgrass")
     st.markdown("---")
     
     # Session State für Algorithmus-Schritte
@@ -423,17 +423,17 @@ def run_algorithm():
         st.markdown("### 2️⃣ Wie ist deine Stimmung heute?")
         col1, col2, col3 = st.columns(3)
         with col1:
-            if st.button("💪 Aktiv\nIch will mich bewegen!", type="primary", use_container_width=True):
+            if st.button("💪 Aktiv  \nIch will mich bewegen!", type="primary", use_container_width=True):
                 st.session_state.algorithm_data['stimmung'] = Stimmung.AKTIV
                 st.session_state.algorithm_step = 3
                 st.rerun()
         with col2:
-            if st.button("🧘 Entspannt\nIch möchte zur Ruhe kommen", type="primary", use_container_width=True):
+            if st.button("🧘 Entspannt  \nIch möchte zur Ruhe kommen", type="primary", use_container_width=True):
                 st.session_state.algorithm_data['stimmung'] = Stimmung.ENTSPANNT
                 st.session_state.algorithm_step = 3
                 st.rerun()
         with col3:
-            if st.button("🎭 Kulturell\nIch will etwas lernen/erleben", type="primary", use_container_width=True):
+            if st.button("🎭 Kulturell  \nIch will etwas lernen/erleben", type="primary", use_container_width=True):
                 st.session_state.algorithm_data['stimmung'] = Stimmung.KULTURELL
                 st.session_state.algorithm_step = 3
                 st.rerun()
@@ -443,12 +443,12 @@ def run_algorithm():
         st.markdown("### 3️⃣ Suchst du eher Ruhe oder Gesellschaft?")
         col1, col2 = st.columns(2)
         with col1:
-            if st.button("🤫 Ruhe\nIch möchte für mich sein", type="primary", use_container_width=True):
+            if st.button("🤫 Ruhe  \nIch möchte für mich sein", type="primary", use_container_width=True):
                 st.session_state.algorithm_data['sozial'] = Sozial.RUHE
                 st.session_state.algorithm_step = 4
                 st.rerun()
         with col2:
-            if st.button("👥 Gesellschaft\nIch möchte andere Menschen treffen", type="primary", use_container_width=True):
+            if st.button("👥 Gesellschaft  \nIch möchte andere Menschen treffen", type="primary", use_container_width=True):
                 st.session_state.algorithm_data['sozial'] = Sozial.GESELLSCHAFT
                 st.session_state.algorithm_step = 4
                 st.rerun()
