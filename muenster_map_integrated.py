@@ -2,7 +2,6 @@ from streamlit_folium import st_folium
 import time
 import streamlit as st
 import streamlit.components.v1 as components 
-from streamlit_js_eval import get_geolocation
 import geopandas as gpd
 import pandas as pd
 import os
@@ -10,28 +9,15 @@ import folium
 import re
 from folium.plugins import MarkerCluster
 from folium.plugins import LocateControl
-from geopy.distance import geodesic
 from formatting_openhour import format_opening_hours
 from functools import lru_cache
 from typing import Optional, List, Dict, Any
 from dataclasses import dataclass
 from enum import Enum
 
-# Base paths
+# Grund-Setup 
 base_dir = os.path.dirname(__file__)
 data_dir = os.path.join(base_dir, "raw_data_geojson")
-
-def cached_read(filename: str):
-    path = os.path.join(data_dir, filename)  # Jetzt verfügbar!
-    mtime = os.path.getmtime(path)
-    
-    t0 = time.perf_counter()
-    gdf = _load_gdf_cached(path, mtime)
-    dt = time.perf_counter() - t0
-    if DEBUG_CACHE:
-        label = "HIT" if dt < 0.01 else "MISS"
-        st.caption(f"⏱️ {os.path.basename(filename)} geladen in {dt:.4f}s — {label}")
-    return gdf
 
 # ---- Empfehlungsalgorithmus Integration ----
 class Ort(Enum):
@@ -557,15 +543,8 @@ def show_map_interface():
     
     # Button für neue Empfehlung oben
     if st.button("🔄 Neue Empfehlung starten", type="secondary"):
-        # Reset algorithm
-        st.session_state.algorithm_step = 0
-        st.session_state.algorithm_data = {}
-        st.session_state.algorithm_completed = False
-        st.session_state.show_map = False
-        # Reset alle checkboxes
-        for key in st.session_state.keys():
-            if key.startswith('show_'):
-                st.session_state[key] = False
+        for key in list(st.session_state.keys()):
+            del st.session_state[key]
         st.rerun()
 
 
@@ -612,26 +591,26 @@ def show_map_interface():
         if key not in st.session_state:
             st.session_state[key] = default
     
-    # Checkboxes - WICHTIG: Verwende st.session_state[key] als value, OHNE default value parameter
-    show_museen = st.sidebar.checkbox("Museen", value=st.session_state.show_museen, key="show_museen")
-    show_buechereien = st.sidebar.checkbox("Büchereien", value=st.session_state.show_buechereien, key="show_buechereien")
-    show_sport_drinnen = st.sidebar.checkbox("Sportstätten drinnen", value=st.session_state.show_sport_drinnen, key="show_sport_drinnen")
-    show_sport_draussen = st.sidebar.checkbox("Sportstätten draußen", value=st.session_state.show_sport_draussen, key="show_sport_draussen")
-    show_tischtennis = st.sidebar.checkbox("Tischtennisplatten", value=st.session_state.show_tischtennis, key="show_tischtennis")
-    show_wickelplaetze = st.sidebar.checkbox("Wickelplätze", value=st.session_state.show_wickelplaetze, key="show_wickelplaetze")
-    show_giveboxen = st.sidebar.checkbox("Give Boxen", value=st.session_state.show_giveboxen, key="show_giveboxen")
-    show_kinos = st.sidebar.checkbox("Kinos", value=st.session_state.show_kinos, key="show_kinos")
-    show_kinder = st.sidebar.checkbox("Spielplätze", value=st.session_state.show_kinder, key="show_kinder")
-    show_friedhof = st.sidebar.checkbox("Friedhöfe", value=st.session_state.show_friedhof, key="show_friedhof")
-    show_refill = st.sidebar.checkbox("Refillstationen", value=st.session_state.show_refill, key="show_refill")
-    show_restaurants = st.sidebar.checkbox("Restaurants", value=st.session_state.show_restaurants, key="show_restaurants")
-    show_cafes = st.sidebar.checkbox("Cafés", value=st.session_state.show_cafes, key="show_cafes")
-    show_bars = st.sidebar.checkbox("Bars", value=st.session_state.show_bars, key="show_bars")
-    show_toiletten = st.sidebar.checkbox("Toiletten", value=st.session_state.show_toiletten, key="show_toiletten")
-    show_baeder = st.sidebar.checkbox("Bäder", value=st.session_state.show_baeder, key="show_baeder")
-    show_sauna = st.sidebar.checkbox("Saunen", value=st.session_state.show_sauna, key="show_sauna")
-    show_theater = st.sidebar.checkbox("Theater", value=st.session_state.show_theater, key="show_theater")
-    show_gruen = st.sidebar.checkbox("Grünflächen", value=st.session_state.show_gruen, key="show_gruen")
+    # Checkboxes 
+    show_museen = st.sidebar.checkbox("Museen",  key="show_museen")
+    show_buechereien = st.sidebar.checkbox("Büchereien",  key="show_buechereien")
+    show_sport_drinnen = st.sidebar.checkbox("Sportstätten drinnen",  key="show_sport_drinnen")
+    show_sport_draussen = st.sidebar.checkbox("Sportstätten draußen",  key="show_sport_draussen")
+    show_tischtennis = st.sidebar.checkbox("Tischtennisplatten",  key="show_tischtennis")
+    show_wickelplaetze = st.sidebar.checkbox("Wickelplätze",  key="show_wickelplaetze")
+    show_giveboxen = st.sidebar.checkbox("Give Boxen",  key="show_giveboxen")
+    show_kinos = st.sidebar.checkbox("Kinos",  key="show_kinos")
+    show_kinder = st.sidebar.checkbox("Spielplätze",  key="show_kinder")
+    show_friedhof = st.sidebar.checkbox("Friedhöfe",  key="show_friedhof")
+    show_refill = st.sidebar.checkbox("Refillstationen", key="show_refill")
+    show_restaurants = st.sidebar.checkbox("Restaurants", key="show_restaurants")
+    show_cafes = st.sidebar.checkbox("Cafés", key="show_cafes")
+    show_bars = st.sidebar.checkbox("Bars",key="show_bars")
+    show_toiletten = st.sidebar.checkbox("Toiletten", key="show_toiletten")
+    show_baeder = st.sidebar.checkbox("Bäder",  key="show_baeder")
+    show_sauna = st.sidebar.checkbox("Saunen",  key="show_sauna")
+    show_theater = st.sidebar.checkbox("Theater",  key="show_theater")
+    show_gruen = st.sidebar.checkbox("Grünflächen",  key="show_gruen")
     
     # ---- Categories ----
 
@@ -1182,7 +1161,7 @@ def show_map_interface():
         gruenflaechen_group.add_to(muenster)
 
     # -----------------------------
-    # Geolocation (minimal, ohne Refresh-Button)
+    # Geolocation 
     # -----------------------------
 
     # Container für Hinweise
