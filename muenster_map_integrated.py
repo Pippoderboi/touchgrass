@@ -455,7 +455,6 @@ def run_algorithm():
     
     # Schritt 4: Modifier - Kinder
     elif st.session_state.algorithm_step == 4:
-        st.markdown("---")
         st.markdown("### 🧒 Hast du Kinder dabei?")
         col1, col2 = st.columns(2)
         with col1:
